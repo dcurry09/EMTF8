@@ -126,12 +126,6 @@ for iEvt in range(tree.GetEntries()):
     
     if iEvt % 1000 is 0: print 'Event #', iEvt
     
-    # Test Filters
-    #if reco.muonSize > 1: continue
-    #if csc.SizeTrk > 1: continue
-    #if reco.Run != 251252: continue
-    
-
     if printLevel > 1:
         print '\n============== New Event # ', tree.event, ' =================\n'\
               '\n  Run             = ', tree.run,  \
@@ -144,34 +138,6 @@ for iEvt in range(tree.GetEntries()):
         if tree.numTrkLCTs[iTrk] == 3 : gen_count['3hit_tracks'] +=1
         if tree.numTrkLCTs[iTrk] < 3 : gen_count['2hit_tracks'] +=1
     
-    '''
-    # For single muon dataset choose the desired L1 Trigger Bit
-    # SingleMu Open only is needed for Turn on Curve studies
-    on_bits = []
-
-    for i in range(0, 128):
-        ibit = reco.L1Trig_bit[i]
-        if ibit == 1: on_bits.append(i)
-
-    # Now check if SingleMu 16, 5, etc are in the on_bit list
-    bad_list = [61,87,42,56,86,122,62,116,60,63,89,59,127]
-    
-    result = set(on_bits).intersection(bad_list)
-
-    #print '\non_bits : ', on_bits
-    #print 'bad list: ', bad_list
-    #print 'Intersection Result: ',result
-    if len(result) > 1:
-        if printLevel > 0: print '-----> Skipping Event... wrong L1 trigger bit...'
-        continue
-
-
-    if printLevel > 0: print '\n -----> Event has SingleMu bit only...'
-
-    # ==== end L1 Trigger bit filter ====    
-    '''
-
-
     # Now check each muon individually and fill hists
     for iReco in range(0, tree.numGblRecoMuons):
         
