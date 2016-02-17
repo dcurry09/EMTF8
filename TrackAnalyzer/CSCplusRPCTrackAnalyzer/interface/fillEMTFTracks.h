@@ -60,7 +60,9 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
       int trlct_cscID    = lct->CSC_ID();
       float trlct_gblphi = lct->Phi_global();
       float trlct_gbleta = lct->Eta();
-
+      int trlct_locphi   = lct->Phi_local();
+      int trlct_loctheta = lct->Theta_loc();
+      
       // for consistency with LCT collection
       if (trlct_endcap<0) trlct_endcap = 2;
       
@@ -122,6 +124,10 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
       ev.trkLctGblPhi[nTrk][LctTrkId_] = trlct_gblphi;
       
       ev.trkLctGblEta[nTrk][LctTrkId_] = trlct_gbleta;
+
+      ev.trkLctLocPhi[nTrk][LctTrkId_] = trlct_locphi;
+      
+      ev.trkLctLocTheta[nTrk][LctTrkId_] = trlct_loctheta;
       
     } // end track LCT loop
     

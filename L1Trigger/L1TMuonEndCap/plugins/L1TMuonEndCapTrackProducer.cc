@@ -306,7 +306,8 @@ for(int SectIndex=0;SectIndex<12;SectIndex++){//perform TF on all 12 sectors
 				tempStub.set_wire      ( A->TP().getCSCData().keywire              );
 				tempStub.set_strip     ( A->TP().getCSCData().strip                );
 				tempStub.set_track_num ( A->TP().getCSCData().trknmb               );
-				tempStub.set_phi_local ( (A->Phi() / 60) - 2                       ); // The "phi_full" conversion. Right? - AWB 13.02.16
+				//tempStub.set_phi_local ( (A->Phi() / 60) - 2                       ); // The "phi_full" conversion. Right? - AWB 13.02.16
+				tempStub.set_phi_local (A->Phi());
 				
 				//tempStub.set_phi_global( tempStub.Phi_local() + 60 * (tempStub.Sector() - 1) ); // Only holds using 1-6 sector convention
 				// Phi needs work around
@@ -318,7 +319,7 @@ for(int SectIndex=0;SectIndex<12;SectIndex++){//perform TF on all 12 sectors
 				
 				tempStub.set_theta_loc ( A->Theta()                                ); // This is some bizzare local definition of theta
 				tempStub.set_theta_deg ( (tempStub.Endcap() == 1)  * ( (A->Theta() * 0.2851562) + 8.5) + // This is the true global theta in degrees
-							(tempStub.Endcap() == -1) * (180 - ( (A->Theta() * 0.2851562) + 8.5) ) ); 
+							 (tempStub.Endcap() == -1) * (180 - ( (A->Theta() * 0.2851562) + 8.5) ) ); 
 				tempStub.set_theta_rad ( tempStub.Theta_deg() * (pi/180)           ); // This is the true global theta in radians
 				tempStub.set_eta       ( -1 * log( tan( tempStub.Theta_rad()/2 ) ) );
 				tempStub.set_quality   ( A->TP().getCSCData().quality              );

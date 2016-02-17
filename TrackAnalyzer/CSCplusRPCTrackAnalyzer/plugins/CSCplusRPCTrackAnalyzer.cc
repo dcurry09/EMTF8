@@ -87,7 +87,7 @@
 #include "TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface/fillGenMuons.h"
 #include "TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface/fillRecoMuons.h"
 #include "TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface/fillMuonSegments.h"
-
+#include "TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface/fillLeg_CSCTFTracks.h"
 
 
 // class declaration
@@ -239,7 +239,6 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 
   // =========================================================================================================
  
-  /*
 
   if (printLevel > 0 )
     cout << "\n===================== FILLING All Legacy CSCTF Tracks ========================\n"
@@ -248,11 +247,10 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   edm::Handle<vector<pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi> > >> leg_tracks;
   iEvent.getByToken(leg_csctfTag_token, leg_tracks);
 
-  //if ( leg_tracks.isValid() )
-  fillLeg_CSCTFTracks(ev, leg_tracks, printLevel);
+  if ( leg_tracks.isValid() )
+    fillLeg_CSCTFTracks(ev, leg_tracks, printLevel);
 
-  //else cout << "\t----->Invalid Legacy Track collection... skipping it\n";
-  */
+  else cout << "\t----->Invalid Legacy Track collection... skipping it\n";
 
   // =========================================================================================================
 

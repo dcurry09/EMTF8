@@ -120,8 +120,9 @@ struct DataEvtSummary_t {
   Int_t trkLctCSCID[MAXTRK][MAXTRKLCTS];
   float trkLctGblPhi[MAXTRK][MAXTRKLCTS];
   float trkLctGblEta[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctLocPhi[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctLocTheta[MAXTRK][MAXTRKLCTS];
   
-
   
   // ====================
   // RPC Tracks and LCTs

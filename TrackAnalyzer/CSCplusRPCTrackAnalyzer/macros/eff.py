@@ -21,8 +21,6 @@ else: printLevel = sys.argv[1]
 
 print '------> Importing Root File'
 
-# Input Data
-
 # SingleMuon
 filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF.root'
 #filename = '/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/TEST_EMTF.root'
@@ -78,6 +76,32 @@ hLct_sector_fail  = TH1F('hLct_sector_fail', '', 12 , 0, 12)
 hLct_ring_fail    = TH1F('hLct_ring_fail', '', 4 , 0, 4)
 hLct_chamber_fail = TH1F('hLct_chamber_fail', '', 42 , 0, 42)
 
+# Delta Phi for Event LCTs
+hdphi12 = TH1F('hdphi12', '', 50 , 0, 1.57)
+hdphi13 = TH1F('hdphi13', '', 50 , 0, 1.57)
+hdphi14 = TH1F('hdphi14', '', 50 , 0, 1.57)
+hdphi23 = TH1F('hdphi23', '', 50 , 0, 1.57)
+hdphi24 = TH1F('hdphi24', '', 50 , 0, 1.57)
+hdphi34 = TH1F('hdphi34', '', 50 , 0, 1.57)
+
+# Delta Phi for EMTF Tracks LCTs
+hdphi12_trk = TH1F('hdphi12_trk', '', 50 , 0, 1.57)
+hdphi13_trk = TH1F('hdphi13_trk', '', 50 , 0, 1.57)
+hdphi14_trk = TH1F('hdphi14_trk', '', 50 , 0, 1.57)
+hdphi23_trk = TH1F('hdphi23_trk', '', 50 , 0, 1.57)
+hdphi24_trk = TH1F('hdphi24_trk', '', 50 , 0, 1.57)
+hdphi34_trk = TH1F('hdphi34_trk', '', 50 , 0, 1.57)
+
+hdphi12_trk15 = TH1F('hdphi12_trk15', '', 50 , 0, 1.57)
+hdphi13_trk15 = TH1F('hdphi13_trk15', '', 50 , 0, 1.57)
+hdphi14_trk15 = TH1F('hdphi14_trk15', '', 50 , 0, 1.57)
+hdphi23_trk15 = TH1F('hdphi23_trk15', '', 50 , 0, 1.57)
+hdphi24_trk15 = TH1F('hdphi24_trk15', '', 50 , 0, 1.57)
+hdphi34_trk15 = TH1F('hdphi34_trk15', '', 50 , 0, 1.57)
+
+h2dphi_trk15 = TH2F('h2dphi_trk15', '', 6, 1, 7, 20, 0 , 200)
+
+h2deta_trk15 = TH2F('h2deta_trk15', '', 6, 1, 7, 20, 0 , 40)
 
 # efficiency(turn on)
 pt_thresh = [5., 7., 10., 12., 16.]
@@ -111,8 +135,12 @@ hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, 
                  hgbl_pt, hcsctf_pt, hgbl_eta, hgbl_phi, htrk_2hitmode_fail, htrk_2hitmode_all, \
                  htrk_phi_fail, hLct_chamber_fail, hLct_sector_fail, hLct_endcap_fail, hLct_ring_fail, \
                  htrk_dphi_2hit_fail, htrk_mode_all, htrk_mode_fail, htrk_Q_all, htrk_Q_fail, \
-                 hpt, heta, hphi, hpt_trigger, heta_trigger, hphi_trigger \
-                 ]
+                 hpt, heta, hphi, hpt_trigger, heta_trigger, hphi_trigger, \
+                 hdphi12, hdphi13, hdphi14, hdphi23, hdphi24, hdphi34,\
+                 hdphi12_trk, hdphi13_trk, hdphi14_trk, hdphi23_trk, hdphi24_trk, hdphi34_trk,\
+                 hdphi12_trk15, hdphi13_trk15, hdphi14_trk15, hdphi23_trk15, hdphi24_trk15, hdphi34_trk15,\
+                 h2dphi_trk15, h2deta_trk15
+             ]
 
 # ================================================
 
@@ -220,6 +248,48 @@ for iEvt in range(tree.GetEntries()):
             heta_trigger.Fill(eta_muon)
             hphi_trigger.Fill(phi_muon)
 
+            # dPhi Plots
+            dphi_plots(tree, icscTrk)
+            '''
+            phi1 = -99
+            phi2 = -99
+            phi3 = -99
+            phi4 = -99
+
+            #if tree.trkMode[icscTrk] == 15:
+            if tree.numTrkLCTs[iTrk] > 3:
+
+                for iLct in range(tree.numTrkLCTs[icscTrk]):
+                            
+                    if tree.trkLctStation[icscTrk*4 + iLct] == 1: phi1 = tree.trkLctLocPhi[icscTrk*4 + iLct]
+                    if tree.trkLctStation[icscTrk*4 + iLct] == 2: phi2 = tree.trkLctLocPhi[icscTrk*4 + iLct]
+                    if tree.trkLctStation[icscTrk*4 + iLct] == 3: phi3 = tree.trkLctLocPhi[icscTrk*4 + iLct]
+                    if tree.trkLctStation[icscTrk*4 + iLct] == 4: phi4 = tree.trkLctLocPhi[icscTrk*4 + iLct]
+                            
+                dphi12 = abs(phi1-phi2)
+                dphi13 = abs(phi1-phi3)
+                dphi14 = abs(phi1-phi4)
+                dphi23 = abs(phi2-phi3)
+                dphi24 = abs(phi2-phi4)
+                dphi34 = abs(phi3-phi4)
+
+            
+                hdphi12_trk15.Fill(dphi12)
+                hdphi13_trk15.Fill(dphi13)
+                hdphi14_trk15.Fill(dphi14)
+                hdphi23_trk15.Fill(dphi23)
+                hdphi24_trk15.Fill(dphi24)
+                hdphi34_trk15.Fill(dphi34)
+                
+                h2dphi_trk15.Fill(1, dphi12)
+                h2dphi_trk15.Fill(2, dphi13)
+                h2dphi_trk15.Fill(3, dphi14)
+                h2dphi_trk15.Fill(4, dphi23)
+                h2dphi_trk15.Fill(5, dphi24)
+                h2dphi_trk15.Fill(6, dphi34)
+            
+
+            '''    
             # ======= Turn On Curves ========
             '''
             # get track quality

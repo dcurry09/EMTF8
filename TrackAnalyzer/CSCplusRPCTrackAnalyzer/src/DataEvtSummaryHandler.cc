@@ -123,6 +123,8 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("trkLctCSCID",    &evSummary_.trkLctCSCID,    "trkLctCSCID[4][4]/I");
     t_->Branch("trkLctGblPhi",    &evSummary_.trkLctGblPhi,    "trkLctGblPhi[4][4]/F");
     t_->Branch("trkLctGblEta",    &evSummary_.trkLctGblEta,    "trkLctGblEta[4][4]/F");
+    t_->Branch("trkLctLocPhi",    &evSummary_.trkLctLocPhi,    "trkLctLocPhi[4][4]/I");
+    t_->Branch("trkLctLocTheta",    &evSummary_.trkLctLocTheta,    "trkLctLocTheta[4][4]/I");
 
 
     // RPC Tracks
@@ -277,6 +279,8 @@ void DataEvtSummaryHandler::initStruct() {
       evSummary_.trkLctCSCID[i][j]   = -999;
       evSummary_.trkLctGblPhi[i][j]  = -999;
       evSummary_.trkLctGblEta[i][j]  = -999;
+      evSummary_.trkLctLocPhi[i][j]  = -999;
+      evSummary_.trkLctLocTheta[i][j]  = -999;
 
     }
   }

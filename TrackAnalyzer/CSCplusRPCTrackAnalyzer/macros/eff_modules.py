@@ -15,6 +15,92 @@ from matplotlib import interactive
 from ROOT import gROOT
 from array import *
 
+
+
+def dphi_plots(tree, iTrk):
+    
+    '''
+    Takes in a track to make dphi plots from its' LCTs
+    '''
+
+    phi1, phi2, phi3, phi4 = -99, -99, -99, -99
+    eta1, eta2, eta3, eta4 = -99, -99, -99, -99
+    
+    if tree.trkMode[iTrk] == 15:
+        
+        for iLct in range(tree.numTrkLCTs[iTrk]):
+            
+            if tree.trkLctStation[iTrk*4 +iLct] == 1: 
+                phi1 = tree.trkLctLocPhi[iTrk*4 + iLct]
+                eta1 = tree.trkLctLocTheta[iTrk*4 + iLct]
+
+            if tree.trkLctStation[iTrk*4 +iLct] == 2: 
+                phi2 = tree.trkLctLocPhi[iTrk*4 + iLct]
+                eta2 = tree.trkLctLocTheta[iTrk*4 + iLct]
+
+            if tree.trkLctStation[iTrk*4 +iLct] == 3: 
+                phi3 = tree.trkLctLocPhi[iTrk*4 + iLct]
+                eta3 = tree.trkLctLocTheta[iTrk*4 + iLct]
+                
+            if tree.trkLctStation[iTrk*4 +iLct] == 4: 
+                phi4 = tree.trkLctLocPhi[iTrk*4 + iLct]
+                eta4 = tree.trkLctLocTheta[iTrk*4 + iLct]
+                
+    
+        dphi12 = abs(phi1-phi2)
+        dphi13 = abs(phi1-phi3)
+        dphi14 = abs(phi1-phi4)
+        dphi23 = abs(phi2-phi3)
+        dphi24 = abs(phi2-phi4)
+        dphi34 = abs(phi3-phi4)
+
+        deta12 = abs(eta1-eta2)
+        deta13 = abs(eta1-eta3)
+        deta14 = abs(eta1-eta4)
+        deta23 = abs(eta2-eta3)
+        deta24 = abs(eta2-eta4)
+        deta34 = abs(eta3-eta4)
+        
+
+        hdphi12_trk15.Fill(dphi12)
+        hdphi13_trk15.Fill(dphi13)
+        hdphi14_trk15.Fill(dphi14)
+        hdphi23_trk15.Fill(dphi23)
+        hdphi24_trk15.Fill(dphi24)
+        hdphi34_trk15.Fill(dphi34)
+        
+        h2dphi_trk15.Fill(1, dphi12)
+        h2dphi_trk15.Fill(2, dphi13)
+        h2dphi_trk15.Fill(3, dphi14)
+        h2dphi_trk15.Fill(4, dphi23)
+        h2dphi_trk15.Fill(5, dphi24)
+        h2dphi_trk15.Fill(6, dphi34)
+        
+        h2deta_trk15.Fill(1, deta12)
+        h2deta_trk15.Fill(2, deta13)
+        h2deta_trk15.Fill(3, deta14)
+        h2deta_trk15.Fill(4, deta23)
+        h2deta_trk15.Fill(5, deta24)
+        h2deta_trk15.Fill(6, deta34)
+
+        
+    # end mode 15
+    
+    '''    
+    if tree.trkMode[iTrk] == 10: # Stations 1-3
+        
+        for iLct in range(tree.numTrkLCTs[iTrk]):
+
+            if tree.trkLctStation[iTrk*4 +iLct] == 1: phi1 = tree.trkLctGblPhi[iTrk*4 + iLct]
+            if tree.trkLctStation[iTrk*4 +iLct] == 3: phi3 = tree.trkLctGblPhi[iTrk*4 + iLct]
+
+            # Loop over event LCTs
+            for iEvtLct in range(0, tree.numLCTs):
+       '''         
+
+
+#============================================================
+
 def get_Tchain(directory, num_files):
 
     '''
