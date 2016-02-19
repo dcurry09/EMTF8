@@ -19,6 +19,7 @@
 
 #endif
 
+#define MAXEMTF 4
 #define MAXTRK 4
 #define MAXTRKLCTS 4
 #define MAX_MUONS 100
@@ -95,6 +96,8 @@ struct DataEvtSummary_t {
   std::vector<int>* lctTriggerCSCID;
   std::vector<float>* lctGlobalPhi;
   std::vector<float>* lctGlobalEta;
+  std::vector<int>* lctLocPhi;
+  std::vector<int>* lctLocEta;
   std::vector<int>* lctStrip;
   std::vector<int>* lctWire;
   
@@ -157,11 +160,26 @@ struct DataEvtSummary_t {
   // Legacy CSC Tracks
   // ====================
   Int_t numLegTrks;
-  
+
+  std::vector<Int_t>* numLegTrkLCTs;
   std::vector<float>* leg_trkPt;
   std::vector<float>* leg_trkEta;
   std::vector<float>* leg_trkPhi;
   std::vector<Int_t>* leg_trkMode;
+
+  // Track LCTs
+  Int_t leg_trkLctEndcap[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctStation[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctSector[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctRing[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctChamber[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctWire[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctStrip[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctCSCID[MAXTRK][MAXTRKLCTS];
+  float leg_trkLctGblPhi[MAXTRK][MAXTRKLCTS];
+  float leg_trkLctGblEta[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctLocPhi[MAXTRK][MAXTRKLCTS];
+  Int_t leg_trkLctLocEta[MAXTRK][MAXTRKLCTS];
   
   
 };

@@ -73,6 +73,8 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("numLCTs",         &evSummary_.numLCTs,    "numLCTs/I");
     t_->Branch("lctGlobalPhi",    &evSummary_.lctGlobalPhi);
     t_->Branch("lctGlobalEta",    &evSummary_.lctGlobalEta);
+    t_->Branch("lctLocPhi",       &evSummary_.lctLocPhi);
+    t_->Branch("lctLocEta",       &evSummary_.lctLocEta);
     t_->Branch("lctEndcap",       &evSummary_.lctEndcap);
     t_->Branch("lctStation",      &evSummary_.lctStation);
     t_->Branch("lctSector",       &evSummary_.lctSector);
@@ -88,7 +90,7 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     // ==================
     // RPC LCTS
     // ==================
-    
+    /*
     // cluster variables
     t_->Branch("numRPC_clusters",    &evSummary_.numRPC_clusters,    "numRPC_clusters/I");
     t_->Branch("rpc_cluster_Endcap",        &evSummary_.rpc_cluster_Endcap);
@@ -102,7 +104,8 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("rpc_cluster_Strip",        &evSummary_.rpc_cluster_Strip);
     t_->Branch("rpc_cluster_Ring",        &evSummary_.rpc_cluster_Ring);
     t_->Branch("rpc_cluster_CSCId",        &evSummary_.rpc_cluster_CSCId);
-
+    */
+    
     // ====================
     // CSC Tracks and LCTs
     // ====================
@@ -127,6 +130,7 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("trkLctLocTheta",    &evSummary_.trkLctLocTheta,    "trkLctLocTheta[4][4]/I");
 
 
+    /*
     // RPC Tracks
     // ====================
     t_->Branch("numTrks_rpc",    &evSummary_.numTrks_rpc,    "numTrks_rpc/I");
@@ -137,7 +141,8 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("trkPhi_rpc", &evSummary_.trkPhi_rpc);
     t_->Branch("trkMode_rpc",&evSummary_.trkMode_rpc);
     t_->Branch("isRPC_cand",&evSummary_.isRPC_cand);
-    
+    */
+
     // ====================
     // Legacy Tracks
     // ====================
@@ -146,6 +151,21 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("leg_trkEta", &evSummary_.leg_trkEta);
     t_->Branch("leg_trkPhi", &evSummary_.leg_trkPhi);
     t_->Branch("leg_trkMode",&evSummary_.leg_trkMode);
+
+    t_->Branch("numLegTrkLCTs", &evSummary_.numLegTrkLCTs);
+    t_->Branch("leg_trkLctEndcap",    &evSummary_.leg_trkLctEndcap,    "leg_trkLctEndcap[4][4]/I");
+    t_->Branch("leg_trkLctChamber",    &evSummary_.leg_trkLctChamber,    "leg_trkLctChamber[4][4]/I");
+    t_->Branch("leg_trkLctStation",    &evSummary_.leg_trkLctStation,    "leg_trkLctStation[4][4]/I");
+    t_->Branch("leg_trkLctSector",    &evSummary_.leg_trkLctSector,    "leg_trkLctSector[4][4]/I");
+    t_->Branch("leg_trkLctRing",    &evSummary_.leg_trkLctRing,    "leg_trkLctRing[4][4]/I");
+    t_->Branch("leg_trkLctWire",    &evSummary_.leg_trkLctWire,    "leg_trkLctWire[4][4]/I");
+    t_->Branch("leg_trkLctStrip",    &evSummary_.leg_trkLctStrip,    "leg_trkLctStrip[4][4]/I");
+    t_->Branch("leg_trkLctCSCID",    &evSummary_.leg_trkLctCSCID,    "leg_trkLctCSCID[4][4]/I");
+    t_->Branch("leg_trkLctGblPhi",    &evSummary_.leg_trkLctGblPhi,    "leg_trkLctGblPhi[4][4]/F");
+    t_->Branch("leg_trkLctGblEta",    &evSummary_.leg_trkLctGblEta,    "leg_trkLctGblEta[4][4]/F");
+    t_->Branch("leg_trkLctLocPhi",    &evSummary_.leg_trkLctLocPhi,    "leg_trkLctLocPhi[4][4]/I");
+    t_->Branch("leg_trkLctLocEta",    &evSummary_.leg_trkLctLocEta,    "leg_trkLctLocEta[4][4]/I");
+    
 
 
     return true;
@@ -214,6 +234,8 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.numLCTs = 0;
   evSummary_.lctGlobalPhi    = new vector<float>;
   evSummary_.lctGlobalEta    = new vector<float>;
+  evSummary_.lctLocPhi       = new vector<int>;
+  evSummary_.lctLocEta       = new vector<int>;
   evSummary_.lctEndcap       = new vector<int>;
   evSummary_.lctSector       = new vector<int>;
   evSummary_.lctSubSector    = new vector<int>;
@@ -281,6 +303,21 @@ void DataEvtSummaryHandler::initStruct() {
       evSummary_.trkLctGblEta[i][j]  = -999;
       evSummary_.trkLctLocPhi[i][j]  = -999;
       evSummary_.trkLctLocTheta[i][j]  = -999;
+      
+      evSummary_.leg_trkLctEndcap[i][j]  = -999;
+      evSummary_.leg_trkLctStation[i][j] = -999;
+      evSummary_.leg_trkLctSector[i][j]  = -999;
+      evSummary_.leg_trkLctRing[i][j]    = -999;
+      evSummary_.leg_trkLctChamber[i][j] = -999;
+      evSummary_.leg_trkLctWire[i][j]    = -999;
+      evSummary_.leg_trkLctStrip[i][j]   = -999;
+      evSummary_.leg_trkLctCSCID[i][j]   = -999;
+      evSummary_.leg_trkLctGblPhi[i][j]  = -999;
+      evSummary_.leg_trkLctGblEta[i][j]  = -999;
+      evSummary_.leg_trkLctLocPhi[i][j]  = -999;
+      evSummary_.leg_trkLctLocEta[i][j]  = -999;
+      
+
 
     }
   }
@@ -294,7 +331,7 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.leg_trkEta  = new vector<float>;
   evSummary_.leg_trkPhi  = new vector<float>;
   evSummary_.leg_trkMode = new vector<Int_t>;
-  
+  evSummary_.numLegTrkLCTs = new vector<Int_t>;
 
 
 }
@@ -329,6 +366,8 @@ void DataEvtSummaryHandler::resetStruct() {
   // ==================
   vector<float>().swap(*evSummary_.lctGlobalPhi);
   vector<float>().swap(*evSummary_.lctGlobalEta);
+  vector<int>().swap(*evSummary_.lctLocPhi);
+  vector<int>().swap(*evSummary_.lctLocEta);
   vector<int>().swap(*evSummary_.lctEndcap);
   vector<int>().swap(*evSummary_.lctSector);
   vector<int>().swap(*evSummary_.lctSubSector);
@@ -371,12 +410,12 @@ void DataEvtSummaryHandler::resetStruct() {
   vector<Int_t>().swap(*evSummary_.trkMode_rpc);
   vector<Int_t>().swap(*evSummary_.isRPC_cand);
   
-  // Track LCTs
-  //vector<vector<int>>().swap(*evSummary_.trkLctEndcap);
 
   // ====================
   // Legacy CSC Tracks
   // ====================
+  
+  vector<Int_t>().swap(*evSummary_.numLegTrkLCTs);
   vector<float>().swap(*evSummary_.leg_trkPt);
   vector<float>().swap(*evSummary_.leg_trkEta);
   vector<float>().swap(*evSummary_.leg_trkPhi);

@@ -35,7 +35,7 @@ void fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
       
       TrackRef trackRef = muon->combinedMuon();
       
-      if (printLevel > 2 ) {
+      if (printLevel > 4 ) {
 	printf("************************************************\n");
 	printf("GBL RECO MOUN # %d\n", numMuons);
 	printf("************************************************\n\n");

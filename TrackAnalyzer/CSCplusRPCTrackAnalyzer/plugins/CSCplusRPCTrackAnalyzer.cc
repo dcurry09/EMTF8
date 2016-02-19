@@ -133,9 +133,6 @@ private:
   int printLevel;
   bool isMC;
   
-  //edm::InputTag muonsTag;
-  //edm::InputTag cscSegTag;
-  
   // Get the tokem for all input collections
   edm::EDGetTokenT<CSCCorrelatedLCTDigiCollection> cscTPTag_token;
   edm::EDGetTokenT<std::vector<l1t::emtf::InternalTrack>> csctfTag_token;
@@ -143,11 +140,18 @@ private:
   edm::EDGetTokenT<CSCSegmentCollection> cscSegs_token;
   edm::EDGetTokenT<std::vector<reco::GenParticle>> genTag_token;
   edm::EDGetTokenT<std::vector<pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi>>> > leg_csctfTag_token;
+
+
+  CSCSectorReceiverLUT* srLUTs_[5][2];
+  CSCTFSPCoreLogic* core_;
   
   const L1MuTriggerScales  *scale;
   const L1MuTriggerPtScale *ptScale;
- 
- 
+
+  // To set the phi and eta values of LCTs
+  std::unique_ptr<GeometryTranslator> geom;
+
+  
 };
 
  
@@ -169,6 +173,57 @@ CSCplusRPCTrackAnalyzer::CSCplusRPCTrackAnalyzer(const edm::ParameterSet& iConfi
  
   // Is Monte Carlo or not?
   isMC = iConfig.getUntrackedParameter<int>("isMC",0);
+
+
+  bzero(srLUTs_ , sizeof(srLUTs_));
+  int sector=1;    // assume SR LUTs are all same for every sector
+  bool TMB07=true; // specific TMB firmware
+  // Create a pset for SR/PT LUTs: if you do not change the value in the
+  // configuration file, it will load the default minitLUTs
+  edm::ParameterSet srLUTset;
+  srLUTset.addUntrackedParameter<bool>("ReadLUTs", false);
+  srLUTset.addUntrackedParameter<bool>("Binary",   false);
+  srLUTset.addUntrackedParameter<std::string>("LUTPath", "./");
+
+  // positive endcap
+  int endcap = 1;
+  for(int station=1,fpga=0; station<=4 && fpga<5; station++)
+    {
+      if(station==1)
+        for(int subSector=0; subSector<2 && fpga<5; subSector++)
+          srLUTs_[fpga++][1] = new CSCSectorReceiverLUT(endcap,sector,subSector+1,
+                                                        station, srLUTset, TMB07);
+      else
+        srLUTs_[fpga++][1]   = new CSCSectorReceiverLUT(endcap,  sector,   0,
+                                                        station, srLUTset, TMB07);
+    }
+
+  // negative endcap
+  endcap = 2;
+  for(int station=1,fpga=0; station<=4 && fpga<5; station++)
+    {
+      if(station==1)
+        for(int subSector=0; subSector<2 && fpga<5; subSector++)
+          srLUTs_[fpga++][0] = new CSCSectorReceiverLUT(endcap,sector,subSector+1,
+                                                        station, srLUTset, TMB07);
+      else
+        srLUTs_[fpga++][0]   = new CSCSectorReceiverLUT(endcap,  sector,   0,
+                                                        station, srLUTset, TMB07);
+    }
+  // -----------------------------------------------------------------------------
+
+  geom.reset(new GeometryTranslator());
+
+
+  const Double_t ptscale[31] =  { 0,
+				  1.5,   2.0,   2.5,   3.0,   3.5,   4.0,
+				  4.5,   5.0,   6.0,   7.0,   8.0,  10.0,  12.0,  14.0,
+				  16.0,  18.0,  20.0,  25.0,  30.0,  35.0,  40.0,  45.0,
+				  50.0,  60.0,  70.0,  80.0,  90.0, 100.0, 120.0, 140.0 };
+  
+
+
+
 }
 
 
@@ -191,6 +246,8 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 
   if(printLevel>0) cout << "\n\n =================================== NEW EVENT ===================================== " << endl;
 
+
+  geom->checkAndUpdateGeometry(iSetup);
   // Get the CSC Geometry
   iSetup.get<MuonGeometryRecord>().get(cscGeom);
 
@@ -202,8 +259,22 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   ev.lumi   = iEvent.luminosityBlock();
   ev.event  = iEvent.id().event();
   
+  // Legacy pT look up tables
+  // Initialize CSCTF pT LUTs
+  ESHandle< L1MuTriggerScales > scales;
+  iSetup.get< L1MuTriggerScalesRcd >().get(scales);
+  scale = scales.product();
 
+  ESHandle< L1MuTriggerPtScale > ptscales;
+  iSetup.get< L1MuTriggerPtScaleRcd >().get(ptscales);
+  ptScale = ptscales.product();
 
+  //ptLUTs_ = new CSCTFPtLUT(ptLUTset, scale, ptScale);
+  // Standard Pt LUTs
+  //edm::ParameterSet ptLUTset;
+  //ptLUTset.addParameter<bool>("ReadPtLUT", false);
+  //ptLUTset.addParameter<bool>("isBinary",  false);
+  //CSCTFPtLUT ptLUT(ptLUTset, ts, tpts);
 
   // =========================================================================================================
 
@@ -213,10 +284,31 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   
   edm::Handle<CSCCorrelatedLCTDigiCollection> lcts;
   iEvent.getByToken(cscTPTag_token, lcts);	 
+
+
   
-  if ( lcts.isValid() )
-    fillAllLCTs(ev, lcts, printLevel);
-  
+  if ( lcts.isValid() ) {
+    
+    // Access the global phi/eta from here
+    std::vector<L1TMuon::TriggerPrimitive> LCT_collection;
+    
+    auto chamber = lcts->begin();
+    auto chend  = lcts->end();
+    for( ; chamber != chend; ++chamber ) {
+      auto digi = (*chamber).second.first;
+      auto dend = (*chamber).second.second;
+      for( ; digi != dend; ++digi ) {
+	TriggerPrimitive trigPrimTemp = TriggerPrimitive((*chamber).first,*digi);
+	trigPrimTemp.setCMSGlobalPhi( geom->calculateGlobalPhi(trigPrimTemp) );
+        trigPrimTemp.setCMSGlobalEta( geom->calculateGlobalEta(trigPrimTemp) );
+        LCT_collection.push_back(trigPrimTemp);
+      }
+    }
+    
+    fillAllLCTs(ev, LCT_collection, printLevel);
+    //fillAllLCTs(ev, lcts, printLevel, srLUTs_, scale, ptScale);
+  }
+
   else cout << "\t----->Invalid CSC LCT collection... skipping it\n";
   
   // =========================================================================================================
@@ -247,9 +339,167 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   edm::Handle<vector<pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi> > >> leg_tracks;
   iEvent.getByToken(leg_csctfTag_token, leg_tracks);
 
-  if ( leg_tracks.isValid() )
-    fillLeg_CSCTFTracks(ev, leg_tracks, printLevel);
+  if ( leg_tracks.isValid() ) {
 
+    int nTrks = 0;
+    for(std::vector<std::pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi>>>::const_iterator lt = leg_tracks->begin();lt != leg_tracks->end();lt++){
+
+      if (nTrks > MAXTRK-1) break;
+    
+      float eta = 0.9 + 0.05*(lt->first.eta_packed()) + 0.025;
+      unsigned sector = lt->first.sector();
+      float phi = (0.05217*lt->first.localPhi()) + (sector-1)*1.1 + 0.0218;//*(3.14159265359/180)
+      if(phi > 3.14159) phi -= 6.28318;
+      
+      unsigned pti = 0, quality = 0;
+      lt->first.decodeRank(lt->first.rank(),pti,quality);//
+      float pt = ptscale[pti+1];
+      
+      // For EMTF mode definition
+      int mode = 0;
+      if(lt->first.me1ID())
+	mode |= 8;
+      if(lt->first.me2ID())
+	mode |= 4;
+      if(lt->first.me3ID())
+	mode |= 2;
+      if(lt->first.me4ID())
+	mode |= 1;
+      
+      if (printLevel > 0) {
+	cout << "\n Legacy Track # " << nTrks << endl;
+	cout << "============" << endl;
+	cout << " Track Pt   : " << pt << endl;
+	cout << " Track Eta  : " << eta << endl;
+	cout << " Track Phi  : " << phi << endl;
+	cout << " Track Mode : " << mode << endl;
+      }
+      
+      ev.leg_trkPt   -> push_back(pt);
+      ev.leg_trkEta  -> push_back(eta);
+      ev.leg_trkPhi  -> push_back(phi);
+      ev.leg_trkMode -> push_back(mode);
+      
+      // For each trk, get the list of its LCTs
+      CSCCorrelatedLCTDigiCollection LCTs = lt -> second;
+      
+      std::vector<L1TMuon::TriggerPrimitive> LCT_collection;
+      
+      auto chamber = LCTs.begin();
+      auto chend  = LCTs.end();
+      for( ; chamber != chend; ++chamber ) {
+	auto digi = (*chamber).second.first;
+	auto dend = (*chamber).second.second;
+	for( ; digi != dend; ++digi ) {
+	  TriggerPrimitive trigPrimTemp = TriggerPrimitive((*chamber).first,*digi);
+	  trigPrimTemp.setCMSGlobalPhi( geom->calculateGlobalPhi(trigPrimTemp) );
+	  trigPrimTemp.setCMSGlobalEta( geom->calculateGlobalEta(trigPrimTemp) );
+	  LCT_collection.push_back(trigPrimTemp);
+	}
+      }
+      
+      int LctTrkId_ = 0; // count number of lcts in event
+      
+      auto Lct = LCT_collection.cbegin();
+      auto Lctend = LCT_collection.cend();
+      for( ; Lct != Lctend; Lct++) {
+	
+	if (LctTrkId_ > MAXTRKLCTS-1) break;
+	
+	if(Lct->subsystem() != 1) continue;
+	
+	if (printLevel>1) cout << "\n==== Legacy LCT CSC " << LctTrkId_ << endl;
+	
+	CSCDetId id                = Lct->detId<CSCDetId>();
+	auto lct_station           = id.station();
+	auto lct_endcap            = id.endcap();
+	auto lct_chamber           = id.chamber();
+	uint16_t lct_bx            = Lct->getCSCData().bx;
+	int lct_ring               = id.ring();
+	int lct_sector             = CSCTriggerNumbering::triggerSectorFromLabels(id);
+	int lct_subSector          = CSCTriggerNumbering::triggerSubSectorFromLabels(id);
+	uint16_t lct_bx0           = Lct->getCSCData().bx0;
+	uint16_t lct_cscID         = Lct->getCSCData().cscID;
+	uint16_t lct_strip         = Lct->getCSCData().strip;
+	//uint16_t lct_pattern       = Lct->getCSCData().pattern;
+	uint16_t lct_bend          = Lct->getCSCData().bend;
+	uint16_t lct_quality       = Lct->getCSCData().quality;
+	uint16_t lct_keywire       = Lct->getCSCData().keywire;
+	
+	double lct_phi             = Lct->getCMSGlobalPhi();
+	double lct_eta             = Lct->getCMSGlobalEta();
+	
+	if ( printLevel > 0 ) {
+	  cout << "\n======\n";
+	  cout <<"lctEndcap       = " << lct_endcap << endl;
+	  cout <<"lctSector       = " << lct_sector<< endl;
+	  cout <<"lctSubSector    = " << lct_subSector << endl;
+	  cout <<"lctStation      = " << lct_station << endl;
+	  cout <<"lctRing         = " << lct_ring << endl;
+	  cout <<"lctChamber      = " << lct_chamber << endl;
+	  cout <<"lctTriggerCSCID = " << lct_cscID << endl;
+	  cout <<"lctBx           = " << lct_bx << endl;
+	  cout <<"lctBx0          = " << lct_bx0 << endl;
+	  cout <<"lctKeyWire      = " << lct_keywire << endl;
+	  cout <<"lctStrip        = " << lct_strip << endl;
+	  cout <<"lctBend         = " << lct_bend << endl;
+	  cout <<"lctQuality      = " << lct_quality << endl;
+	  cout <<"lct_Gblphi     = " << lct_phi << endl;
+	  cout <<"lct_Gbleta     = " << lct_eta << endl;
+	}
+	
+	
+	// Do not FIll array over their given size!!
+	if (nTrks > MAXTRK-1) {
+	  if (printLevel > 1) cout << "-----> nTrks is greater than MAXTRK-1.  Skipping this Track..." << endl;
+	  continue;
+	}
+	
+	if (LctTrkId_ > MAXTRKLCTS-1) {
+	  if (printLevel > 1)cout << "-----> LctTrkId_ is greater than MAXTRKLCTS-1.  Skipping this Track..." << endl;
+	  continue;
+	}
+	
+	
+	ev.leg_trkLctEndcap[nTrks][LctTrkId_] = lct_endcap;
+	
+	// sector (end 1: 1->6, end 2: 7 -> 12)
+	//if ( lct_endcap == 1)
+	ev.leg_trkLctSector[nTrks][LctTrkId_] = lct_sector;
+	//else
+	//        lctSector[nTrk][LctTrkId_] = 6+lct_sector;
+	
+	ev.leg_trkLctStation[nTrks][LctTrkId_] = lct_station;
+	
+	ev.leg_trkLctRing[nTrks][LctTrkId_] = lct_ring;
+	
+	ev.leg_trkLctChamber[nTrks][LctTrkId_] = lct_chamber;
+	
+	ev.leg_trkLctCSCID[nTrks][LctTrkId_] = lct_cscID;
+	
+	ev.leg_trkLctWire[nTrks][LctTrkId_] = lct_keywire;
+	
+	ev.leg_trkLctStrip[nTrks][LctTrkId_] = lct_strip;
+	
+	ev.leg_trkLctGblPhi[nTrks][LctTrkId_] = lct_phi;
+	
+	ev.leg_trkLctGblEta[nTrks][LctTrkId_] = lct_eta;
+	
+	LctTrkId_++;
+	
+      } // end track LCT loop
+      
+      ev.numLegTrkLCTs -> push_back(LctTrkId_);
+      
+      nTrks++;
+      
+    } // end legacy track loop
+    
+    ev.numLegTrks = nTrks;
+    
+    //fillLeg_CSCTFTracks(ev, leg_tracks, printLevel, srLUTs_, scale, ptScale);
+
+  }
   else cout << "\t----->Invalid Legacy Track collection... skipping it\n";
 
   // =========================================================================================================

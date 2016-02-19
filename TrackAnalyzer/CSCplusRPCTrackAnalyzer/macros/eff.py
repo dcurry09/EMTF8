@@ -99,9 +99,12 @@ hdphi23_trk15 = TH1F('hdphi23_trk15', '', 50 , 0, 1.57)
 hdphi24_trk15 = TH1F('hdphi24_trk15', '', 50 , 0, 1.57)
 hdphi34_trk15 = TH1F('hdphi34_trk15', '', 50 , 0, 1.57)
 
-h2dphi_trk15 = TH2F('h2dphi_trk15', '', 6, 1, 7, 20, 0 , 200)
+h2dphi_trk15     = TH2F('h2dphi_trk15', '', 6, 1, 7, 20, 0 , 10)
+h2dphi_trk15_leg = TH2F('h2dphi_trk15_leg', '', 6, 1, 7, 20, 0 , 10) 
 
 h2deta_trk15 = TH2F('h2deta_trk15', '', 6, 1, 7, 20, 0 , 40)
+
+
 
 # efficiency(turn on)
 pt_thresh = [5., 7., 10., 12., 16.]
@@ -139,7 +142,7 @@ hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, 
                  hdphi12, hdphi13, hdphi14, hdphi23, hdphi24, hdphi34,\
                  hdphi12_trk, hdphi13_trk, hdphi14_trk, hdphi23_trk, hdphi24_trk, hdphi34_trk,\
                  hdphi12_trk15, hdphi13_trk15, hdphi14_trk15, hdphi23_trk15, hdphi24_trk15, hdphi34_trk15,\
-                 h2dphi_trk15, h2deta_trk15
+                 h2dphi_trk15, h2deta_trk15, h2dphi_trk15_leg
              ]
 
 # ================================================
@@ -213,6 +216,11 @@ for iEvt in range(tree.GetEntries()):
         heta.Fill(eta_muon)
         hphi.Fill(phi_muon)
 
+        # Match to Legeacy track with simple dR
+        leg_track_list = deltaRLegTrackMuon(iEvt, tree, iReco, printLevel)
+        if leg_track_list[0]: iLegcscTrk = leg_track_list[1]
+        else: iLegcscTrk = -999    
+        
         
         # =============================================================================================
         # Does a track have the same Lcts that segs matched to?  Returns list[Bool, track Id]
@@ -249,47 +257,10 @@ for iEvt in range(tree.GetEntries()):
             hphi_trigger.Fill(phi_muon)
 
             # dPhi Plots
-            dphi_plots(tree, icscTrk)
-            '''
-            phi1 = -99
-            phi2 = -99
-            phi3 = -99
-            phi4 = -99
+            dphi_plots(tree, icscTrk, iLegcscTrk)
 
-            #if tree.trkMode[icscTrk] == 15:
-            if tree.numTrkLCTs[iTrk] > 3:
 
-                for iLct in range(tree.numTrkLCTs[icscTrk]):
-                            
-                    if tree.trkLctStation[icscTrk*4 + iLct] == 1: phi1 = tree.trkLctLocPhi[icscTrk*4 + iLct]
-                    if tree.trkLctStation[icscTrk*4 + iLct] == 2: phi2 = tree.trkLctLocPhi[icscTrk*4 + iLct]
-                    if tree.trkLctStation[icscTrk*4 + iLct] == 3: phi3 = tree.trkLctLocPhi[icscTrk*4 + iLct]
-                    if tree.trkLctStation[icscTrk*4 + iLct] == 4: phi4 = tree.trkLctLocPhi[icscTrk*4 + iLct]
-                            
-                dphi12 = abs(phi1-phi2)
-                dphi13 = abs(phi1-phi3)
-                dphi14 = abs(phi1-phi4)
-                dphi23 = abs(phi2-phi3)
-                dphi24 = abs(phi2-phi4)
-                dphi34 = abs(phi3-phi4)
 
-            
-                hdphi12_trk15.Fill(dphi12)
-                hdphi13_trk15.Fill(dphi13)
-                hdphi14_trk15.Fill(dphi14)
-                hdphi23_trk15.Fill(dphi23)
-                hdphi24_trk15.Fill(dphi24)
-                hdphi34_trk15.Fill(dphi34)
-                
-                h2dphi_trk15.Fill(1, dphi12)
-                h2dphi_trk15.Fill(2, dphi13)
-                h2dphi_trk15.Fill(3, dphi14)
-                h2dphi_trk15.Fill(4, dphi23)
-                h2dphi_trk15.Fill(5, dphi24)
-                h2dphi_trk15.Fill(6, dphi34)
-            
-
-            '''    
             # ======= Turn On Curves ========
             '''
             # get track quality

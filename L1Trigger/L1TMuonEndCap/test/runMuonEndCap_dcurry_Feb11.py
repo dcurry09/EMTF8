@@ -37,7 +37,21 @@ process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 # Input Source
 process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
-        '/store/data/Run2015D/SingleMuon/RAW-RECO/ZMu-PromptReco-v4/000/258/159/00000/0EFE474F-D26B-E511-9618-02163E011F4B.root',
+        #'/store/data/Run2015D/SingleMuon/RAW-RECO/ZMu-PromptReco-v4/000/258/159/00000/0EFE474F-D26B-E511-9618-02163E011F4B.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/0EFE474F-D26B-E511-9618-02163E011F4B.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/267ACC62-DD6B-E511-92AD-02163E011F4B.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/2E3BE2CD-E86B-E511-A777-02163E01211D.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/58353698-B56B-E511-9FFD-02163E011F32.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/68266258-D26B-E511-BE87-02163E014126.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/745C2AB6-B56B-E511-B15A-02163E01297A.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/90BBED7C-DD6B-E511-973F-02163E0146B8.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/94E134E9-D26B-E511-A2C2-02163E0143F8.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/A81C747E-D26B-E511-BC71-02163E011A97.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/C697122A-BD6B-E511-8B30-02163E01397A.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/D64E75BB-C56B-E511-975F-02163E0143E4.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/F006B63A-246C-E511-A0DC-02163E011FE7.root',
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/FCCAA76B-D26B-E511-A660-02163E01348B.root'
+        
         #'/cms/data/store/data/Run2015D/ZeroBias/RAW/v1/000/259/721/00000/0A2BA199-5878-E511-B77E-02163E01190D.root',
         #'/cms/data/store/mc/Fall13dr/MuPlus_Pt-1to150_PositiveEndcap-gun/GEN-SIM-RAW/tsg_PU40bx25_POSTLS162_V2-v1/20000/04643A9D-F382-E311-9D3C-0017A4770C34.root'
         )
@@ -94,7 +108,7 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
 process.TFileService = cms.Service(
     "TFileService",
     #fileName = cms.string("TEST_EMTF.root")
-    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF.root")
+    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v1.root")
     )
 
 

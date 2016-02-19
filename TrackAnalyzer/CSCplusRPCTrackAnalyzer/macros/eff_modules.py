@@ -17,6 +17,45 @@ from array import *
 
 
 
+
+def deltaRLegTrackMuon(iEvt, tree, iReco, printLevel):
+    
+    '''
+    Takes in a Reco Muon and legacy track collection and matches with dR.  
+    Returns a list [bool, [trkId]]
+    '''
+
+    if printLevel > 0: print '-----> Checking for dR Muon-Track Match.'
+    
+    list = [False, 999]
+    
+    dr = 999
+    min_dr = 0.3
+
+    # Loop over tracks
+    for iTrk in range(tree.numLegTrks):
+        
+        trkPhi = tree.leg_trkPhi[iTrk]
+        trkEta = tree.leg_trkEta[iTrk]
+        
+        mounPhi = tree.gmrPhi[iReco]
+        mounEta = tree.gmrEta[iReco]
+    
+        dphi = trkPhi - mounPhi
+        deta = trkEta - mounEta
+                
+        dr = np.sqrt(dphi*dphi + deta*deta) 
+        
+        if dr < min_dr:
+            min_dr = dr
+            list[0] = True
+            list[1] = iTrk
+
+    return list
+
+
+# ==========================================
+
 def dphi_plots(tree, iTrk):
     
     '''
@@ -31,20 +70,20 @@ def dphi_plots(tree, iTrk):
         for iLct in range(tree.numTrkLCTs[iTrk]):
             
             if tree.trkLctStation[iTrk*4 +iLct] == 1: 
-                phi1 = tree.trkLctLocPhi[iTrk*4 + iLct]
-                eta1 = tree.trkLctLocTheta[iTrk*4 + iLct]
+                phi1 = tree.trkLctGblPhi[iTrk*4 + iLct]
+                eta1 = tree.trkLctGblEta[iTrk*4 + iLct]
 
             if tree.trkLctStation[iTrk*4 +iLct] == 2: 
-                phi2 = tree.trkLctLocPhi[iTrk*4 + iLct]
-                eta2 = tree.trkLctLocTheta[iTrk*4 + iLct]
+                phi2 = tree.trkLctGblPhi[iTrk*4 + iLct]
+                eta2 = tree.trkLctGblEta[iTrk*4 + iLct]
 
             if tree.trkLctStation[iTrk*4 +iLct] == 3: 
-                phi3 = tree.trkLctLocPhi[iTrk*4 + iLct]
-                eta3 = tree.trkLctLocTheta[iTrk*4 + iLct]
+                phi3 = tree.trkLctGblPhi[iTrk*4 + iLct]
+                eta3 = tree.trkLctGblEta[iTrk*4 + iLct]
                 
             if tree.trkLctStation[iTrk*4 +iLct] == 4: 
-                phi4 = tree.trkLctLocPhi[iTrk*4 + iLct]
-                eta4 = tree.trkLctLocTheta[iTrk*4 + iLct]
+                phi4 = tree.trkLctGblPhi[iTrk*4 + iLct]
+                eta4 = tree.trkLctGblEta[iTrk*4 + iLct]
                 
     
         dphi12 = abs(phi1-phi2)
@@ -85,21 +124,147 @@ def dphi_plots(tree, iTrk):
 
         
     # end mode 15
+
+
+    phi1, phi2, phi3, phi4 = -99, -99, -99, -99
+    eta1, eta2, eta3, eta4 = -99, -99, -99, -99
     
-    '''    
+    # Now look at bending between track LCTs and event LCTs
     if tree.trkMode[iTrk] == 10: # Stations 1-3
         
         for iLct in range(tree.numTrkLCTs[iTrk]):
 
-            if tree.trkLctStation[iTrk*4 +iLct] == 1: phi1 = tree.trkLctGblPhi[iTrk*4 + iLct]
-            if tree.trkLctStation[iTrk*4 +iLct] == 3: phi3 = tree.trkLctGblPhi[iTrk*4 + iLct]
-
+            if tree.trkLctStation[iTrk*4 +iLct] == 1: 
+                phi1 = tree.trkLctGblPhi[iTrk*4 + iLct]
+                eta1 = tree.trkLctGblEta[iTrk*4 + iLct]
+                
+            if tree.trkLctStation[iTrk*4 +iLct] == 3: 
+                phi3 = tree.trkLctGblPhi[iTrk*4 + iLct]
+                eta3 = tree.trkLctGblEta[iTrk*4 + iLct]
+                
             # Loop over event LCTs
-            for iEvtLct in range(0, tree.numLCTs):
-       '''         
+            for iEvtLct in range(tree.numLCTs):
+                
+                if tree.lctStation[iEvtLct] == 2: 
+                    phi2 = tree.lctGlobalPhi[iEvtLct]
+                    eta2 = tree.lctGlobalEta[iEvtLct]
+                    
+                if tree.lctStation[iEvtLct] == 4: 
+                    phi4 = tree.lctGlobalPhi[iEvtLct]
+                    eta4 = tree.lctGlobalEta[iEvtLct]
 
+
+
+
+        if phi1 != -99 and phi2 != -99:            
+            dphi12 = abs(phi1-phi2)
+            h2dphi_trk10.Fill(1, dphi12)
+        if phi1 != -99 and phi3 != -99:
+            dphi13 = abs(phi1-phi3)
+            h2dphi_trk10.Fill(2, dphi13)
+        if phi1 != -99 and phi4 != -99:
+            dphi14 = abs(phi1-phi4)
+            h2dphi_trk10.Fill(3, dphi14)
+        if phi2 != -99 and phi3 != -99:
+            dphi23 = abs(phi2-phi3)
+            h2dphi_trk10.Fill(4, dphi23)
+        if phi2 != -99 and phi4 != -99:
+            dphi24 = abs(phi2-phi4)
+            h2dphi_trk10.Fill(5, dphi24)
+        if phi3 != -99 and phi4 != -99:
+            dphi34 = abs(phi3-phi4)
+            h2dphi_trk10.Fill(6, dphi34)
+
+            
+        h2dphi_trk10_noEvtLCTs.Fill(2,dphi13)
+
+        if eta1 != -99 and eta2 != -99:
+            deta12 = abs(eta1-eta2)
+            h2deta_trk10.Fill(1, deta12)
+        if eta1 != -99 and eta3 != -99:
+            deta13 = abs(eta1-eta3)
+            h2deta_trk10.Fill(2, deta13)
+        if eta1 != -99 and eta4 != -99:
+            deta14 = abs(eta1-eta4)
+            h2deta_trk10.Fill(3, deta14)
+        if eta2 != -99 and eta3 != -99:
+            deta23 = abs(eta2-eta3)
+            h2deta_trk10.Fill(4, deta23)
+        if eta2 != -99 and eta4 != -99:
+            deta24 = abs(eta2-eta4)
+            h2deta_trk10.Fill(5, deta24)
+        if eta3 != -99 and eta4 != -99:
+            deta34 = abs(eta3-eta4)
+            h2deta_trk10.Fill(6, deta34)
+        
 
 #============================================================
+
+
+
+
+def dphi_plots_leg(tree, iLegTrk):
+
+    '''
+    Takes in a track to make dphi plots from its' LCTs
+    '''
+
+    phi1, phi2, phi3, phi4 = -99, -99, -99, -99
+    eta1, eta2, eta3, eta4 = -99, -99, -99, -99
+
+    if iLegTrk != -999:
+        if tree.leg_trkMode[iLegTrk] == 15:
+        
+            for iLct in range(tree.numLegTrkLCTs[iLegTrk]):
+            
+                if tree.leg_trkLctStation[iLegTrk*4 +iLct] == 1: 
+                    phi1 = tree.leg_trkLctGblPhi[iLegTrk*4 + iLct]
+                    eta1 = tree.leg_trkLctGblEta[iLegTrk*4 + iLct]
+                    
+                if tree.leg_trkLctStation[iLegTrk*4 +iLct] == 2: 
+                    phi2 = tree.leg_trkLctGblPhi[iLegTrk*4 + iLct]
+                    eta2 = tree.leg_trkLctGblEta[iLegTrk*4 + iLct]
+                        
+                if tree.leg_trkLctStation[iLegTrk*4 +iLct] == 3: 
+                    phi3 = tree.leg_trkLctGblPhi[iLegTrk*4 + iLct]
+                    eta3 = tree.leg_trkLctGblEta[iLegTrk*4 + iLct]
+                            
+                if tree.leg_trkLctStation[iLegTrk*4 +iLct] == 4: 
+                    phi4 = tree.leg_trkLctGblPhi[iLegTrk*4 + iLct]
+                    eta4 = tree.leg_trkLctGblEta[iLegTrk*4 + iLct]
+                
+    
+            dphi12 = abs(phi1-phi2)
+            dphi13 = abs(phi1-phi3)
+            dphi14 = abs(phi1-phi4)
+            dphi23 = abs(phi2-phi3)
+            dphi24 = abs(phi2-phi4)
+            dphi34 = abs(phi3-phi4)
+            
+            deta12 = abs(eta1-eta2)
+            deta13 = abs(eta1-eta3)
+            deta14 = abs(eta1-eta4)
+            deta23 = abs(eta2-eta3)
+            deta24 = abs(eta2-eta4)
+            deta34 = abs(eta3-eta4)
+            
+            h2deta_trk15_leg.Fill(1, deta12)
+            h2deta_trk15_leg.Fill(2, deta13)
+            h2deta_trk15_leg.Fill(3, deta14)
+            h2deta_trk15_leg.Fill(4, deta23)
+            h2deta_trk15_leg.Fill(5, deta24)
+            h2deta_trk15_leg.Fill(6, deta34)
+            
+            h2dphi_trk15_leg.Fill(1, dphi12)
+            h2dphi_trk15_leg.Fill(2, dphi13)
+            h2dphi_trk15_leg.Fill(3, dphi14)
+            h2dphi_trk15_leg.Fill(4, dphi23)
+            h2dphi_trk15_leg.Fill(5, dphi24)
+            h2dphi_trk15_leg.Fill(6, dphi34)
+
+
+# ======================================================================    
+
 
 def get_Tchain(directory, num_files):
 
@@ -356,7 +521,7 @@ def is_track_match(iEvt, csc, id_list, printLevel):
 
                 if csc.trkLctStation[iTrk*4 + iLct]   != csc.lctStation.at(x):   continue
                 if csc.trkLctEndcap[iTrk*4 + iLct]    != csc.lctEndcap.at(x):    continue
-                if csc.trkLctSector[iTrk*4 + iLct]    != csc.lctSector.at(x):    continue
+                #if csc.trkLctSector[iTrk*4 + iLct]    != csc.lctSector.at(x):    continue
                 if csc.trkLctRing[iTrk*4 + iLct]      != csc.lctRing.at(x):      continue
                 if csc.trkLctChamber[iTrk*4 + iLct]   != csc.lctChamber.at(x):   continue
                 if csc.trkLctWire[iTrk*4 + iLct]      != csc.lctWire.at(x):      continue
@@ -382,7 +547,9 @@ def deltaR(iEvt, iReco, reco, csc, printLevel):
     '''
     Takes in muon and track and returns a deltaR value
     '''
-
+    
+    
+    
     if printLevel > 1: print '\n------> Calculating Delta R between muon and track'
     
 

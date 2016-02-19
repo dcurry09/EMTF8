@@ -27,7 +27,7 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
     // Access the track variables
     float trPt     = trk -> Pt();
     float trGblEta = trk -> Eta();
-    float trGblPhi = trk -> Phi_global();
+    float trGblPhi = trk -> Phi_global_rad();
     int trMode     = trk -> Mode();
 
     if (printLevel > 0) {
@@ -58,9 +58,9 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
       int trlct_strip    = lct->Strip();
       int trlct_chamber  = lct->Chamber();
       int trlct_cscID    = lct->CSC_ID();
-      float trlct_gblphi = lct->Phi_global();
+      float trlct_gblphi = lct->Phi_global_rad();
       float trlct_gbleta = lct->Eta();
-      int trlct_locphi   = lct->Phi_local();
+      int trlct_locphi   = lct->Phi_local_rad();
       int trlct_loctheta = lct->Theta_loc();
       
       // for consistency with LCT collection
@@ -78,15 +78,6 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
 	cout << "   cscID     = "  << trlct_cscID  << endl ;
 	cout << "   Wire      = "  << trlct_wire  << endl;
 	cout << "   Strip     = "  << trlct_strip  << endl << endl;
-      }
-
-      // Check if DetId is within range
-      if(   trlct_sector < 1    || trlct_sector > 12 ||
-	    trlct_station < 1   || trlct_station >  4 ||
-	    trlct_cscID < 1     || trlct_cscID >  9 ||
-	    trlct_endcap > 2    || trlct_endcap < 1  ) {
-	if (printLevel > 1) cout << "  TRACK ERROR: CSC digi are out of range! " << endl;
-	continue;
       }
 
       // Do not FIll array over their given size!!

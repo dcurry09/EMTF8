@@ -75,7 +75,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
 
     TrackRef trackRef = muon->combinedMuon();
 
-    if (printLevel > 2) {
+    if (printLevel > 4) {
       printf("************************************************\n");
       printf("M U O N  #%d\n", whichMuon);
       printf("************************************************\n\n");
@@ -114,7 +114,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
       
       int nHits=segIter -> nRecHits();
       
-      if (printLevel > 2) {
+      if (printLevel > 4) {
 	cout << " ======================================== " << endl;
 	cout << "Segment in CSC:" << icscSegment++ << endl;
 	cout << "# segs hits:"    << nHits      << endl;
@@ -140,7 +140,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
 	double segHitX = seghitlocal.x();
 	double segHitY = seghitlocal.y();
 	
-	if (printLevel > 2)
+	if (printLevel > 4)
 	  std::cout << "segHitX="<<segHitX <<  ", "
 		    << "segHitY="<<segHitY;
 	
@@ -195,7 +195,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
 	  
 	} // end loop trackingRecHit_iterator (segments of a muon)
 	
-	if (printLevel > 2 ){
+	if (printLevel > 4 ){
 	  if (isHitMatched) cout<< " -> Matched" << endl;
 	  else              cout<< " -> NOT Matched" << endl;
 	}
@@ -204,7 +204,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
 	
       }
       
-      if (printLevel > 2) cout<< "segment has "  << nMuonMatchedHits
+      if (printLevel > 4) cout<< "segment has "  << nMuonMatchedHits
 			      << " hits out of " << nHits
 			      << " matched"      << endl;
       
@@ -217,7 +217,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
     }  // end loop on the CSC segments
     
     
-    if (printLevel > 2)
+    if (printLevel > 4)
       cout << "The muon has " << segVect -> size()    << " csc segments"     << endl;
     
     ev.muonNsegs -> push_back(segVect->size());
@@ -228,13 +228,13 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
       continue;
     }
     
-    if (printLevel > 1) cout << "Looping over the CSC segments\n\n";
+    if (printLevel > 4) cout << "Looping over the CSC segments\n\n";
 
     int iSegment = 0;
     for (auto segmentCSC = segVect -> begin(); segmentCSC != segVect->end(); segmentCSC++, iSegment++){
       
 
-      if (printLevel > 1) {
+      if (printLevel > 4) {
         printf("#############\n");
         printf("Segment  #%d\n", iSegment);
         printf("#############\n\n");
@@ -262,7 +262,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
       ev.muon_cscsegs_chamber[whichMuon][iSegment] = id.chamber();
       ev.muon_cscsegs_nhits  [whichMuon][iSegment] = (*segmentCSC)->cscsegcand.nRecHits();
       
-      if (printLevel > 2) {
+      if (printLevel > 4) {
 	std::cout << "Endcap  = " << ev.muon_cscsegs_endcap [whichMuon][iSegment] << std::endl;
 	std::cout << "Ring    = " << ev.muon_cscsegs_station[whichMuon][iSegment] << std::endl;
 	std::cout << "Station = " << ev.muon_cscsegs_ring   [whichMuon][iSegment] << std::endl;
@@ -304,7 +304,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
       ev.muon_cscsegs_gbl_dir_eta[whichMuon][iSegment] = globalDirection.eta();
       ev.muon_cscsegs_gbl_dir_phi[whichMuon][iSegment] = globalDirection.phi();
 
-      if (printLevel > 2) {
+      if (printLevel > 4) {
 	std::cout << "globalPosition.x()    = " << ev.muon_cscsegs_gbl_x      [whichMuon][iSegment] << " cm"<< std::endl;
 	std::cout << "globalPosition.y()    = " << ev.muon_cscsegs_gbl_y      [whichMuon][iSegment] << " cm"<< std::endl;
 	std::cout << "globalPosition.eta()  = " << ev.muon_cscsegs_gbl_eta    [whichMuon][iSegment] << std::endl;
@@ -320,7 +320,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
       // is the segment matched to an LCT?
       bool isLCTMatched  = _matchBox.isMatched( (*segmentCSC)->cscsegcand, CSCTFlcts , 0 );
 
-      if (printLevel > 1) cout <<"isMatched? = " << isLCTMatched  << endl;
+      if (printLevel > 4) cout <<"isMatched? = " << isLCTMatched  << endl;
 
       ev.muon_cscsegs_islctable[whichMuon][iSegment] = isTriggerAble;
       ev.muon_cscsegs_ismatched[whichMuon][iSegment] = isLCTMatched;
@@ -362,12 +362,12 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
 	for( ; Lct != Lctend; Lct++) {
 	
 	  iLCT++;
-          if (printLevel > 2) cout << "Looping over Lct # " << iLCT << endl;
+          if (printLevel > 4) cout << "Looping over Lct # " << iLCT << endl;
 
 	  if (Lct->subsystem() != 1 ) continue;
           CSCDetId LctId = Lct->detId<CSCDetId>();
 
-	  if (printLevel > 2) {
+	  if (printLevel > 4) {
 	    cout << "*segDetId: " << *segDetId << endl;
 	    cout << "LctId    : " << LctId << endl;
 	  }
@@ -376,7 +376,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
           if ( (*segDetId) == LctId) {
 	    match_count ++;
             whichLCT.push_back(iLCT);
-            if (printLevel > 2 ) cout << "Match is found. Corresponds to LCT number:" << iLCT << endl;
+            if (printLevel > 4 ) cout << "Match is found. Corresponds to LCT number:" << iLCT << endl;
           }
 	  
         }  // end loop CSC lcts
