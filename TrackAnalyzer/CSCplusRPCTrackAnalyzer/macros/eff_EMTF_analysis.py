@@ -242,7 +242,17 @@ for iEvt in range(tree.GetEntries()):
                         for mode in range(15):
                             if tree.trkMode[iTrk] == mode: muon_counter['numEMTF_mode'+str(mode)+'_tracks'] +=1
                         
+                        if tree.trkMode[iTrk] == 7:
+                            if printLevel > 1:
+                                print '=========== EMTF MODE 7 DEBUG ========'
+                                print 'Event: ', tree.event, ' Run: ', tree.run
 
+                        if tree.trkMode[iTrk] == 12:
+                            if printLevel > 1:
+                                print '=========== EMTF MODE 12 DEBUG ========'
+                                print 'Event: ', tree.event, ' Run: ', tree.run
+
+                            
                         if printLevel > 1:
                             print '\nEMTF  Track # ', iTrk, \
                                 ' trkPt: ', tree.trkPt[iTrk], \

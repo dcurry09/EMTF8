@@ -19,7 +19,7 @@ from ROOT import gROOT
 file = TFile('plots/EMFT_analysis_singleMu.root')
 
 
-# Get teh Hists
+# Get the Hists
 dphi12_trk15  = file.Get('dphi12_trk15')
 dphi13_trk15  = file.Get('dphi13_trk15')
 dphi14_trk15  = file.Get('dphi14_trk15')

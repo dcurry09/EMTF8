@@ -55,6 +55,7 @@ struct DataEvtSummary_t {
   std::vector<float>* gmrD0;
   std::vector<float>* gmrChi2Norm;
   std::vector<int>* gmrValHits;
+  std::vector<int>* gmrCharge;
 
   // Muon Segments
   std::vector<int>* muonNsegs;

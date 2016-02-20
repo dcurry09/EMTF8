@@ -47,6 +47,7 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("gmrValHits",   &evSummary_.gmrValHits);
     t_->Branch("gmrD0",   &evSummary_.gmrD0);
     t_->Branch("gmrChi2Norm",   &evSummary_.gmrChi2Norm);
+    t_->Branch("gmrCharge",   &evSummary_.gmrCharge);
 
     // Muon Segments
     t_->Branch("muonNsegs", &evSummary_.muonNsegs);
@@ -200,7 +201,7 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.gmrD0  = new vector<float>;
   evSummary_.gmrChi2Norm  = new vector<float>;
   evSummary_.gmrValHits  = new vector<int>;
-  
+  evSummary_.gmrCharge  = new vector<int>;
   
   // Segments
   evSummary_.muonNsegs = new std::vector<int>;
@@ -356,10 +357,12 @@ void DataEvtSummaryHandler::resetStruct() {
   vector<float>().swap(*evSummary_.gmrEta);
   vector<float>().swap(*evSummary_.gmrPhi);
   vector<float>().swap(*evSummary_.gmrPt);
+  vector<int>().swap(*evSummary_.gmrCharge);
   vector<float>().swap(*evSummary_.gmrChi2Norm);
   vector<float>().swap(*evSummary_.gmrD0);
   vector<int>().swap(*evSummary_.gmrValHits);
   vector<int>().swap(*evSummary_.muonNsegs);
+  
 
   // ==================
   // CSC LCTS

@@ -61,6 +61,7 @@ void fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
       ev.gmrChi2Norm -> push_back(trackRef->normalizedChi2());
       ev.gmrD0       -> push_back(trackRef->d0());
       ev.gmrValHits  -> push_back(trackRef->numberOfValidHits());
+      ev.gmrCharge  -> push_back(trackRef->charge());
       
       numMuons++;
     }

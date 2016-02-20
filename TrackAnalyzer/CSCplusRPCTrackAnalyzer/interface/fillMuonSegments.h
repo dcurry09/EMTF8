@@ -256,6 +256,7 @@ void fillSegmentsMuons(DataEvtSummary_t &ev,
         continue;
       }
       
+      ev.muon_cscsegs_sector [whichMuon][iSegment] = CSCTriggerNumbering::triggerSectorFromLabels(id);;
       ev.muon_cscsegs_endcap [whichMuon][iSegment] = id.endcap();
       ev.muon_cscsegs_station[whichMuon][iSegment] = id.station();
       ev.muon_cscsegs_ring   [whichMuon][iSegment] = id.ring();
