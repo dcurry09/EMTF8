@@ -56,11 +56,11 @@ void fillLeg_CSCTFTracks(DataEvtSummary_t &ev, edm::Handle<vector<pair<csc::L1Tr
     unsigned pti = 0, quality = 0;
     
     lt->first.decodeRank(lt->first.rank(),pti,quality);//
-    float pt = ptscale[pti+1];
+    //float pt = ptscale[pti+1];
 
     // Anopther way to get Pt.
-    //int track_pt = lt->first.pt_packed();
-    //double trPt  = tpts->getPtScale()->getLowEdge(track_pt);
+    int track_pt = lt->first.pt_packed();
+    float pt  = tpts->getPtScale()->getLowEdge(track_pt);
     
     // For EMTF mode definition
     int mode = 0;

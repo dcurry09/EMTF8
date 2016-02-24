@@ -316,14 +316,14 @@ def whichQ(iTrk, csc):
     trkQ = -999
 
     # quality 3
-    if trkMode == 2 and abs(csc.EtaTrk[iTrk]) > 1.2: trkQ = 3
+    if trkMode == 2 and abs(csc.leg_trkEta[iTrk]) > 1.2: trkQ = 3
     if trkMode == 3 or trkMode == 4 or trkMode == 5 or trkMode == 12: trkQ = 3
     
 
     # quality 2
-    if trkMode == 6 and abs(csc.EtaTrk[iTrk]) > 1.2: trkQ = 2
-    if trkMode == 7 and abs(csc.EtaTrk[iTrk]) < 2.1: trkQ = 2 
-    if trkMode == 13 and abs(csc.EtaTrk[iTrk]) > 2.1: trkQ = 2
+    if trkMode == 6 and abs(csc.leg_trkEta[iTrk]) > 1.2: trkQ = 2
+    if trkMode == 7 and abs(csc.leg_trkEta[iTrk]) < 2.1: trkQ = 2 
+    if trkMode == 13 and abs(csc.trkEta[iTrk]) > 2.1: trkQ = 2
     
     if trkQ == -999:  trkQ = 1
     
@@ -338,7 +338,7 @@ def track_mode(iTrk, csc):
 
     final_mode = -999
     
-    if csc.NumLCTsTrk[iTrk] < 3:
+    if csc.numLegTrkLCTs[iTrk] < 3:
         # first look at two hit tracks
         # Possible modes are station combinations:
         # 1-2  Mode 6 : sum 3
@@ -352,12 +352,12 @@ def track_mode(iTrk, csc):
         isStation_1 = False; isStation_2 = False
 
         # loop over tracks hits to find mode
-        for iCsc in range(csc.NumLCTsTrk[iTrk]):
+        for iCsc in range(csc.numLegTrkLCTs[iTrk]):
 
-            temp_mode += csc.trLctStation[iTrk*4 + iCsc]
+            temp_mode += csc.leg_trkLctStation[iTrk*4 + iCsc]
         
-            if csc.trLctStation[iTrk*4 + iCsc] == 1: isStation_1 = True
-            if csc.trLctStation[iTrk*4 + iCsc] == 2: isStation_2 = True
+            if csc.leg_trkLctStation[iTrk*4 + iCsc] == 1: isStation_1 = True
+            if csc.leg_trkLctStation[iTrk*4 + iCsc] == 2: isStation_2 = True
 
         # Which mode is track
         if temp_mode == 3: final_mode = 6
@@ -382,7 +382,7 @@ def track_mode(iTrk, csc):
     # 1-3-4   Mode 3 sum 8
     # 2-3-4   Mode 4 sum 9
 
-    if csc.NumLCTsTrk[iTrk] > 2:
+    if csc.numLegTrkLCTs[iTrk] > 2:
         
         temp_mode = 0
         isStation1 = False
@@ -390,8 +390,8 @@ def track_mode(iTrk, csc):
         isStation3 = False
         isStation4 = False
 
-        for iCsc in range(csc.NumLCTsTrk[iTrk]):
-            temp_mode += csc.trLctStation[iTrk*4 + iCsc]
+        for iCsc in range(csc.numLegTrkLCTs[iTrk]):
+            temp_mode += csc.leg_trkLctStation[iTrk*4 + iCsc]
 
         # Which mode is track
         if temp_mode == 10: final_mode = 2 
@@ -542,6 +542,83 @@ def is_track_match(iEvt, csc, id_list, printLevel):
 # end is track match
 
 
+def is_track_match_leg(iEvt, csc, id_list, printLevel):
+
+    '''
+    Returns a list:  [Bool, track Id].
+    Bool is whether a track match was found to Seg Lcts, and track id is which track was macthed
+    Works for legacy CSCTF tracks
+    '''
+
+    if printLevel > 0: print '-----> Checking for Track Lct - Seg Lct Match.'
+
+    list = [False, 999]
+
+    is_lct_match = False
+    
+    # Does a track have the same Lcts that segs matched to?
+    # Loop over tracks
+    for iTrk in range(0, csc.numLegTrks):
+        for iLct in range(0, csc.numLegTrkLCTs[iTrk]):
+            
+            if is_lct_match: break
+            
+            if printLevel > 1:
+                print '\nLooping over Track #', iTrk, ', Lct #', iLct, \
+                    '\n trLctStation = ', csc.leg_trkLctStation[iTrk*4 + iLct], \
+                    '\n trLctEndcap  = ', csc.leg_trkLctEndcap[iTrk*4 + iLct], \
+                    '\n trLctSector  = ', csc.leg_trkLctSector[iTrk*4 + iLct], \
+                    '\n trLctRing    = ', csc.leg_trkLctRing[iTrk*4 + iLct], \
+                    '\n trLctChamber = ', csc.leg_trkLctChamber[iTrk*4 + iLct], \
+                    '\n trLctWire    = ', csc.leg_trkLctWire[iTrk*4 + iLct], \
+                    '\n trLctStrip   = ', csc.leg_trkLctStrip[iTrk*4 + iLct], \
+                    #'\n trLctglobalEta  = ', csc.trLctglobalEta[iTrk*4 + iLct], \
+                    #'\n trLctglobalPhi  = ', csc.trLctglobalPhi[iTrk*4 + iLct]
+                
+            # compare track Lct to seg matched Lcts.  Loop over id_list
+            for x in id_list:
+                
+                if is_lct_match: break
+
+                if printLevel > 1:
+                    print '\n\tLooping over LCTs in id_list:', x, \
+                      '\n LctStation = ', csc.lctStation.at(x), \
+                      '\n LctEndcap  = ', csc.lctEndcap.at(x), \
+                      '\n LctSector  = ', csc.lctSector.at(x), \
+                      '\n LctRing    = ', csc.lctRing.at(x), \
+                      '\n LctChamber = ', csc.lctChamber.at(x), \
+                      '\n LctWire    = ', csc.lctWire.at(x), \
+                      '\n LctStrip   = ', csc.lctStrip.at(x), \
+                      #'\n LctglobalEta  = ', csc.lctglobalEta.at(x), \
+                      #'\n LctglobalPhi  = ', csc.lctglobalPhi.at(x)
+                
+
+                if csc.leg_trkLctStation[iTrk*4 + iLct]   != csc.lctStation.at(x):   continue
+                if csc.leg_trkLctEndcap[iTrk*4 + iLct]    != csc.lctEndcap.at(x):    continue
+                #if csc.trkLctSector[iTrk*4 + iLct]    != csc.lctSector.at(x):    continue
+                if csc.leg_trkLctRing[iTrk*4 + iLct]      != csc.lctRing.at(x):      continue
+                if csc.leg_trkLctChamber[iTrk*4 + iLct]   != csc.lctChamber.at(x):   continue
+                if csc.leg_trkLctWire[iTrk*4 + iLct]      != csc.lctWire.at(x):      continue
+                if csc.leg_trkLctStrip[iTrk*4 + iLct]     != csc.lctStrip.at(x):     continue
+                #if csc.trLctglobalEta[iTrk*4 + iLct] != csc.lctglobalEta.at(x):   continue
+                #if csc.trLctglobalPhi[iTrk*4 + iLct] != csc.lctglobalPhi.at(x):   continue
+                
+                is_lct_match = True
+                    
+                if printLevel > 1: print'\n-----> Seg Lct and Track Lct are matched.'
+                    
+                list[0], list[1] = True, iTrk
+                        
+    if printLevel > 0 and not is_lct_match: print '-----> Could not match muon to a track.'
+                    
+    return list
+                
+# end is track match
+
+
+
+
+
 def deltaR(iEvt, iReco, reco, csc, printLevel):
 
     '''
@@ -565,7 +642,7 @@ num_etaBins = 16
 scale_phi_temp = [0]*num_phiBins
 scale_eta_temp = [0]*num_etaBins
 
-scale_pt_temp = [0, 2, 3, 4, 8, 15, 25, 35, 50, 75, 100]
+scale_pt_temp = [3, 5, 8, 10, 12, 15, 20, 25, 30, 35, 50, 75, 100]
 
 # Initialize phi
 phiMin = -np.pi

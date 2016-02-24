@@ -190,17 +190,10 @@ void fillAllLCTs(DataEvtSummary_t &ev, std::vector<L1TMuon::TriggerPrimitive> LC
       bzero(&gblEta,sizeof(gblEta));
     }
     
-    
-    // in global form
-    float lct_gbleta = ts->getRegionalEtaScale(2)->getCenter(gblEta.global_eta);
 
-    if (lct_endcap == 1) lct_gbleta = abs(lct_gbleta);
+    // A new way to find global
+    //const CSCChamber* cscchamber = cscGeom->chamber(id);
 
-    //float lct_gblphi = fmod( gblPhi.global_phi +14.0*M_PI/180+(lct_sector-1)*60.0*M_PI/180, 2.*M_PI );
-    float lct_gblphi = fmod(gblPhi.global_phi + ((lct_sector-1)*TMath::Pi()/3) + //sector 1 starts at 15 degrees
-	 (TMath::Pi()/12) , 2*TMath::Pi());
-
-    if (lct_gblphi > M_PI) lct_gblphi -= 2.*M_PI;
 
     if (printLevel>1) {
       cout <<"phi packed      = " << gblPhi.global_phi << endl;
@@ -212,8 +205,9 @@ void fillAllLCTs(DataEvtSummary_t &ev, std::vector<L1TMuon::TriggerPrimitive> LC
     // Fill the branch vectors
     //ev.lctGlobalPhi -> push_back(lct_gblphi);
     //ev.lctGlobalEta -> push_back(lct_gbleta);
-    ev.lctLocPhi -> push_back(gblPhi.global_phi);
-    ev.lctLocEta -> push_back(gblEta.global_eta);
+    //ev.lctLocPhi -> push_back(gblPhi.global_phi);
+    //ev.lctLocEta -> push_back(gblEta.global_eta);
+    
     */
 
 

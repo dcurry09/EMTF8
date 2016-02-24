@@ -30,7 +30,7 @@ process.load("RecoMuon.TrackingTools.MuonTrackLoader_cff")
 
 # Message Logger and Event range
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(100)
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 
 
@@ -108,7 +108,7 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
 process.TFileService = cms.Service(
     "TFileService",
     #fileName = cms.string("TEST_EMTF.root")
-    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v3.root")
+    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v6.root")
     )
 
 

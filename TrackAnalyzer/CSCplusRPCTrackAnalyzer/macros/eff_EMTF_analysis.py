@@ -22,7 +22,7 @@ else: printLevel = sys.argv[1]
 print '------> Importing Root File'
 
 # SingleMuon
-filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v1.root'
+filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v5.root'
 #filename = '/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/TEST_EMTF.root'
 
 file = TFile.Open(filename)
@@ -205,17 +205,23 @@ for iEvt in range(tree.GetEntries()):
 
 
 
-
         # Debug Printouts
         if tree.numTrks != 1: continue
         if tree.numLegTrks != 1: continue
-        if tree.trkMode[0] == 15: continue
+
+        if tree.leg_trkMode[0] == 15 or tree.leg_trkMode[0] == 14 or tree.leg_trkMode[0] == 13 or tree.leg_trkMode[0] == 11:
+            muon_counter['total_tracks'] +=1
+        
+        # mode to investigate
+        debug_mode = 11
+
+        if tree.trkMode[0] == debug_mode: continue
         
         for iLegTrk in range(tree.numLegTrks):
-            if tree.leg_trkMode[iLegTrk] == 15:
+            if tree.leg_trkMode[iLegTrk] == debug_mode:
                 
-                muon_counter['numCSCTF_mode15_tracks'] += 1
-
+                muon_counter['numCSCTF_mode'+str(debug_mode)+'_tracks'] += 1
+                
                 if printLevel > 1:
                     print '\n ============================ EMTF DEBUG Mode 15 ====================================='
                     print '\nCSCTF Track # ', iLegTrk, \
@@ -237,9 +243,9 @@ for iEvt in range(tree.GetEntries()):
                             'Phi: ', tree.leg_trkLctGblPhi[iLegTrk*4 + iLct]
     
                 for iTrk in range(tree.numTrks):
-                    if tree.trkMode[iTrk] != 15:
+                    if tree.trkMode[iTrk] != debug_mode:
                         
-                        for mode in range(15):
+                        for mode in range(0, 16):
                             if tree.trkMode[iTrk] == mode: muon_counter['numEMTF_mode'+str(mode)+'_tracks'] +=1
                         
                         if tree.trkMode[iTrk] == 7:
