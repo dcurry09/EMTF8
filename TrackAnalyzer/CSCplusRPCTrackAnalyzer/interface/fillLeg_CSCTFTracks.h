@@ -29,14 +29,14 @@ void fillLeg_CSCTFTracks(DataEvtSummary_t &ev, edm::Handle<vector<pair<csc::L1Tr
 			 CSCSectorReceiverLUT* srLUTs_[5][2],
 			 const L1MuTriggerScales  *ts,
 			 const L1MuTriggerPtScale *tpts) {
-
+  
 
 
   // Standard Pt LUTs
   edm::ParameterSet ptLUTset;
   ptLUTset.addParameter<bool>("ReadPtLUT", false);
   ptLUTset.addParameter<bool>("isBinary",  false);
-  CSCTFPtLUT ptLUT(ptLUTset, ts, tpts);
+  CSCTFPtLUT ptLUTs(ptLUTset, ts, tpts);
 
   int nTrks = 0;
  
@@ -53,10 +53,32 @@ void fillLeg_CSCTFTracks(DataEvtSummary_t &ev, edm::Handle<vector<pair<csc::L1Tr
     // for legacy definition
     //int mode = lt->first.cscMode();
     
-    unsigned pti = 0, quality = 0;
+    //unsigned pti = 0, quality = 0;
     
-    lt->first.decodeRank(lt->first.rank(),pti,quality);//
+    //lt->first.decodeRank(lt->first.rank(),pti,quality);//
     //float pt = ptscale[pti+1];
+    
+    /*
+    // PtAddress gives an handle on other parameters
+    ptadd thePtAddress(trk->first.ptLUTAddress());
+
+    //Pt needs some more workaround since it is not in the unpacked data
+    ptdat thePtData  = ptLUTs_->Pt(thePtAddress);
+
+    // front or rear bit?
+    if (thePtAddress.track_fr) {
+      int pt_bit = thePtData.front_rank&0x1f;
+      //csctf_.trQuality.push_back((thePtData.front_rank>>5)&0x3);
+      //csctf_.trChargeValid.push_back(thePtData.charge_valid_front);
+    } else {
+      int pt_bit = thePtData.rear_rank&0x1f;
+      //csctf_.trQuality.push_back((thePtData.rear_rank>>5)&0x3);
+      //csctf_.trChargeValid.push_back(thePtData.charge_valid_rear);
+    }
+
+    // convert the Pt in human readable values (GeV/c)
+    float pt = tpts->getPtScale()->getLowEdge(pt_bit);
+    */
 
     // Anopther way to get Pt.
     int track_pt = lt->first.pt_packed();

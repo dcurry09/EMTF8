@@ -22,7 +22,7 @@ else: printLevel = sys.argv[1]
 print '------> Importing Root File'
 
 # SingleMuon
-filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v6.root'
+filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v7.root'
 #filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v6_CSCTFTrackPT_test.root'
 
 file = TFile.Open(filename)
@@ -31,7 +31,7 @@ file = TFile.Open(filename)
 newfile = TFile("plots/trig_eff_plots_allEta_Pt16GeV.root","recreate")
 
 # Pt cut for plots
-pt_cut = 0
+pt_cut = 12
 
 # Set the branch address of TTree in Tfile
 tree = file.Get("ntuple/tree")
@@ -253,8 +253,11 @@ hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, 
                  hpt_trigger_gmt, heta_trigger_gmt, hphi_trigger_gmt,\
                  ]
 
-# ================================================
+# ==================================================================================================
 
+
+
+# ==================================================================================================
 # Loop over over events in TFile
 for iEvt in range(tree.GetEntries()):
 
@@ -287,7 +290,7 @@ for iEvt in range(tree.GetEntries()):
         
         if printLevel > 1: print '\n===== Looping over Muon', iReco, '====='
         
-        if tree.gmrPt[iReco] < 20: continue
+        if tree.gmrPt[iReco] < 3: continue
         
         if abs(tree.gmrEta[iReco]) > 2.4 or abs(tree.gmrEta[iReco]) < 1.24: continue
         
@@ -310,9 +313,6 @@ for iEvt in range(tree.GetEntries()):
         phi_muon = tree.gmrPhi[iReco]
         eta_muon_plot = tree.gmrEta[iReco]
         
-
-        #muon_count.clear()
-        
         # =============================================================================================
         # Function that takes global and gives back is Matched to two Segs. Returns list[Bool, Lct id[] ]
         match_list = is_two_segs(iEvt, iReco, tree, printLevel) 
@@ -330,14 +330,6 @@ for iEvt in range(tree.GetEntries()):
         heta.Fill(eta_muon)
         hphi.Fill(phi_muon)
 
-        
-
-        # Match to Legeacy track with simple dR
-        #leg_track_list = deltaRLegTrackMuon(iEvt, tree, iReco, printLevel)
-        #if leg_track_list[0]: iLegcscTrk = leg_track_list[1]
-        #else: iLegcscTrk = -999    
-        
-        
         # =============================================================================================
         # Does a track have the same Lcts that segs matched to?  Returns list[Bool, track Id]
         track_list = is_track_match(iEvt, tree, id_list, printLevel)
@@ -345,34 +337,15 @@ for iEvt in range(tree.GetEntries()):
         # Does a legacy track have the same Lcts that segs matched to?  Returns list[Bool, track Id]
         track_list_leg = is_track_match_leg(iEvt, tree, id_list, printLevel)
 
-            
-
-        #if tree.SizeTrk == 0: continue
 
         # track_list[0] is True for a match
         # Look at only matched CSCTF and EMTF events
-        if track_list[0] and track_list_leg[0]:
+        if track_list[0]:
         
-            if printLevel > 0: print '\n-----> Track #', track_list[1], ' has Lct matched to Segment.  Fill numerator'
+            if printLevel > 0: print '\n-----> EMTF Track #', track_list[1], ' has Lct matched to Segment.  Fill numerator'
           
             icscTrk = track_list[1]
             
-            iLegcscTrk = track_list_leg[1]
-
-            # CSCTF track GMT quality
-            leg_trkQ = whichQ(iLegcscTrk, tree)
-
-            
-            '''
-            #  Sanity check.  USe deltaR matching netween muon and track
-            eta1 = tree.gmrEta[iReco]
-            eta2 = tree.EtaTrk[icscTrk]
-            deta = eta1 - eta2
-            deltaR = np.sqrt(deta*deta)
-            if deltaR > 0.1: continue
-            '''
-            # ===================================
-
             muon_count['numerator'] += 1
 
             hgbl_pt.Fill(pt_muon)
@@ -385,12 +358,6 @@ for iEvt in range(tree.GetEntries()):
                 heta_trigger.Fill(eta_muon)
                 hphi_trigger.Fill(phi_muon)
             
-            if tree.leg_trkPt[iLegcscTrk] >= pt_cut:
-                hpt_trigger_leg.Fill(pt_muon)
-                heta_trigger_leg.Fill(eta_muon)
-                hphi_trigger_leg.Fill(phi_muon)
-
-
             # EMTF Mode combinations
 
             if tree.trkMode[icscTrk] == 15 and tree.trkPt[icscTrk] >= pt_cut:
@@ -456,7 +423,25 @@ for iEvt in range(tree.GetEntries()):
                 heta_trigger_gmt.Fill(eta_muon)
                 hphi_trigger_gmt.Fill(phi_muon)
 
+            # Efficiencies for all modes
+            for ihist, mode in enumerate(mode_list):
+                if tree.trkMode[icscTrk] == mode:
+                    hpt_trigger_modes[ihist].Fill(pt_muon)
+        
+        
+        if track_list_leg[0]:
 
+            if printLevel > 0: print '\n-----> CSCTF Track #', track_list[1], ' has Lct matched to Segment.  Fill numerator'
+
+            iLegcscTrk = track_list_leg[1]
+
+            # CSCTF track GMT quality
+            leg_trkQ = whichQ(iLegcscTrk, tree)
+            
+            if tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+                hpt_trigger_leg.Fill(pt_muon)
+                heta_trigger_leg.Fill(eta_muon)
+                hphi_trigger_leg.Fill(phi_muon)
 
             # CSCTF Mode combinations
             if leg_trkQ == 3 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
@@ -511,9 +496,6 @@ for iEvt in range(tree.GetEntries()):
             # Efficiencies for all modes
             for ihist, mode in enumerate(mode_list):
              
-                if tree.trkMode[icscTrk] == mode:
-                    hpt_trigger_modes[ihist].Fill(pt_muon)
-                
                 if tree.leg_trkMode[iLegcscTrk] == mode:    
                     hpt_trigger_leg_modes[ihist].Fill(pt_muon)
                     

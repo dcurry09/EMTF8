@@ -30,7 +30,7 @@ process.load("RecoMuon.TrackingTools.MuonTrackLoader_cff")
 
 # Message Logger and Event range
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(100)
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10000) )
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 
 
@@ -91,24 +91,25 @@ process.L1TMuonSeq = cms.Sequence(
 
 # # Load the Ntuplizer
 process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
-                                 process.MuonServiceProxy,
-                                 muonsTag     = cms.InputTag("muons", ""),
-                                 genTag       = cms.InputTag("genParticles"),
-                                 csctfTag     = cms.InputTag("simEmtfDigis", "EMTF"),
-                                 leg_csctfTag = cms.InputTag("csctfDigis"),
-                                 cscTPTag     = cms.InputTag("csctfDigis"),
-                                 cscSegTag    = cms.InputTag("cscSegments"),
-                                 printLevel   = cms.untracked.int32(-1),
-                                 isMC         = cms.untracked.int32(0),
-                                 outputDIR   = cms.string('TEST')
-                                 )
+                                process.MuonServiceProxy,
+                                muonsTag     = cms.InputTag("muons", ""),
+                                genTag       = cms.InputTag("genParticles"),
+                                csctfTag     = cms.InputTag("simEmtfDigis", "EMTF"),
+                                leg_csctfTag = cms.InputTag("csctfDigis"),
+                                cscTPTag     = cms.InputTag("csctfDigis"),
+                                cscSegTag    = cms.InputTag("cscSegments"),
+                                printLevel   = cms.untracked.int32(-1),
+                                NoTagAndProbe= cms.untracked.bool(true),
+                                isMC         = cms.untracked.int32(0),
+                                outputDIR    = cms.string('TEST')
+                                 ) 
 
 
 # Output File
 process.TFileService = cms.Service(
     "TFileService",
     #fileName = cms.string("TEST_EMTF.root")
-    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v6.root")
+    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v8.root")
     )
 
 

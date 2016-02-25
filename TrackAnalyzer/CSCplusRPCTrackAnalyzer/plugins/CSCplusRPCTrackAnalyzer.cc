@@ -132,6 +132,7 @@ private:
   
   int printLevel;
   bool isMC;
+  bool NoTagAndProbe;
   
   // Get the tokem for all input collections
   edm::EDGetTokenT<CSCCorrelatedLCTDigiCollection> cscTPTag_token;
@@ -166,6 +167,8 @@ CSCplusRPCTrackAnalyzer::CSCplusRPCTrackAnalyzer(const edm::ParameterSet& iConfi
 
   printLevel = iConfig.getUntrackedParameter<int>("printLevel",0);
   
+  NoTagAndProbe = iConfig.getUntrackedParameter<bool>("NoTagAndProbe", true);
+
   // Output File
   edm::Service<TFileService> fs;
   summaryHandler_.initTree(  fs->make<TTree>("tree","Event Summary") );
@@ -246,6 +249,7 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 
   if(printLevel>0) cout << "\n\n =================================== NEW EVENT ===================================== " << endl;
 
+  bool tagAndProbeExist = false;
 
   geom->checkAndUpdateGeometry(iSetup);
   // Get the CSC Geometry
@@ -271,10 +275,10 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 
   //ptLUTs_ = new CSCTFPtLUT(ptLUTset, scale, ptScale);
   // Standard Pt LUTs
-  //edm::ParameterSet ptLUTset;
-  //ptLUTset.addParameter<bool>("ReadPtLUT", false);
-  //ptLUTset.addParameter<bool>("isBinary",  false);
-  //CSCTFPtLUT ptLUT(ptLUTset, ts, tpts);
+  edm::ParameterSet ptLUTset;
+  ptLUTset.addParameter<bool>("ReadPtLUT", false);
+  ptLUTset.addParameter<bool>("isBinary",  false);
+  CSCTFPtLUT ptLUT(ptLUTset, scale, ptScale);
 
   // =========================================================================================================
 
@@ -351,9 +355,32 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       float phi = (0.05217*lt->first.localPhi()) + (sector-1)*1.1 + 0.0218;//*(3.14159265359/180)
       if(phi > 3.14159) phi -= 6.28318;
       
-      unsigned pti = 0, quality = 0;
-      lt->first.decodeRank(lt->first.rank(),pti,quality);//
-      float pt = ptscale[pti+1];
+      // unsigned pti = 0, quality = 0;
+      //lt->first.decodeRank(lt->first.rank(),pti,quality);//
+      //float pt = ptscale[pti+1];
+
+      // PtAddress gives an handle on other parameters
+      ptadd thePtAddress(lt->first.ptLUTAddress());
+
+      //Pt needs some more workaround since it is not in the unpacked data
+      ptdat thePtData  = ptLUT.Pt(thePtAddress);
+
+      int pt_bit = -999;
+      
+      // front or rear bit?
+      if (thePtAddress.track_fr) {
+	pt_bit = thePtData.front_rank&0x1f;
+	//csctf_.trQuality.push_back((thePtData.front_rank>>5)&0x3);
+	//csctf_.trChargeValid.push_back(thePtData.charge_valid_front);
+      } else {
+	pt_bit = thePtData.rear_rank&0x1f;
+	//csctf_.trQuality.push_back((thePtData.rear_rank>>5)&0x3);
+	//csctf_.trChargeValid.push_back(thePtData.charge_valid_rear);
+      }
+
+      // convert the Pt in human readable values (GeV/c)
+      float pt = ptScale->getPtScale()->getLowEdge(pt_bit);
+
       
       // For EMTF mode definition
       int mode = 0;
@@ -536,7 +563,7 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
     //iEvent.getByLabel("offlineBeamSpot", beamSpot);
     
     if ( muons.isValid() )
-      fillRecoMuons(ev, muons, printLevel);
+      tagAndProbeExist = fillRecoMuons(ev, muons, printLevel);
     
     else cout << "\t----->Invalid RECO Muon collection... skipping it\n";
     
@@ -577,13 +604,14 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   CSCTriggerGeometry::setGeometry(pDD);
   */
   
-
+  
 								       
   // =========================================================================
   // End Event methods
-
+  
   // Fill the tree
-  summaryHandler_.fillTree();
+  if (NoTagAndProbe || tagAndProbeExist)
+    summaryHandler_.fillTree();
   
   // Clear all objects from memory
   summaryHandler_.resetStruct();

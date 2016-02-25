@@ -25,8 +25,11 @@ using namespace edm;
 using namespace reco;
 
 
-void fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons, int printLevel) {
+bool fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons, int printLevel) {
   
+  bool tagExists = false;
+  bool probeExists = false;
+
   int numMuons = 0;
   for (MuonCollection::const_iterator muon=muons->begin(); muon!=muons->end(); muon++) {
     
@@ -52,6 +55,8 @@ void fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
                trackRef->pt(), trackRef->eta(), trackRef->phi());
       }
       
+      if ( abs(trackRef->eta()) < 1.1 && trackRef->pt() > 30 ) tagExists = true;
+
       // Only fill for known CSC eta range
       if ( abs(trackRef->eta()) < 1.1 || abs(trackRef->eta()) > 2.4) continue;
       
@@ -62,6 +67,8 @@ void fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
       ev.gmrD0       -> push_back(trackRef->d0());
       ev.gmrValHits  -> push_back(trackRef->numberOfValidHits());
       ev.gmrCharge  -> push_back(trackRef->charge());
+
+      probeExists = true;
       
       numMuons++;
     }
@@ -70,4 +77,6 @@ void fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
 
   ev.numGblRecoMuons = numMuons;
   
+  return (tagExists && probeExists);
+
 }
