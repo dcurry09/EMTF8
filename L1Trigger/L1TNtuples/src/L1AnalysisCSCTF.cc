@@ -35,7 +35,7 @@ void L1Analysis::L1AnalysisCSCTF::SetTracks(const edm::Handle<L1CSCTrackCollecti
 	//sectors: 1->6 (plus endcap), 7->12 (minus endcap)
 	csctf_.trSector.push_back(6* (trk->first.endcap()-1) + trk->first.sector());
 	csctf_.trBx.push_back(trk->first.BX());	 
-
+	
 	csctf_.trME1ID.push_back(trk->first.me1ID());
 	csctf_.trME2ID.push_back(trk->first.me2ID());
 	csctf_.trME3ID.push_back(trk->first.me3ID());

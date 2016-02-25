@@ -44,10 +44,18 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("gmrEta",  &evSummary_.gmrEta);
     t_->Branch("gmrPhi",  &evSummary_.gmrPhi);
     t_->Branch("gmrPt",   &evSummary_.gmrPt);
+    t_->Branch("gmrSamPt",   &evSummary_.gmrSamPt);
     t_->Branch("gmrValHits",   &evSummary_.gmrValHits);
     t_->Branch("gmrD0",   &evSummary_.gmrD0);
     t_->Branch("gmrChi2Norm",   &evSummary_.gmrChi2Norm);
     t_->Branch("gmrCharge",   &evSummary_.gmrCharge);
+
+    t_->Branch("numSamRecoMuons", &evSummary_.numSamRecoMuons, "numSamRecoMuons/I");
+
+    t_->Branch("samEta",  &evSummary_.samEta);
+    t_->Branch("samPhi",  &evSummary_.samPhi);
+    t_->Branch("samPt",   &evSummary_.samPt);
+    t_->Branch("samCharge",   &evSummary_.samCharge);
 
     // Muon Segments
     t_->Branch("muonNsegs", &evSummary_.muonNsegs);
@@ -115,6 +123,7 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("trkEta", &evSummary_.trkEta);
     t_->Branch("trkPhi", &evSummary_.trkPhi);
     t_->Branch("trkMode",&evSummary_.trkMode);
+    t_->Branch("trkMode",&evSummary_.trkBx);
     t_->Branch("numTrkLCTs", &evSummary_.numTrkLCTs);
 
     t_->Branch("trkLctEndcap",    &evSummary_.trkLctEndcap,    "trkLctEndcap[4][4]/I");
@@ -152,6 +161,7 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("leg_trkEta", &evSummary_.leg_trkEta);
     t_->Branch("leg_trkPhi", &evSummary_.leg_trkPhi);
     t_->Branch("leg_trkMode",&evSummary_.leg_trkMode);
+    t_->Branch("leg_trkBx",&evSummary_.leg_trkBx);
 
     t_->Branch("numLegTrkLCTs", &evSummary_.numLegTrkLCTs);
     t_->Branch("leg_trkLctEndcap",    &evSummary_.leg_trkLctEndcap,    "leg_trkLctEndcap[4][4]/I");
@@ -192,16 +202,27 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.gen_id  = new vector<int>;
 
   // ==================
-  // RECO Muons
+  // RECO GBL Muons
   // ==================
   evSummary_.numGblRecoMuons = 0;
   evSummary_.gmrEta = new vector<float>;
   evSummary_.gmrPhi = new vector<float>;
   evSummary_.gmrPt  = new vector<float>;
+  evSummary_.gmrSamPt  = new vector<float>;
   evSummary_.gmrD0  = new vector<float>;
   evSummary_.gmrChi2Norm  = new vector<float>;
   evSummary_.gmrValHits  = new vector<int>;
   evSummary_.gmrCharge  = new vector<int>;
+
+  // ==================
+  // RECO SAM Muons
+  // ==================
+  evSummary_.numSamRecoMuons = 0;
+  evSummary_.samEta = new vector<float>;
+  evSummary_.samPhi = new vector<float>;
+  evSummary_.samPt  = new vector<float>;
+  evSummary_.samCharge  = new vector<int>;
+
   
   // Segments
   evSummary_.muonNsegs = new std::vector<int>;
@@ -261,6 +282,7 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.trkEta  = new vector<float>;
   evSummary_.trkPhi  = new vector<float>;
   evSummary_.trkMode = new vector<Int_t>;
+  evSummary_.trkBx   = new vector<Int_t>;
   evSummary_.numTrkLCTs = new vector<Int_t>;
 
   // RPC Clusters
@@ -332,9 +354,11 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.leg_trkEta  = new vector<float>;
   evSummary_.leg_trkPhi  = new vector<float>;
   evSummary_.leg_trkMode = new vector<Int_t>;
+  evSummary_.leg_trkBx   = new vector<Int_t>;
+  
   evSummary_.numLegTrkLCTs = new vector<Int_t>;
 
-
+  
 }
 
 
@@ -352,16 +376,26 @@ void DataEvtSummaryHandler::resetStruct() {
 
 
   // ==================
-  // RECO Muons
+  // RECO GBL Muons
   // ==================
   vector<float>().swap(*evSummary_.gmrEta);
   vector<float>().swap(*evSummary_.gmrPhi);
   vector<float>().swap(*evSummary_.gmrPt);
+  vector<float>().swap(*evSummary_.gmrSamPt);
   vector<int>().swap(*evSummary_.gmrCharge);
   vector<float>().swap(*evSummary_.gmrChi2Norm);
   vector<float>().swap(*evSummary_.gmrD0);
   vector<int>().swap(*evSummary_.gmrValHits);
   vector<int>().swap(*evSummary_.muonNsegs);
+
+  
+  // ==================
+  // RECO SAM Muons
+  // ==================
+  vector<float>().swap(*evSummary_.samEta);
+  vector<float>().swap(*evSummary_.samPhi);
+  vector<float>().swap(*evSummary_.samPt);
+  vector<int>().swap(*evSummary_.samCharge);
   
 
   // ==================
@@ -391,6 +425,7 @@ void DataEvtSummaryHandler::resetStruct() {
   vector<float>().swap(*evSummary_.trkEta);
   vector<float>().swap(*evSummary_.trkPhi);
   vector<Int_t>().swap(*evSummary_.trkMode);
+  vector<Int_t>().swap(*evSummary_.trkBx);
   vector<Int_t>().swap(*evSummary_.numTrkLCTs);
 
   // RPC CLusters
@@ -423,6 +458,7 @@ void DataEvtSummaryHandler::resetStruct() {
   vector<float>().swap(*evSummary_.leg_trkEta);
   vector<float>().swap(*evSummary_.leg_trkPhi);
   vector<Int_t>().swap(*evSummary_.leg_trkMode);
+  vector<Int_t>().swap(*evSummary_.leg_trkBx);
 
 }
 

@@ -22,8 +22,9 @@ else: printLevel = sys.argv[1]
 print '------> Importing Root File'
 
 # SingleMuon
-filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v7.root'
-#filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v6_CSCTFTrackPT_test.root'
+#filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v7.root'
+filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_rate_v2.root'
+#filename = '/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/trees/2016_02_25/TEST_EMTF_RATE_40k.root'
 
 file = TFile.Open(filename)
 
@@ -225,7 +226,39 @@ for ihist, thresh in enumerate(pt_thresh):
     csctfPt_eta2[ihist] = TH1F('csctfPt_eta2_'+str(thresh), '', n_ptbin-1, ptbin_array)
     csctfPt_eta3[ihist] = TH1F('csctfPt_eta3_'+str(thresh), '', n_ptbin-1, ptbin_array)
     csctfPt_eta4[ihist] = TH1F('csctfPt_eta4_'+str(thresh), '', n_ptbin-1, ptbin_array)
+
+
+
+# ===== rate ======
+rate = [0, 3, 5, 7, 10, 12, 16, 20, 30]
+rate_array = array('d', rate)
+n_rate = len(rate)
    
+hrate     = TH1F('hrate', '', n_rate-1, rate_array)
+hrate_leg = TH1F('hrate_leg', '', n_rate-1, rate_array)
+
+hrate_gmt     = TH1F('hrate_gmt', '', n_rate-1, rate_array)
+hrate_gmt_leg = TH1F('hrate_gmt_leg', '', n_rate-1, rate_array)
+
+hrate_15_14_13_11 = TH1F('hrate_15_14_13_11', '', n_rate-1, rate_array)
+hrate_15_14_13 = TH1F('hrate_15_14_13', '', n_rate-1, rate_array)
+hrate_15_14 = TH1F('hrate_15_14', '', n_rate-1, rate_array)
+hrate_15 = TH1F('hrate_15', '', n_rate-1, rate_array)
+
+hrate_15_14_13_11_leg  = TH1F('hrate_15_14_13_11_leg', '', n_rate-1, rate_array)
+hrate_15_14_13_leg  = TH1F('hrate_15_14_13_leg', '', n_rate-1, rate_array)
+hrate_15_14_leg  = TH1F('hrate_15_14_leg', '', n_rate-1, rate_array)
+hrate_15_leg  = TH1F('hrate_15_leg', '', n_rate-1, rate_array)
+
+hrate_modes     = [0]*n_modes
+hrate_modes_leg = [0]*n_modes
+
+for ihist, mode in enumerate(mode_list):
+    hrate_modes[ihist]     = TH1F('hrate_modes_'+str(mode), '', n_rate-1, rate_array)
+    hrate_modes_leg[ihist] = TH1F('hrate_leg_modes_'+str(mode), '', n_rate-1, rate_array)
+
+
+
 hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, csctfPt_all_eta4, \
                  hgbl_pt, hcsctf_pt, hgbl_eta, hgbl_phi, htrk_2hitmode_fail, htrk_2hitmode_all, \
                  htrk_phi_fail, hLct_chamber_fail, hLct_sector_fail, hLct_endcap_fail, hLct_ring_fail, \
@@ -251,6 +284,8 @@ hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, 
                  heta_trigger_15_m,  heta_trigger_15_leg_m,\
                  hpt_trigger_gmt_leg, heta_trigger_gmt_leg, hphi_trigger_gmt_leg,\
                  hpt_trigger_gmt, heta_trigger_gmt, hphi_trigger_gmt,\
+                 hrate, hrate_leg, hrate_15_14_13_11, hrate_15_14_13_11_leg, hrate_15_14_13, hrate_15_14_13_leg,\
+                 hrate_15_14, hrate_15_14_leg, hrate_15, hrate_15_leg, hrate_gmt, hrate_gmt_leg
                  ]
 
 # ==================================================================================================
@@ -275,16 +310,102 @@ for iEvt in range(tree.GetEntries()):
               '\n  Tracks in Event = ', tree.numTrks
         
 
-    # temp debug
-    if tree.numTrks > 1: continue
-    if tree.numLegTrks > 1: continue
-    if tree.numGblRecoMuons > 1: continue
+    # For rate studies(EMTF vs CSCTF) normalize by looking only at 1 track events
+    #if tree.numTrks != 1: continue
+    #if tree.numLegTrks != 1: continue
+    #if tree.numGblRecoMuons > 1: continue
 
-    for iTrk in range(tree.numTrks):
-        if tree.numTrkLCTs[iTrk] == 4: gen_count['4hit_tracks'] +=1        
-        if tree.numTrkLCTs[iTrk] == 3 : gen_count['3hit_tracks'] +=1
-        if tree.numTrkLCTs[iTrk] < 3 : gen_count['2hit_tracks'] +=1
     
+
+    # ======================================================================
+    # RATE Plots
+    
+    for icscTrk in range(tree.numTrks):
+        
+        for bin in reversed(rate):
+
+            if tree.trkPt[icscTrk] > bin: 
+                hrate.Fill(bin)
+
+            if tree.trkPt[icscTrk] > bin and tree.trkMode[icscTrk] == 15:
+                hrate_15_14_13_11.Fill(bin)
+                hrate_15_14_13.Fill(bin)
+                hrate_15_14.Fill(bin)
+                hrate_15.Fill(bin)
+                hrate_gmt.Fill(bin)
+                
+            if tree.trkPt[icscTrk] > bin and tree.trkMode[icscTrk] == 14:
+                hrate_15_14_13_11.Fill(bin)
+                hrate_15_14_13.Fill(bin)
+                hrate_15_14.Fill(bin)
+                hrate_gmt.Fill(bin)
+
+            if tree.trkPt[icscTrk] > bin and tree.trkMode[icscTrk] == 13:
+                hrate_15_14_13_11.Fill(bin)
+                hrate_15_14_13.Fill(bin)
+                hrate_gmt.Fill(bin)
+                
+            if tree.trkPt[icscTrk] > bin and tree.trkMode[icscTrk] == 11:
+                hrate_15_14_13_11.Fill(bin)
+                hrate_gmt.Fill(bin)
+                    
+            # legacy GMT Q3
+            if tree.trkPt[icscTrk] > bin and tree.trkMode[icscTrk] == 7:
+                hrate_gmt.Fill(bin)
+                
+            # rate for all modes
+            for ihist, mode in enumerate(mode_list):
+                if tree.trkMode[icscTrk] == mode:
+                    if tree.trkPt[icscTrk] > bin: 
+                        hrate_modes[ihist].Fill(bin)
+
+
+    for iLegcscTrk in range(tree.numLegTrks):
+        
+         if tree.leg_trkBx[iLegcscTrk] != 0: continue
+        
+         for bin in reversed(rate):
+
+             if tree.leg_trkPt[iLegcscTrk] > bin: 
+                 hrate_leg.Fill(bin)
+                
+             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 15:
+                 hrate_15_14_13_11_leg.Fill(bin)
+                 hrate_15_14_13_leg.Fill(bin)
+                 hrate_15_14_leg.Fill(bin)
+                 hrate_15_leg.Fill(bin)
+                 hrate_gmt_leg.Fill(bin)
+                    
+             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 14:
+                 hrate_15_14_13_11_leg.Fill(bin)
+                 hrate_15_14_13_leg.Fill(bin)
+                 hrate_15_14_leg.Fill(bin)
+                 hrate_gmt_leg.Fill(bin)
+
+             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 13:
+                 hrate_15_14_13_11_leg.Fill(bin)
+                 hrate_15_14_13_leg.Fill(bin)
+                 hrate_gmt_leg.Fill(bin)
+                 
+             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 11:
+                 hrate_15_14_13_11_leg.Fill(bin)
+                 hrate_gmt_leg.Fill(bin)
+                    
+             # legacy GMT Q3
+             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 7:
+                 hrate_gmt_leg.Fill(bin)
+
+             # rate for all modes
+             for ihist, mode in enumerate(mode_list):
+                 if tree.leg_trkMode[iLegcscTrk] == mode:
+                     if tree.leg_trkPt[iLegcscTrk] > bin:
+                         hrate_modes_leg[ihist].Fill(bin)
+
+    
+    # ==============================================================================================
+    
+
+
     # Now check each muon individually and fill hists
     for iReco in range(0, tree.numGblRecoMuons):
         
@@ -357,6 +478,8 @@ for iEvt in range(tree.GetEntries()):
                 hpt_trigger.Fill(pt_muon)
                 heta_trigger.Fill(eta_muon)
                 hphi_trigger.Fill(phi_muon)
+
+
             
             # EMTF Mode combinations
 
@@ -442,6 +565,7 @@ for iEvt in range(tree.GetEntries()):
                 hpt_trigger_leg.Fill(pt_muon)
                 heta_trigger_leg.Fill(eta_muon)
                 hphi_trigger_leg.Fill(phi_muon)
+
 
             # CSCTF Mode combinations
             if leg_trkQ == 3 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
@@ -549,6 +673,13 @@ for ihist, mode in enumerate(mode_list):
     
     hpt_trigger_modes[ihist].Write()
     hpt_trigger_leg_modes[ihist].Write()
+
+
+# For rate
+for ihist, rates in enumerate(rate):
+
+    hrate_modes[ihist].Write()
+    hrate_modes_leg[ihist].Write()
 
 # Little more work for turn on curves
 for ihist, thresh in enumerate(pt_thresh):

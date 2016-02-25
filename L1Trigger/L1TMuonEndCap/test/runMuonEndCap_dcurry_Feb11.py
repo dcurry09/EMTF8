@@ -37,23 +37,63 @@ process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 # Input Source
 process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
-        #'/store/data/Run2015D/SingleMuon/RAW-RECO/ZMu-PromptReco-v4/000/258/159/00000/0EFE474F-D26B-E511-9618-02163E011F4B.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/0EFE474F-D26B-E511-9618-02163E011F4B.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/267ACC62-DD6B-E511-92AD-02163E011F4B.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/2E3BE2CD-E86B-E511-A777-02163E01211D.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/58353698-B56B-E511-9FFD-02163E011F32.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/68266258-D26B-E511-BE87-02163E014126.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/745C2AB6-B56B-E511-B15A-02163E01297A.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/90BBED7C-DD6B-E511-973F-02163E0146B8.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/94E134E9-D26B-E511-A2C2-02163E0143F8.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/A81C747E-D26B-E511-BC71-02163E011A97.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/C697122A-BD6B-E511-8B30-02163E01397A.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/D64E75BB-C56B-E511-975F-02163E0143E4.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/F006B63A-246C-E511-A0DC-02163E011FE7.root',
-        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/FCCAA76B-D26B-E511-A660-02163E01348B.root'
         
-        #'/cms/data/store/data/Run2015D/ZeroBias/RAW/v1/000/259/721/00000/0A2BA199-5878-E511-B77E-02163E01190D.root',
-        #'/cms/data/store/mc/Fall13dr/MuPlus_Pt-1to150_PositiveEndcap-gun/GEN-SIM-RAW/tsg_PU40bx25_POSTLS162_V2-v1/20000/04643A9D-F382-E311-9D3C-0017A4770C34.root'
+        # For efficiencies
+        #'/store/data/Run2015D/SingleMuon/RAW-RECO/ZMu-PromptReco-v4/000/258/159/00000/0EFE474F-D26B-E511-9618-02163E011F4B.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/0EFE474F-D26B-E511-9618-02163E011F4B.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/267ACC62-DD6B-E511-92AD-02163E011F4B.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/2E3BE2CD-E86B-E511-A777-02163E01211D.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/58353698-B56B-E511-9FFD-02163E011F32.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/68266258-D26B-E511-BE87-02163E014126.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/745C2AB6-B56B-E511-B15A-02163E01297A.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/90BBED7C-DD6B-E511-973F-02163E0146B8.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/94E134E9-D26B-E511-A2C2-02163E0143F8.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/A81C747E-D26B-E511-BC71-02163E011A97.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/C697122A-BD6B-E511-8B30-02163E01397A.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/D64E75BB-C56B-E511-975F-02163E0143E4.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/F006B63A-246C-E511-A0DC-02163E011FE7.root',
+        #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/FCCAA76B-D26B-E511-A660-02163E01348B.root'
+        
+        # for rate
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/0C2E1287-F284-E511-8745-02163E0144A3.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/12455212-1E85-E511-8913-02163E014472.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/1A70F5B3-B084-E511-BC12-02163E0134A5.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/1E89626C-CD84-E511-993A-02163E0133ED.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/244B7B71-D384-E511-AF2B-02163E011CF1.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/24884BD7-C984-E511-A85C-02163E014424.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2876E111-C684-E511-A68F-02163E01460E.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2A4B1D15-C484-E511-B8AE-02163E012218.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2AF2EA22-FB84-E511-8626-02163E012062.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2C800F1B-B384-E511-8A9A-02163E014411.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3475EA27-CE84-E511-9E7D-02163E01432E.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3861EB8D-BD84-E511-968E-02163E01446B.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3A5AFE77-CA84-E511-A2A5-02163E0146B9.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3C0513DB-B484-E511-86FD-02163E0126F9.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3CCCCFE1-CA84-E511-9DE0-02163E0142C1.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3ECE4746-C784-E511-B27C-02163E011AE3.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/4AC0D90E-C484-E511-AB6C-02163E01386D.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52849AE7-D184-E511-9254-02163E01417C.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52905784-B784-E511-B8D8-02163E0141A7.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52DC4A2A-C384-E511-B413-02163E012AB8.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/5EE28464-C984-E511-A7A0-02163E01386D.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/60204D37-E484-E511-96E1-02163E011D48.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/60E2EF3B-B284-E511-BA69-02163E0140EC.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/62956BBF-C684-E511-BECA-02163E0120DC.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/6AB4196C-CC84-E511-833B-02163E014157.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/6E0DF678-AE84-E511-9B5D-02163E014721.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/6E3535B9-D484-E511-93B5-02163E011CF1.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/744F6AC2-C184-E511-8871-02163E01410A.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/748C4EEC-A884-E511-A77E-02163E014560.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/78574E47-AC84-E511-946E-02163E0133E2.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/7C0DC2AE-D584-E511-AB8B-02163E0134F1.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/7CDF0347-CA84-E511-8518-02163E01260E.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/7CEE7BC7-B384-E511-AE6C-02163E0141A7.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/82ED927E-D184-E511-81D6-02163E014164.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/84944699-C884-E511-AAAD-02163E01260E.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/84FCD10E-C484-E511-A082-02163E011C1A.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/88709E9F-D084-E511-9473-02163E0124C9.root',
+        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/887CB6DB-C584-E511-89F0-02163E014349.root',
+
         )
 	                    )
 
@@ -109,7 +149,7 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
 process.TFileService = cms.Service(
     "TFileService",
     #fileName = cms.string("TEST_EMTF.root")
-    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v7.root")
+    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_rate_v2.root")
     )
 
 

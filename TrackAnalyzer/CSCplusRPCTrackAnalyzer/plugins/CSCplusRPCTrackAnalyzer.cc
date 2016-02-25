@@ -357,6 +357,8 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       unsigned sector = lt->first.sector();
       float phi = (0.05217*lt->first.localPhi()) + (sector-1)*1.1 + 0.0218;//*(3.14159265359/180)
       if(phi > 3.14159) phi -= 6.28318;
+
+      int bx = lt -> first.BX();
       
       // unsigned pti = 0, quality = 0;
       //lt->first.decodeRank(lt->first.rank(),pti,quality);//
@@ -403,12 +405,15 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 	cout << " Track Eta  : " << eta << endl;
 	cout << " Track Phi  : " << phi << endl;
 	cout << " Track Mode : " << mode << endl;
+	cout << " Track Bx   : " << bx << endl;
       }
       
       ev.leg_trkPt   -> push_back(pt);
       ev.leg_trkEta  -> push_back(eta);
       ev.leg_trkPhi  -> push_back(phi);
       ev.leg_trkMode -> push_back(mode);
+      ev.leg_trkBx   -> push_back(bx);
+      
       
       // For each trk, get the list of its LCTs
       CSCCorrelatedLCTDigiCollection LCTs = lt -> second;

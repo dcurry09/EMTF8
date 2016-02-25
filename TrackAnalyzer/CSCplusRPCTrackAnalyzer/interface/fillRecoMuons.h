@@ -32,6 +32,18 @@ bool fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
 
   int numMuons = 0;
   for (MuonCollection::const_iterator muon=muons->begin(); muon!=muons->end(); muon++) {
+
+
+    /*
+    // StandAlone Muons
+    if (muon->isGlobalMuon() ) {
+    ev.samPt -> push_back( muon->standAloneMuon()->pt() );
+    ev.samPhi -> push_back( muon->standAloneMuon()->phi() );
+    ev.samEta -> push_back( muon->standAloneMuon()->eta() );
+    ev.samCharge -> push_back( muon->standAloneMuon()->charge() );
+    }
+    */
+
     
     // global muon
     if (muon->isGlobalMuon() && muon->combinedMuon().isNonnull()) {
@@ -60,13 +72,14 @@ bool fillRecoMuons(DataEvtSummary_t &ev, edm::Handle<reco::MuonCollection> muons
       // Only fill for known CSC eta range
       if ( abs(trackRef->eta()) < 1.1 || abs(trackRef->eta()) > 2.4) continue;
       
-      ev.gmrPt   -> push_back(trackRef->pt    ());
-      ev.gmrPhi  -> push_back(trackRef->phi   ());
-      ev.gmrEta  -> push_back(trackRef->eta   ());
+      ev.gmrPt       -> push_back(trackRef->pt    ());
+      ev.gmrSamPt    -> push_back(muon->standAloneMuon()->pt() );
+      ev.gmrPhi      -> push_back(trackRef->phi   ());
+      ev.gmrEta      -> push_back(trackRef->eta   ());
       ev.gmrChi2Norm -> push_back(trackRef->normalizedChi2());
       ev.gmrD0       -> push_back(trackRef->d0());
       ev.gmrValHits  -> push_back(trackRef->numberOfValidHits());
-      ev.gmrCharge  -> push_back(trackRef->charge());
+      ev.gmrCharge   -> push_back(trackRef->charge());
 
       probeExists = true;
       

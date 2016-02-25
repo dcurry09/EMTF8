@@ -50,14 +50,12 @@ struct DataEvtSummary_t {
   int numGblRecoMuons;
   
   std::vector<float>* gmrPt;
-  std::vector<float>* gmrSamPt;
   std::vector<float>* gmrEta;
   std::vector<float>* gmrPhi;
   std::vector<float>* gmrD0;
   std::vector<float>* gmrChi2Norm;
   std::vector<int>* gmrValHits;
   std::vector<int>* gmrCharge;
-  
 
   // ==================
   // RECO Standalone Muons
@@ -67,7 +65,7 @@ struct DataEvtSummary_t {
   std::vector<float>* samPt;
   std::vector<float>* samEta;
   std::vector<float>* samPhi;
-  std::vector<int>* samCharge;
+  std::vector<int>* sdamCharge;
 
   // Muon Segments
   std::vector<int>* muonNsegs;
@@ -124,7 +122,6 @@ struct DataEvtSummary_t {
   std::vector<float>* trkEta;
   std::vector<float>* trkPhi;
   std::vector<Int_t>* trkMode;
-  std::vector<Int_t>* trkBx;
 
   // Track LCTs
   Int_t trkLctEndcap[MAXTRK][MAXTRKLCTS];
@@ -180,7 +177,6 @@ struct DataEvtSummary_t {
   std::vector<float>* leg_trkEta;
   std::vector<float>* leg_trkPhi;
   std::vector<Int_t>* leg_trkMode;
-  std::vector<Int_t>* leg_trkBx;
 
   // Track LCTs
   Int_t leg_trkLctEndcap[MAXTRK][MAXTRKLCTS];
