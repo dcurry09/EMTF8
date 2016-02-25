@@ -99,7 +99,7 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
                                 cscTPTag     = cms.InputTag("csctfDigis"),
                                 cscSegTag    = cms.InputTag("cscSegments"),
                                 printLevel   = cms.untracked.int32(-1),
-                                NoTagAndProbe= cms.untracked.bool(true),
+                                NoTagAndProbe= cms.untracked.bool(True),
                                 isMC         = cms.untracked.int32(0),
                                 outputDIR    = cms.string('TEST')
                                  ) 
@@ -109,7 +109,7 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
 process.TFileService = cms.Service(
     "TFileService",
     #fileName = cms.string("TEST_EMTF.root")
-    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v8.root")
+    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v7.root")
     )
 
 
