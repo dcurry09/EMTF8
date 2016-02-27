@@ -213,7 +213,7 @@ for iEvt in range(tree.GetEntries()):
             muon_counter['total_tracks'] +=1
         
         # mode to investigate
-        debug_mode = 11
+        debug_mode = 15
 
         if tree.trkMode[0] == debug_mode: continue
         
@@ -224,6 +224,7 @@ for iEvt in range(tree.GetEntries()):
                 
                 if printLevel > 1:
                     print '\n ============================ EMTF DEBUG Mode 15 ====================================='
+                    print 'Event: ', tree.event, ' Run: ', tree.run, '\n'
                     print '\nCSCTF Track # ', iLegTrk, \
                         ' trkPt: ', tree.leg_trkPt[iLegTrk], \
                         ' trkEta: ', tree.leg_trkEta[iLegTrk], \

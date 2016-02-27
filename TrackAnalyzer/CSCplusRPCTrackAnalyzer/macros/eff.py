@@ -21,18 +21,21 @@ else: printLevel = sys.argv[1]
 
 print '------> Importing Root File'
 
-# SingleMuon
-#filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v7.root'
-filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_rate_v2.root'
-#filename = '/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/trees/2016_02_25/TEST_EMTF_RATE_40k.root'
+# Rate
+#filename = '/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/trees/2016_02_25/TEST_EMTF_RATE_120k.root'
+
+# Efficiency
+filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/EMTF_effStudies_ZMu-PromptReco_v1.root'
 
 file = TFile.Open(filename)
 
 # Histogram filename
-newfile = TFile("plots/trig_eff_plots_allEta_Pt16GeV.root","recreate")
+#newfile = TFile("plots/eff.root","recreate")
+newfile = TFile("plots/rate_withMattPt.root","recreate")
+#newfile = TFile("plots/rate.root","recreate")
 
 # Pt cut for plots
-pt_cut = 12
+pt_cut = 0
 
 # Set the branch address of TTree in Tfile
 tree = file.Get("ntuple/tree")
@@ -259,6 +262,12 @@ for ihist, mode in enumerate(mode_list):
 
 
 
+# BX plots
+htrkBx     = TH1F('htrkBx', '', 9, -4.5, 4.5)
+htrkBx_leg = TH1F('htrkBx_leg', '', 9, -4.5, 4.5)
+
+
+
 hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, csctfPt_all_eta4, \
                  hgbl_pt, hcsctf_pt, hgbl_eta, hgbl_phi, htrk_2hitmode_fail, htrk_2hitmode_all, \
                  htrk_phi_fail, hLct_chamber_fail, hLct_sector_fail, hLct_endcap_fail, hLct_ring_fail, \
@@ -285,7 +294,8 @@ hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, 
                  hpt_trigger_gmt_leg, heta_trigger_gmt_leg, hphi_trigger_gmt_leg,\
                  hpt_trigger_gmt, heta_trigger_gmt, hphi_trigger_gmt,\
                  hrate, hrate_leg, hrate_15_14_13_11, hrate_15_14_13_11_leg, hrate_15_14_13, hrate_15_14_13_leg,\
-                 hrate_15_14, hrate_15_14_leg, hrate_15, hrate_15_leg, hrate_gmt, hrate_gmt_leg
+                 hrate_15_14, hrate_15_14_leg, hrate_15, hrate_15_leg, hrate_gmt, hrate_gmt_leg,\
+                 htrkBx_leg, htrkBx
                  ]
 
 # ==================================================================================================
@@ -297,7 +307,7 @@ hist_list = [csctfPt_all, csctfPt_all_eta1, csctfPt_all_eta2, csctfPt_all_eta3, 
 for iEvt in range(tree.GetEntries()):
 
     # for testing
-    #if iEvt > 1000: break
+    #if iEvt > 20000: break
     
     tree.GetEntry(iEvt)
     
@@ -311,22 +321,33 @@ for iEvt in range(tree.GetEntries()):
         
 
     # For rate studies(EMTF vs CSCTF) normalize by looking only at 1 track events
-    #if tree.numTrks != 1: continue
-    #if tree.numLegTrks != 1: continue
+    if tree.numTrks != 1: continue
+    if tree.numLegTrks != 1: continue
+    #if tree.numLegGmtTrks != 1: continue
     #if tree.numGblRecoMuons > 1: continue
 
-    
+    print '\nEMTF pt  : ', tree.trkPt[0]
+    print 'Leg L1 pt  : ', tree.leg_trkPt[0]
+    print 'Leg Matt pt: ', tree.leg_trkPtMatt[0]
+    print 'Leg GMT pt : ', tree.legGMT_trkPt[0]
 
     # ======================================================================
     # RATE Plots
     
     for icscTrk in range(tree.numTrks):
         
+        # temp hack to find EMTF Bx
+        trkBx = EMTF_Bx(iEvt, tree, icscTrk, printLevel)
+        
+        htrkBx.Fill(trkBx)
+
+        if trkBx != 0: continue
+
         for bin in reversed(rate):
 
             if tree.trkPt[icscTrk] > bin: 
                 hrate.Fill(bin)
-
+         
             if tree.trkPt[icscTrk] > bin and tree.trkMode[icscTrk] == 15:
                 hrate_15_14_13_11.Fill(bin)
                 hrate_15_14_13.Fill(bin)
@@ -362,49 +383,50 @@ for iEvt in range(tree.GetEntries()):
 
     for iLegcscTrk in range(tree.numLegTrks):
         
-         if tree.leg_trkBx[iLegcscTrk] != 0: continue
+        htrkBx_leg.Fill(tree.leg_trkBx[iLegcscTrk])
+
+        if tree.leg_trkBx[iLegcscTrk] != 0: continue
         
-         for bin in reversed(rate):
-
-             if tree.leg_trkPt[iLegcscTrk] > bin: 
-                 hrate_leg.Fill(bin)
+        for bin in reversed(rate):
+            
+            if tree.leg_trkPtMatt[iLegcscTrk] > bin: 
+                hrate_leg.Fill(bin)
                 
-             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 15:
-                 hrate_15_14_13_11_leg.Fill(bin)
-                 hrate_15_14_13_leg.Fill(bin)
-                 hrate_15_14_leg.Fill(bin)
-                 hrate_15_leg.Fill(bin)
-                 hrate_gmt_leg.Fill(bin)
+            if tree.leg_trkPtMatt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 15:
+                hrate_15_14_13_11_leg.Fill(bin)
+                hrate_15_14_13_leg.Fill(bin)
+                hrate_15_14_leg.Fill(bin)
+                hrate_15_leg.Fill(bin)
+                hrate_gmt_leg.Fill(bin)
                     
-             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 14:
-                 hrate_15_14_13_11_leg.Fill(bin)
-                 hrate_15_14_13_leg.Fill(bin)
-                 hrate_15_14_leg.Fill(bin)
-                 hrate_gmt_leg.Fill(bin)
+            if tree.leg_trkPtMatt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 14:
+                hrate_15_14_13_11_leg.Fill(bin)
+                hrate_15_14_13_leg.Fill(bin)
+                hrate_15_14_leg.Fill(bin)
+                hrate_gmt_leg.Fill(bin)
 
-             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 13:
-                 hrate_15_14_13_11_leg.Fill(bin)
-                 hrate_15_14_13_leg.Fill(bin)
-                 hrate_gmt_leg.Fill(bin)
-                 
-             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 11:
-                 hrate_15_14_13_11_leg.Fill(bin)
-                 hrate_gmt_leg.Fill(bin)
+            if tree.leg_trkPtMatt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 13:
+                hrate_15_14_13_11_leg.Fill(bin)
+                hrate_15_14_13_leg.Fill(bin)
+                hrate_gmt_leg.Fill(bin)
+
+            if tree.leg_trkPtMatt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 11:
+                hrate_15_14_13_11_leg.Fill(bin)
+                hrate_gmt_leg.Fill(bin)
                     
-             # legacy GMT Q3
-             if tree.leg_trkPt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 7:
-                 hrate_gmt_leg.Fill(bin)
+            # legacy GMT Q3
+            if tree.leg_trkPtMatt[iLegcscTrk] > bin and tree.leg_trkMode[iLegcscTrk] == 7:
+                hrate_gmt_leg.Fill(bin)
 
-             # rate for all modes
-             for ihist, mode in enumerate(mode_list):
-                 if tree.leg_trkMode[iLegcscTrk] == mode:
-                     if tree.leg_trkPt[iLegcscTrk] > bin:
-                         hrate_modes_leg[ihist].Fill(bin)
-
+            # rate for all modes
+            for ihist, mode in enumerate(mode_list):
+                if tree.leg_trkMode[iLegcscTrk] == mode:
+                    if tree.leg_trkPtMatt[iLegcscTrk] > bin:
+                        hrate_modes_leg[ihist].Fill(bin)
+                        
     
     # ==============================================================================================
     
-
 
     # Now check each muon individually and fill hists
     for iReco in range(0, tree.numGblRecoMuons):
@@ -561,19 +583,19 @@ for iEvt in range(tree.GetEntries()):
             # CSCTF track GMT quality
             leg_trkQ = whichQ(iLegcscTrk, tree)
             
-            if tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+            if tree.leg_trkPtMatt[iLegcscTrk] >= pt_cut:
                 hpt_trigger_leg.Fill(pt_muon)
                 heta_trigger_leg.Fill(eta_muon)
                 hphi_trigger_leg.Fill(phi_muon)
 
 
             # CSCTF Mode combinations
-            if leg_trkQ == 3 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+            if leg_trkQ == 3 and tree.leg_trkPtMatt[iLegcscTrk] >= pt_cut:
                 hpt_trigger_gmt_leg.Fill(pt_muon)
                 heta_trigger_gmt_leg.Fill(eta_muon)
                 hphi_trigger_gmt_leg.Fill(phi_muon)
 
-            if tree.leg_trkMode[iLegcscTrk] == 15 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+            if tree.leg_trkMode[iLegcscTrk] == 15 and tree.leg_trkPtMatt[iLegcscTrk] >= pt_cut:
                 hpt_trigger_15_14_13_11_leg.Fill(pt_muon)
                 hpt_trigger_15_14_13_leg.Fill(pt_muon)
                 hpt_trigger_15_14_leg.Fill(pt_muon)
@@ -589,7 +611,7 @@ for iEvt in range(tree.GetEntries()):
                 hphi_trigger_15_14_leg.Fill(phi_muon)
                 hphi_trigger_15_leg.Fill(phi_muon)
 
-            if tree.leg_trkMode[iLegcscTrk] == 14 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+            if tree.leg_trkMode[iLegcscTrk] == 14 and tree.leg_trkPtMatt[iLegcscTrk] >= pt_cut:
                 hpt_trigger_15_14_13_11_leg.Fill(pt_muon)
                 hpt_trigger_15_14_13_leg.Fill(pt_muon)
                 hpt_trigger_15_14_leg.Fill(pt_muon)
@@ -602,7 +624,7 @@ for iEvt in range(tree.GetEntries()):
                 hphi_trigger_15_14_13_leg.Fill(phi_muon)
                 hphi_trigger_15_14_leg.Fill(phi_muon)
 
-            if tree.leg_trkMode[iLegcscTrk] == 13 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+            if tree.leg_trkMode[iLegcscTrk] == 13 and tree.leg_trkPtMatt[iLegcscTrk] >= pt_cut:
                 hpt_trigger_15_14_13_11_leg.Fill(pt_muon)
                 hpt_trigger_15_14_13_leg.Fill(pt_muon)
 
@@ -612,7 +634,7 @@ for iEvt in range(tree.GetEntries()):
                 hphi_trigger_15_14_13_11_leg.Fill(phi_muon)
                 hphi_trigger_15_14_13_leg.Fill(phi_muon)
 
-            if tree.leg_trkMode[iLegcscTrk] == 11 and tree.leg_trkPt[iLegcscTrk] >= pt_cut:
+            if tree.leg_trkMode[iLegcscTrk] == 11 and tree.leg_trkPtMatt[iLegcscTrk] >= pt_cut:
                 hpt_trigger_15_14_13_11_leg.Fill(pt_muon)
                 heta_trigger_15_14_13_11_leg.Fill(eta_muon)
                 hphi_trigger_15_14_13_11_leg.Fill(phi_muon)

@@ -15,8 +15,8 @@ from ROOT import gROOT
 
 
 # Root file of Histograms
-#file = TFile('plots/mc_allEvents.root')
-file = TFile('plots/trig_eff_plots_allEta_Pt16GeV.root')
+file = TFile('plots/rate_withMattPt.root')
+#file = TFile('plots/rate.root')
 
 title = 'test'
 
@@ -128,6 +128,13 @@ cRate.Modified()
 cRate.Update()
 cRate.SaveAs('plots/rate_'+title+'.pdf')
 
+rate_15_14_13_11.Delete()
+rate_15_14_13.Delete()
+rate_15_14.Delete()
+rate_15.Delete()
+rate.Delete()
+rate_gmt.Delete()
+
 
 # Legacy ============================================================
 cRate_leg.cd()
@@ -213,32 +220,85 @@ cRate_divide.cd()
 cRate_divide.SetGridx()
 cRate_divide.SetGridy()
 
-rate_15_14_13_11.Divide(rate_15_14_13_11_leg)
-rate_15_14_13.Divide(rate_15_14_13_leg)
-rate_15_14.Divide(rate_15_14_leg)
-rate_15.Divide(rate_15_leg)
-rate_gmt.Divide(rate_gmt_leg)
-rate.Divide(rate_leg)
+r1     = file.Get('hrate')
+r1_leg = file.Get('hrate_leg')
 
-rate_15_14_13_11.SetStats(0)
+r2     = file.Get('hrate_gmt')
+r2_leg = file.Get('hrate_gmt_leg')
 
-rate_15_14_13_11.Draw()
-rate_15_14_13.Draw('same')
-rate_15_14.Draw('same')
-rate_15.Draw('same')
-rate_gmt.Draw('same')
-rate.Draw('same')
+r3 = file.Get('hrate_15_14_13_11')
+r4 = file.Get('hrate_15_14_13')
+r5 = file.Get('hrate_15_14')
+r6 = file.Get('hrate_15')
+
+r3_leg = file.Get('hrate_15_14_13_11_leg')
+r4_leg = file.Get('hrate_15_14_13_leg')
+r5_leg = file.Get('hrate_15_14_leg')
+r6_leg = file.Get('hrate_15_leg')
+
+r1.Divide(r1_leg)
+r2.Divide(r2_leg)
+r3.Divide(r3_leg)
+r4.Divide(r4_leg)
+r5.Divide(r5_leg)
+r6.Divide(r6_leg)
+
+r1.SetStats(0)
+r1.SetLineColor(kBlue)
+r1.SetLineWidth(2)
+
+r2.SetLineColor(6)
+r2.SetLineWidth(2)
+r2.SetMarkerStyle(23)
+r2.SetMarkerSize(0.8)
+
+r3.SetLineColor(kRed)
+r3.SetLineWidth(2)
+r3.SetMarkerStyle(23)
+r3.SetMarkerSize(0.8)
+
+r4.SetLineColor(kGreen)
+r4.SetLineWidth(2)
+r4.SetMarkerStyle(23)
+r4.SetMarkerSize(0.8)
+
+r5.SetLineColor(kBlack)
+r5.SetLineWidth(2)
+r5.SetMarkerStyle(23)
+r5.SetMarkerSize(0.8)
+
+r6.SetLineColor(kOrange)
+r6.SetLineWidth(2)
+r6.SetMarkerStyle(23)
+r6.SetMarkerSize(0.8)
+
+s1 = THStack('s1', '')
+
+s1.Add(r1)
+s1.Add(r2)
+s1.Add(r3)
+s1.Add(r4)
+s1.Add(r5)
+s1.Add(r6)
+
+s1.Draw('nostack')
+s1.GetXaxis().SetTitle("EMTF p_{T}[GeV]")
+s1.GetYaxis().SetTitle("EMTF/CSCTF")
+s1.GetYaxis().SetTitleOffset(1.35)
+s1.GetXaxis().SetNdivisions(509)
+s1.GetYaxis().SetNdivisions(514)
+
 
 
 lrate_d = TLegend(0.85,1,1,0.6);
 lrate_d.SetBorderSize(0)
 lrate_d.SetFillColor(0)
-lrate_d.AddEntry(rate, "All Modes")
-lrate_d.AddEntry(rate_gmt, "GMT Modes")
-lrate_d.AddEntry(rate_15_14_13_11, "uGMT Modes")
-lrate_d.AddEntry(rate_15_14_13, "15-14-13")
-lrate_d.AddEntry(rate_15_14, "15-14")
-lrate_d.AddEntry(rate_15, "15")
+lrate_d.AddEntry(r1, "All Modes")
+lrate_d.AddEntry(r2, "GMT Modes")
+lrate_d.AddEntry(r3, "uGMT Modes")
+lrate_d.AddEntry(r4, "15-14-13")
+lrate_d.AddEntry(r5, "15-14")
+lrate_d.AddEntry(r6, "15")
 lrate_d.Draw("same")
 
 

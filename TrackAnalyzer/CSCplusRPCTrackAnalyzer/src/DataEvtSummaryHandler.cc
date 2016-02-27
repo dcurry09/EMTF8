@@ -124,8 +124,11 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("trkPhi", &evSummary_.trkPhi);
     t_->Branch("trkMode",&evSummary_.trkMode);
     t_->Branch("trkMode",&evSummary_.trkBx);
-    t_->Branch("numTrkLCTs", &evSummary_.numTrkLCTs);
 
+    
+
+
+    t_->Branch("numTrkLCTs", &evSummary_.numTrkLCTs);
     t_->Branch("trkLctEndcap",    &evSummary_.trkLctEndcap,    "trkLctEndcap[4][4]/I");
     t_->Branch("trkLctChamber",    &evSummary_.trkLctChamber,    "trkLctChamber[4][4]/I");
     t_->Branch("trkLctStation",    &evSummary_.trkLctStation,    "trkLctStation[4][4]/I");
@@ -163,6 +166,8 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("leg_trkMode",&evSummary_.leg_trkMode);
     t_->Branch("leg_trkBx",&evSummary_.leg_trkBx);
 
+    t_->Branch("leg_trkPtMatt",  &evSummary_.leg_trkPtMatt);
+
     t_->Branch("numLegTrkLCTs", &evSummary_.numLegTrkLCTs);
     t_->Branch("leg_trkLctEndcap",    &evSummary_.leg_trkLctEndcap,    "leg_trkLctEndcap[4][4]/I");
     t_->Branch("leg_trkLctChamber",    &evSummary_.leg_trkLctChamber,    "leg_trkLctChamber[4][4]/I");
@@ -177,7 +182,15 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("leg_trkLctLocPhi",    &evSummary_.leg_trkLctLocPhi,    "leg_trkLctLocPhi[4][4]/I");
     t_->Branch("leg_trkLctLocEta",    &evSummary_.leg_trkLctLocEta,    "leg_trkLctLocEta[4][4]/I");
     
-
+    
+    // ====================
+    // Legacy GMT Tracks
+    // ====================
+    t_->Branch("numLegGmtTrks",    &evSummary_.numLegGmtTrks,    "numLegGmtTrks/I");
+    t_->Branch("legGMT_trkPt",  &evSummary_.legGMT_trkPt);
+    t_->Branch("legGMT_trkEta", &evSummary_.legGMT_trkEta);
+    t_->Branch("legGMT_trkPhi", &evSummary_.legGMT_trkPhi);
+    
 
     return true;
 }
@@ -355,8 +368,15 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.leg_trkPhi  = new vector<float>;
   evSummary_.leg_trkMode = new vector<Int_t>;
   evSummary_.leg_trkBx   = new vector<Int_t>;
+
+  evSummary_.leg_trkPtMatt   = new vector<float>;
   
   evSummary_.numLegTrkLCTs = new vector<Int_t>;
+
+  evSummary_.numLegGmtTrks = 0;
+  evSummary_.legGMT_trkPt   = new vector<float>;
+  evSummary_.legGMT_trkEta  = new vector<float>;
+  evSummary_.legGMT_trkPhi  = new vector<float>;
 
   
 }
@@ -459,6 +479,13 @@ void DataEvtSummaryHandler::resetStruct() {
   vector<float>().swap(*evSummary_.leg_trkPhi);
   vector<Int_t>().swap(*evSummary_.leg_trkMode);
   vector<Int_t>().swap(*evSummary_.leg_trkBx);
+
+  vector<float>().swap(*evSummary_.leg_trkPtMatt);
+  
+  vector<float>().swap(*evSummary_.legGMT_trkPt);
+  vector<float>().swap(*evSummary_.legGMT_trkEta);
+  vector<float>().swap(*evSummary_.legGMT_trkPhi);
+
 
 }
 

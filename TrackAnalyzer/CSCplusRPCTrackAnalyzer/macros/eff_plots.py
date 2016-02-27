@@ -15,8 +15,8 @@ from ROOT import gROOT
 
 
 # Root file of Histograms
-#file = TFile('plots/mc_allEvents.root')
-file = TFile('plots/trig_eff_plots_allEta_Pt16GeV.root')
+file = TFile('plots/eff.root')
+#file = TFile('plots/eff_withMattPt.root')
 
 title = 'test'
 

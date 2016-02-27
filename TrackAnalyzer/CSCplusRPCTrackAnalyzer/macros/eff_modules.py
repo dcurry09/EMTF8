@@ -17,6 +17,46 @@ from array import *
 
 
 
+def EMTF_Bx(iEvt, tree, iTrk, printLevel):
+
+    '''
+    Takes in an EMTF track and assigns it a Bx based on second in time LCT Bx from the event record.
+    '''
+
+    Bx = 0
+    bx_list = []
+    
+    # Loop over EMTF LCTs
+    for iLct in range(0,tree.numTrkLCTs[iTrk]):
+    
+        if iLct > 3: continue
+        if iTrk > 3: continue
+        
+        # Loop over Event LCTS, Match by wire/strip and take its' BX.
+        for iEvtLCT in range(0,tree.numLCTs):
+            
+            if iEvtLCT > tree.numLCTs: continue
+
+            if tree.trkLctWire[iTrk*4 + iLct]  != tree.lctWire[iEvtLCT]:  continue
+            if tree.trkLctStrip[iTrk*4 + iLct] != tree.lctStrip[iEvtLCT]: continue
+
+            # take the event LCT BX. Store in a list.
+            bx_list.append(tree.lctBx[iEvtLCT])
+            
+    
+             
+    # Take the second highest BX form the list and assign t=it to EMTF track Bx.
+
+    if len(bx_list) > 1:
+        bx_list.remove(max(bx_list))
+        Bx = bx_list[0] - 6
+
+    elif len(bx_list) == 1:
+        Bx = bx_list[0] - 6
+
+
+    return Bx
+
 
 def deltaRLegTrackMuon(iEvt, tree, iReco, printLevel):
     

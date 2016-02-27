@@ -181,6 +181,8 @@ struct DataEvtSummary_t {
   std::vector<float>* leg_trkPhi;
   std::vector<Int_t>* leg_trkMode;
   std::vector<Int_t>* leg_trkBx;
+  
+  std::vector<float>* leg_trkPtMatt;
 
   // Track LCTs
   Int_t leg_trkLctEndcap[MAXTRK][MAXTRKLCTS];
@@ -195,7 +197,15 @@ struct DataEvtSummary_t {
   float leg_trkLctGblEta[MAXTRK][MAXTRKLCTS];
   Int_t leg_trkLctLocPhi[MAXTRK][MAXTRKLCTS];
   Int_t leg_trkLctLocEta[MAXTRK][MAXTRKLCTS];
-  
+
+  // ====================
+  // Legacy GMT CSC Tracks
+  // ====================
+  Int_t numLegGmtTrks;
+
+  std::vector<float>* legGMT_trkPt;
+  std::vector<float>* legGMT_trkEta;
+  std::vector<float>* legGMT_trkPhi;
   
 };
 
