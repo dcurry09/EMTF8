@@ -206,6 +206,8 @@ struct DataEvtSummary_t {
   std::vector<float>* legGMT_trkPt;
   std::vector<float>* legGMT_trkEta;
   std::vector<float>* legGMT_trkPhi;
+  std::vector<Int_t>* legGMT_trkBx;
+  std::vector<Int_t>* legGMT_trkQual;
   
 };
 

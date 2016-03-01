@@ -58,8 +58,8 @@ void L1Analysis::L1AnalysisGMT::Set(const L1MuGMTReadoutCollection* gmtrc, unsig
    // CSC Trigger
    //  
   
-   rmc = igmtrr->getCSCCands();
-   for(iter1=rmc.begin(); iter1!=rmc.end(); iter1++) {
+  rmc = igmtrr->getCSCCands();
+  for(iter1=rmc.begin(); iter1!=rmc.end(); iter1++) {
      if ( (unsigned) gmt_.Ncsc < maxCSC && !(*iter1).empty() ) {
        gmt_.Bxcsc.push_back((*iter1).bx());
        if(physVal) {  	  

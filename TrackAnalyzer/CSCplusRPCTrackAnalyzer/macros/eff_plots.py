@@ -12,7 +12,7 @@ import re
 from ROOT import *
 from matplotlib import interactive
 from ROOT import gROOT
-
+from eff_modules import *
 
 # Root file of Histograms
 file = TFile('plots/eff.root')
@@ -546,7 +546,116 @@ cPt_leg.Update()
 cPt_leg.SaveAs('plots/efficiency_pt_leg_'+title+'.pdf')
 
 
+# ========= Ratio of Pt plots ============
+cEff_divide = TCanvas('cEff_divide')
+cEff_divide.cd()
+cEff_divide.SetGridx()
+cEff_divide.SetGridy()
 
+copy_tg_pt_leg             = tg_pt_leg.Clone('copy_tg_pt_leg')
+copy_tg_pt_15_14_13_11_leg = tg_pt_15_14_13_11_leg.Clone('copy_tg_pt_15_14_13_11_leg')
+copy_tg_pt_15_14_13_leg    = tg_pt_15_14_13_leg.Clone('copy_tg_pt_15_14_13_leg')
+copy_tg_pt_15_14_leg       = tg_pt_15_14_leg.Clone('copy_tg_pt_15_14_leg')
+copy_tg_pt_15_leg          = tg_pt_15_leg.Clone('copy_tg_pt_15_leg')
+copy_tg_pt_gmt_leg         = tg_pt_gmt_leg.Clone('copy_tg_pt_gmt_leg')
+
+copy_tg_pt             = tg_pt.Clone('copy_tg_pt')
+copy_tg_pt_15_14_13_11 = tg_pt_15_14_13_11.Clone('copy_tg_pt_15_14_13_11')
+copy_tg_pt_15_14_13    = tg_pt_15_14_13.Clone('copy_tg_pt_15_14_13')
+copy_tg_pt_15_14       = tg_pt_15_14.Clone('copy_tg_pt_15_14')
+copy_tg_pt_15          = tg_pt_15.Clone('copy_tg_pt_15')
+copy_tg_pt_gmt         = tg_pt_gmt.Clone('copy_tg_pt_gmt')
+
+# ===== Loop over the tgraphs and get EMTF/CSCTF ratio by accessing bin contents =====
+
+# tgraph bins
+nbins = pt_tr.GetSize() - 2
+
+effPt_divide             = TH1F('effPt_divide', '', len(scale_pt_temp)-1, scale_pt)
+effPt_divide_15_14_13_11 = TH1F('effPt_divide_15_14_13_11', '', len(scale_pt_temp)-1, scale_pt)
+effPt_divide_15_14_13    = TH1F('effPt_divide_15_14_13', '',len(scale_pt_temp)-1, scale_pt)
+effPt_divide_15_14       = TH1F('effPt_divide_15_14', '',len(scale_pt_temp)-1, scale_pt)
+effPt_divide_15          = TH1F('effPt_divide_15', '',len(scale_pt_temp)-1, scale_pt)
+effPt_divide_gmt         = TH1F('effPt_divide_gmt', '',len(scale_pt_temp)-1, scale_pt)
+
+for i, bin in enumerate(scale_pt_temp):
+
+    y_value             = copy_tg_pt.Eval(bin)
+    y_value_15_14_13_11 = copy_tg_pt_15_14_13_11.Eval(bin)
+    y_value_15_14_13    = copy_tg_pt_15_14_13.Eval(bin)
+    y_value_15_14       = copy_tg_pt_15_14.Eval(bin)
+    y_value_15          = copy_tg_pt_15.Eval(bin)
+    y_value_gmt         = copy_tg_pt_gmt.Eval(bin)
+
+    y_value_leg             = copy_tg_pt_leg.Eval(bin)
+    y_value_15_14_13_11_leg = copy_tg_pt_15_14_13_11_leg.Eval(bin)
+    y_value_15_14_13_leg    = copy_tg_pt_15_14_13_leg.Eval(bin)
+    y_value_15_14_leg       = copy_tg_pt_15_14_leg.Eval(bin)
+    y_value_15_leg          = copy_tg_pt_15_leg.Eval(bin)
+    y_value_gmt_leg         = copy_tg_pt_gmt_leg.Eval(bin)
+
+    y_value_div             = y_value             / y_value_leg 
+    y_value_15_14_13_11_div = y_value_15_14_13_11 /  y_value_15_14_13_11_leg
+    y_value_15_14_13_div    = y_value_15_14_13    /  y_value_15_14_13_leg
+    y_value_15_14_div       = y_value_15_14       /  y_value_15_14_leg
+    y_value_15_div          = y_value_15          /  y_value_15_leg
+    y_value_gmt_div         = y_value_gmt         /  y_value_gmt_leg
+
+
+    # Set divide hitogram bin content
+    effPt_divide.SetBinContent(i,  y_value_div)
+    effPt_divide_15_14_13_11.SetBinContent(i,  y_value_15_14_13_11_div)
+    effPt_divide_15_14_13.SetBinContent(i,  y_value_15_14_13_div)
+    effPt_divide_15_14.SetBinContent(i,  y_value_15_14_div)
+    effPt_divide_15.SetBinContent(i,  y_value_15_div)
+    effPt_divide_gmt.SetBinContent(i,  y_value_gmt_div)
+
+# ==================================
+
+effPt_divide.SetLineColor(kBlue)
+effPt_divide.SetLineWidth(2)
+
+effPt_divide_15_14_13_11.SetLineColor(kRed)
+effPt_divide_15_14_13_11.SetLineWidth(2)
+
+effPt_divide_gmt.SetLineColor(6)
+effPt_divide_gmt.SetLineWidth(2)
+
+effPt_divide_15_14_13.SetLineColor(kGreen)
+effPt_divide_15_14_13.SetLineWidth(2)
+
+effPt_divide_15_14.SetLineColor(kBlack)
+effPt_divide_15_14.SetLineWidth(2)
+
+effPt_divide_15.SetLineColor(kOrange)
+effPt_divide_15.SetLineWidth(2)
+
+s1 = THStack('s1', '')
+
+s1.Add( effPt_divide)
+s1.Add( effPt_divide_15_14_13_11)
+s1.Add( effPt_divide_15_14_13)
+s1.Add( effPt_divide_15_14)
+s1.Add( effPt_divide_15)
+s1.Add( effPt_divide_gmt)
+
+s1.Draw('nostack')
+s1.GetXaxis().SetTitle("EMTF p_{T}[GeV]")
+s1.GetYaxis().SetTitle("EMTF/CSCTF")
+s1.GetYaxis().SetTitleOffset(1.35)
+s1.GetXaxis().SetNdivisions(509)
+s1.GetYaxis().SetNdivisions(514)
+
+lptl.Draw('same')
+
+
+cEff_divide.Modified()
+cEff_divide.Update()
+cEff_divide.SaveAs('plots/eff_pt_divide_'+title+'.pdf')
+
+
+
+# ========================================================================
 
 # Quick plotting
 # List of variables to plot:  var name, # of bins, x-axis range, x axis

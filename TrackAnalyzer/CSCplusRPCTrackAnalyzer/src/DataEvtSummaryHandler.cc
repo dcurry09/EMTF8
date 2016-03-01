@@ -190,7 +190,8 @@ bool DataEvtSummaryHandler::initTree(TTree *t)
     t_->Branch("legGMT_trkPt",  &evSummary_.legGMT_trkPt);
     t_->Branch("legGMT_trkEta", &evSummary_.legGMT_trkEta);
     t_->Branch("legGMT_trkPhi", &evSummary_.legGMT_trkPhi);
-    
+    t_->Branch("legGMT_trkQual", &evSummary_.legGMT_trkQual);
+    t_->Branch("legGMT_trkBx", &evSummary_.legGMT_trkBx);
 
     return true;
 }
@@ -377,7 +378,8 @@ void DataEvtSummaryHandler::initStruct() {
   evSummary_.legGMT_trkPt   = new vector<float>;
   evSummary_.legGMT_trkEta  = new vector<float>;
   evSummary_.legGMT_trkPhi  = new vector<float>;
-
+  evSummary_.legGMT_trkBx    = new vector<Int_t>;
+  evSummary_.legGMT_trkQual  = new vector<Int_t>;
   
 }
 
@@ -485,7 +487,8 @@ void DataEvtSummaryHandler::resetStruct() {
   vector<float>().swap(*evSummary_.legGMT_trkPt);
   vector<float>().swap(*evSummary_.legGMT_trkEta);
   vector<float>().swap(*evSummary_.legGMT_trkPhi);
-
+  vector<Int_t>().swap(*evSummary_.legGMT_trkBx);
+  vector<Int_t>().swap(*evSummary_.legGMT_trkQual);
 
 }
 

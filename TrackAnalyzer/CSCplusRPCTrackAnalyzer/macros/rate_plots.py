@@ -15,8 +15,7 @@ from ROOT import gROOT
 
 
 # Root file of Histograms
-file = TFile('plots/rate_withMattPt.root')
-#file = TFile('plots/rate.root')
+file = TFile('plots/rate.root')
 
 title = 'test'
 
@@ -246,6 +245,8 @@ r6.Divide(r6_leg)
 r1.SetStats(0)
 r1.SetLineColor(kBlue)
 r1.SetLineWidth(2)
+r1.SetMarkerStyle(23)
+r1.SetMarkerSize(0.8)
 
 r2.SetLineColor(6)
 r2.SetLineWidth(2)
@@ -274,12 +275,13 @@ r6.SetMarkerSize(0.8)
 
 s1 = THStack('s1', '')
 
-s1.Add(r1)
+
 s1.Add(r2)
 s1.Add(r3)
 s1.Add(r4)
 s1.Add(r5)
 s1.Add(r6)
+s1.Add(r1)
 
 s1.Draw('nostack')
 s1.GetXaxis().SetTitle("EMTF p_{T}[GeV]")

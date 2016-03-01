@@ -518,13 +518,22 @@ def is_track_match(iEvt, csc, id_list, printLevel):
 
     if printLevel > 0: print '-----> Checking for Track Lct - Seg Lct Match.'
 
-    list = [False, 999]
+    # the final list returned with best matched track
+    return_list = [False, 999]
 
-    is_lct_match = False
+    # keep list of all matched tracks.  Choose the best mode. [iTrk, modeTrk]
+    track_list = [ [], [] ]
+
+    isTrk_match = False
     
     # Does a track have the same Lcts that segs matched to?
     # Loop over tracks
     for iTrk in range(0, csc.numTrks):
+
+        if iTrk > 3: break
+
+        is_lct_match = False
+        
         for iLct in range(0, csc.numTrkLCTs[iTrk]):
             
             if is_lct_match: break
@@ -570,14 +579,32 @@ def is_track_match(iEvt, csc, id_list, printLevel):
                 #if csc.trLctglobalPhi[iTrk*4 + iLct] != csc.lctglobalPhi.at(x):   continue
                 
                 is_lct_match = True
+
+                isTrk_match  = True
                     
                 if printLevel > 1: print'\n-----> Seg Lct and Track Lct are matched.'
-                    
-                list[0], list[1] = True, iTrk
+                
+                track_list[0].append(iTrk)
+                track_list[1].append(csc.trkMode[iTrk])
+                
+
+
+    if isTrk_match:
+
+        # Choose best mode as matched track
+        bestIndex = track_list[1].index(max(track_list[1]))
+        bestTrk   = track_list[0][bestIndex]
+        
+        #print 'track list[0]: ', track_list[0]
+        #print 'track list[1]: ', track_list[1]
+        #print 'best Index: ', bestIndex, 'best Trk: ', bestTrk
+    
+        return_list[0], return_list[1] = True, bestTrk
                         
-    if printLevel > 0 and not is_lct_match: print '-----> Could not match muon to a track.'
+    
+    if printLevel > 0 and not isTrk_match: print '-----> Could not match muon to a track.'
                     
-    return list
+    return return_list
                 
 # end is track match
 
@@ -592,13 +619,21 @@ def is_track_match_leg(iEvt, csc, id_list, printLevel):
 
     if printLevel > 0: print '-----> Checking for Track Lct - Seg Lct Match.'
 
-    list = [False, 999]
+    return_list = [False, 999]
 
-    is_lct_match = False
+     # keep list of all matched tracks.  Choose the best mode. [iTrk, modeTrk]
+    track_list = [ [], [] ]
+
+    isTrk_match = False
     
     # Does a track have the same Lcts that segs matched to?
     # Loop over tracks
     for iTrk in range(0, csc.numLegTrks):
+        
+        if iTrk > 3: break
+
+        is_lct_match = False
+        
         for iLct in range(0, csc.numLegTrkLCTs[iTrk]):
             
             if is_lct_match: break
@@ -645,13 +680,26 @@ def is_track_match_leg(iEvt, csc, id_list, printLevel):
                 
                 is_lct_match = True
                     
+                isTrk_match  = True
+
                 if printLevel > 1: print'\n-----> Seg Lct and Track Lct are matched.'
-                    
-                list[0], list[1] = True, iTrk
+
+                track_list[0].append(iTrk)
+                track_list[1].append(csc.leg_trkMode[iTrk])
+                
+
+    
+    if isTrk_match:
+
+        # Choose best mode as matched track
+        bestIndex = track_list[1].index(max(track_list[1]))
+        bestTrk   = track_list[0][bestIndex]
+
+        return_list[0], return_list[1] = True, bestTrk
                         
-    if printLevel > 0 and not is_lct_match: print '-----> Could not match muon to a track.'
+    if printLevel > 0 and not isTrk_match: print '-----> Could not match muon to a track.'
                     
-    return list
+    return return_list
                 
 # end is track match
 
@@ -682,7 +730,7 @@ num_etaBins = 16
 scale_phi_temp = [0]*num_phiBins
 scale_eta_temp = [0]*num_etaBins
 
-scale_pt_temp = [3, 5, 8, 10, 12, 15, 20, 25, 30, 35, 50, 75, 100]
+scale_pt_temp = [0, 3, 5, 8, 10, 12, 16, 20, 25, 30, 35, 50, 75, 100]
 
 # Initialize phi
 phiMin = -np.pi

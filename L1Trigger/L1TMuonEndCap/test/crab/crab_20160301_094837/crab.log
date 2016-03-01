@@ -1,0 +1,1554 @@
+L1TCalorimeter Sequence configured for Run1 (Legacy) trigger. 
+L1TMuon Sequence configured for Legacy trigger (Run1 and Run 2015). 
+L1TGlobal Sequence configured for Legacy trigger (Run1 and Run 2015). 
+L1TRawToDigi Sequence configured for Run1 (Legacy) trigger. 
+# Conditions read from  CMS_CONDITIONS  via FrontierProd 
+DEBUG 2016-03-01 09:48:36,777: 	 Executing command: 'submit'
+DEBUG 2016-03-01 09:48:36,778: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:48:36,794: 	 Checking credentials
+DEBUG 2016-03-01 09:48:36,794: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:48:36,794: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:48:37,402: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 84044
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:48:37,908: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 84043
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:48:37,908: 	 Proxy valid for 23:20:44 hours
+INFO 2016-03-01 09:48:37,912: 	 Will use CRAB configuration file crabConfig.py
+DEBUG 2016-03-01 09:48:37,912: 	 Loading CRAB configuration file.
+DEBUG 2016-03-01 09:48:38,040: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:48:38,040: 	 Checking credentials
+DEBUG 2016-03-01 09:48:38,040: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:48:38,040: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:48:38,544: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 84043
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:48:39,050: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 84041
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:48:39,051: 	 Proxy valid for 23:20:43 hours
+DEBUG 2016-03-01 09:48:39,558: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u37753 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+/cms/uscms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:48:39,934: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:48:40,043: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:48:40,043: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:48:40,043: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:48:40,247: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:21:57  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:48:40,248: 	 Myproxy is valid: 2589717
+DEBUG 2016-03-01 09:48:40,248: 	 Command use: submit
+DEBUG 2016-03-01 09:48:40,249: 	 Options use: []
+DEBUG 2016-03-01 09:48:40,632: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:48:40,632: 	 Instance is prod
+DEBUG 2016-03-01 09:48:40,632: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:48:40,632: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:48:40,633: 	 Started submission
+DEBUG 2016-03-01 09:48:40,633: 	 Working on /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+DEBUG 2016-03-01 09:48:41,097: 	 Loading required information from the environment
+DEBUG 2016-03-01 09:48:41,097: 	 Found CMSSW_8_0_0_pre5 for slc6_amd64_gcc493 with base /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5
+DEBUG 2016-03-01 09:48:41,120: 	 UNIQUE NAME: tarUUID f1ad63de-02b8-4ce8-8351-28999268a098 
+DEBUG 2016-03-01 09:48:41,121: 	 self.config: from WMCore.Configuration import Configuration
+config = Configuration()
+config.section_('General')
+config.General.transferOutputs = True
+config.section_('JobType')
+config.JobType.psetName = 'runMuonEndCap_dcurry_Feb11.py'
+config.section_('Data')
+config.Data.inputDataset = '/ZeroBias1/Run2015D-PromptReco-v3/RECO'
+config.Data.outputDatasetTag = 'EMTF_Rate_Studies_ZeroBias_v1'
+config.Data.totalUnits = 20
+config.Data.unitsPerJob = 1
+config.Data.inputDBS = 'global'
+config.Data.splitting = 'LumiBased'
+config.Data.useParent = True
+config.Data.outLFNDirBase = '/store/user/dcurry/EMTF/rate_v1/'
+config.section_('Site')
+config.Site.storageSite = 'T2_CH_CERN'
+config.section_('User')
+config.section_('Debug')
+
+DEBUG 2016-03-01 09:48:41,121: 	 self.config.JobType.psetName: runMuonEndCap_dcurry_Feb11.py
+INFO 2016-03-01 09:48:41,121: 	 Importing CMSSW configuration runMuonEndCap_dcurry_Feb11.py
+INFO 2016-03-01 09:48:43,350: 	 Finished importing CMSSW configuration runMuonEndCap_dcurry_Feb11.py
+DEBUG 2016-03-01 09:48:43,350: 	 Writing CMSSW configuration to /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/inputs/PSet.py
+DEBUG 2016-03-01 09:48:43,827: 	 The following EDM output files will be collected: []
+DEBUG 2016-03-01 09:48:43,827: 	 The following TFile output files will be collected: ['EMTF_effStudies_ZMu-PromptReco_v1.root']
+DEBUG 2016-03-01 09:48:43,827: 	 The following user output files will be collected: []
+DEBUG 2016-03-01 09:48:43,827: 	 Loading required information from the environment
+DEBUG 2016-03-01 09:48:43,827: 	 Found CMSSW_8_0_0_pre5 for slc6_amd64_gcc493 with base /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5
+DEBUG 2016-03-01 09:48:43,827: 	 Making tarball in /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/inputs/f1ad63de-02b8-4ce8-8351-28999268a098default.tgz
+DEBUG 2016-03-01 09:48:43,828: 	 Checking directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/lib
+DEBUG 2016-03-01 09:48:43,828: 	 Adding directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/lib to tarball
+DEBUG 2016-03-01 09:48:48,371: 	 Checking directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/biglib
+DEBUG 2016-03-01 09:48:48,371: 	 Adding directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/biglib to tarball
+DEBUG 2016-03-01 09:48:48,372: 	 Checking directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/module
+DEBUG 2016-03-01 09:48:48,611: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/CondFormats/DataRecord/interface to tarball
+DEBUG 2016-03-01 09:48:48,748: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/CondFormats/L1TObjects/interface to tarball
+DEBUG 2016-03-01 09:48:48,797: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1DTTrackFinder/interface to tarball
+DEBUG 2016-03-01 09:48:48,802: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1TGlobal/interface to tarball
+DEBUG 2016-03-01 09:48:48,805: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1TMuon/interface to tarball
+DEBUG 2016-03-01 09:48:48,824: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1Trigger/interface to tarball
+DEBUG 2016-03-01 09:48:48,841: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/EventFilter/L1TRawToDigi/interface to tarball
+DEBUG 2016-03-01 09:48:48,854: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/EventFilter/L1TRawToDigi/data to tarball
+DEBUG 2016-03-01 09:48:49,045: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/EventFilter/RawDataCollector/interface to tarball
+DEBUG 2016-03-01 09:48:49,053: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/HardwareValidation/interface to tarball
+DEBUG 2016-03-01 09:48:49,064: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TCalorimeter/data to tarball
+DEBUG 2016-03-01 09:48:49,330: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TCalorimeter/interface to tarball
+DEBUG 2016-03-01 09:48:49,369: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TGlobal/data to tarball
+DEBUG 2016-03-01 09:48:49,395: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TGlobal/interface to tarball
+DEBUG 2016-03-01 09:48:49,425: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuon/interface to tarball
+DEBUG 2016-03-01 09:48:49,440: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuon/data to tarball
+DEBUG 2016-03-01 09:48:53,576: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonBarrel/interface to tarball
+DEBUG 2016-03-01 09:48:53,585: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/interface to tarball
+DEBUG 2016-03-01 09:48:53,637: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonOverlap/interface to tarball
+DEBUG 2016-03-01 09:48:53,650: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TNtuples/interface to tarball
+DEBUG 2016-03-01 09:48:53,691: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface to tarball
+DEBUG 2016-03-01 09:48:53,927: 	 Uploading archive /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/inputs/f1ad63de-02b8-4ce8-8351-28999268a098default.tgz to the CRAB cache. Using URI https://cmsweb.cern.ch/crabcache
+DEBUG 2016-03-01 09:49:02,360: 	 Result uploading input files: 60385fc2dffab00ba3d78a969d132cb6d5f788af203f1cbad2b23ddd9764290c.tar.gz 
+WARNING 2016-03-01 09:49:02,361: 	 Warning: The following output files will not be published, as they are not EDM files: ['EMTF_effStudies_ZMu-PromptReco_v1.root']
+INFO 2016-03-01 09:49:02,361: 	 Sending the request to the server
+DEBUG 2016-03-01 09:49:02,361: 	 Submitting {'maxjobruntime': 1250, 'ignorelocality': 0, 'savelogsflag': 0, 'useparent': 1, 'asyncdest': 'T2_CH_CERN', 'algoargs': 1, 'cachefilename': '60385fc2dffab00ba3d78a969d132cb6d5f788af203f1cbad2b23ddd9764290c.tar.gz', 'numcores': 1, 'addoutputfiles': [], 'generator': 'pythia', 'maxmemory': 2000, 'publishdbsurl': 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter', 'priority': 10, 'jobsw': 'CMSSW_8_0_0_pre5', 'edmoutfiles': [], 'userfiles': [], 'primarydataset': '', 'inputdata': '/ZeroBias1/Run2015D-PromptReco-v3/RECO', 'lfn': '/store/user/dcurry/EMTF/rate_v1/', 'dryrun': 0, 'workflow': 'crab_20160301_094837', 'adduserfiles': [], 'nonprodsw': 0, 'tfileoutfiles': ['EMTF_effStudies_ZMu-PromptReco_v1.root'], 'oneEventMode': 0, 'cacheurl': 'https://cmsweb.cern.ch/crabcache', 'saveoutput': 1, 'publication': 1, 'jobarch': 'slc6_amd64_gcc493', 'totalunits': 20, 'splitalgo': 'LumiBased', 'nonvaliddata': 0, 'dbsurl': 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader', 'publishgroupname': 0, 'jobtype': 'Analysis', 'publishname2': 'EMTF_Rate_Studies_ZeroBias_v1'} 
+DEBUG 2016-03-01 09:49:02,361: 	 Encoded submit request: maxjobruntime=1250&ignorelocality=0&savelogsflag=0&useparent=1&asyncdest=T2_CH_CERN&algoargs=1&cachefilename=60385fc2dffab00ba3d78a969d132cb6d5f788af203f1cbad2b23ddd9764290c.tar.gz&numcores=1&generator=pythia&maxmemory=2000&publishdbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fphys03%2FDBSWriter&priority=10&jobsw=CMSSW_8_0_0_pre5&primarydataset=&inputdata=%2FZeroBias1%2FRun2015D-PromptReco-v3%2FRECO&lfn=%2Fstore%2Fuser%2Fdcurry%2FEMTF%2Frate_v1%2F&dryrun=0&workflow=crab_20160301_094837&nonprodsw=0&oneEventMode=0&cacheurl=https%3A%2F%2Fcmsweb.cern.ch%2Fcrabcache&saveoutput=1&publication=1&jobarch=slc6_amd64_gcc493&totalunits=20&splitalgo=LumiBased&nonvaliddata=0&dbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fglobal%2FDBSReader&publishgroupname=0&jobtype=Analysis&publishname2=EMTF_Rate_Studies_ZeroBias_v1&tfileoutfiles=EMTF_effStudies_ZMu-PromptReco_v1.root
+DEBUG 2016-03-01 09:49:05,281: 	 Result: {'result': [{'RequestName': '160301_084902:dcurry_crab_20160301_094837'}]}
+INFO 2016-03-01 09:49:05,283: 	 Success: Your task has been delivered to the CRAB3 server.
+INFO 2016-03-01 09:49:05,284: 	 Task name: 160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:49:05,284: 	 Please use 'crab status' to check how the submission process proceeds.
+DEBUG 2016-03-01 09:49:05,284: 	 About to return
+INFO 2016-03-01 09:49:05,289: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:50:39,209: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:50:39,210: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:50:39,250: 	 Checking credentials
+DEBUG 2016-03-01 09:50:39,250: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:50:39,250: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:50:39,956: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83922
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:50:40,464: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83920
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:50:40,464: 	 Proxy valid for 23:18:42 hours
+DEBUG 2016-03-01 09:50:40,580: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:50:40,580: 	 Checking credentials
+DEBUG 2016-03-01 09:50:40,580: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:50:40,580: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:50:41,085: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83920
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:50:41,590: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83919
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:50:41,590: 	 Proxy valid for 23:18:40 hours
+DEBUG 2016-03-01 09:50:42,012: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:50:42,121: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:50:42,121: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:50:42,121: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:50:42,324: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:19:55  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:50:42,325: 	 Myproxy is valid: 2589595
+DEBUG 2016-03-01 09:50:42,325: 	 Command use: status
+DEBUG 2016-03-01 09:50:42,326: 	 Options use: []
+DEBUG 2016-03-01 09:50:42,677: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:50:42,677: 	 Instance is prod
+DEBUG 2016-03-01 09:50:42,677: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:50:42,677: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:50:42,677: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:50:44,076: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'idle': 20}, 'jobs': {'11': {'State': 'idle'}, '10': {'State': 'idle'}, '13': {'State': 'idle'}, '12': {'State': 'idle'}, '15': {'State': 'idle'}, '14': {'State': 'idle'}, '17': {'State': 'idle'}, '16': {'State': 'idle'}, '19': {'State': 'idle'}, '18': {'State': 'idle'}, '20': {'State': 'idle'}, '1': {'State': 'idle'}, '3': {'State': 'idle'}, '2': {'State': 'idle'}, '5': {'State': 'idle'}, '4': {'State': 'idle'}, '7': {'State': 'idle'}, '6': {'State': 'idle'}, '9': {'State': 'idle'}, '8': {'State': 'idle'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['idle', 11], ['idle', 10], ['idle', 13], ['idle', 12], ['idle', 15], ['idle', 14], ['idle', 17], ['idle', 16], ['idle', 19], ['idle', 18], ['idle', 1], ['idle', 3], ['idle', 2], ['idle', 5], ['idle', 4], ['idle', 7], ['idle', 6], ['idle', 9], ['idle', 8], ['idle', 20]]}
+INFO 2016-03-01 09:50:44,077: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:50:44,077: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:50:44,077: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:50:44,077: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:50:44,077: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:50:44,077: 	 
+Jobs status:			idle          100.0% (20/20)
+INFO 2016-03-01 09:50:44,077: 	 
+No publication information available yet
+INFO 2016-03-01 09:50:44,079: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:51:00,924: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:51:00,924: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:51:00,935: 	 Checking credentials
+DEBUG 2016-03-01 09:51:00,936: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:51:00,936: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:51:01,645: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83900
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:02,354: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83898
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:02,355: 	 Proxy valid for 23:18:20 hours
+DEBUG 2016-03-01 09:51:02,470: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:51:02,470: 	 Checking credentials
+DEBUG 2016-03-01 09:51:02,470: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:51:02,470: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:51:02,976: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83899
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:03,480: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83897
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:03,481: 	 Proxy valid for 23:18:19 hours
+DEBUG 2016-03-01 09:51:03,856: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:51:03,966: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:51:03,966: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:51:03,966: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:51:04,070: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:19:33  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:04,071: 	 Myproxy is valid: 2589573
+DEBUG 2016-03-01 09:51:04,071: 	 Command use: status
+DEBUG 2016-03-01 09:51:04,071: 	 Options use: []
+DEBUG 2016-03-01 09:51:04,447: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:51:04,447: 	 Instance is prod
+DEBUG 2016-03-01 09:51:04,447: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:51:04,447: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:51:04,447: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:51:07,612: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'idle': 20}, 'jobs': {'11': {'State': 'idle'}, '10': {'State': 'idle'}, '13': {'State': 'idle'}, '12': {'State': 'idle'}, '15': {'State': 'idle'}, '14': {'State': 'idle'}, '17': {'State': 'idle'}, '16': {'State': 'idle'}, '19': {'State': 'idle'}, '18': {'State': 'idle'}, '20': {'State': 'idle'}, '1': {'State': 'idle'}, '3': {'State': 'idle'}, '2': {'State': 'idle'}, '5': {'State': 'idle'}, '4': {'State': 'idle'}, '7': {'State': 'idle'}, '6': {'State': 'idle'}, '9': {'State': 'idle'}, '8': {'State': 'idle'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['idle', 11], ['idle', 10], ['idle', 13], ['idle', 12], ['idle', 15], ['idle', 14], ['idle', 17], ['idle', 16], ['idle', 19], ['idle', 18], ['idle', 1], ['idle', 3], ['idle', 2], ['idle', 5], ['idle', 4], ['idle', 7], ['idle', 6], ['idle', 9], ['idle', 8], ['idle', 20]]}
+INFO 2016-03-01 09:51:07,613: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:51:07,613: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:51:07,613: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:51:07,613: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:51:07,613: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:51:07,613: 	 
+Jobs status:			idle          100.0% (20/20)
+INFO 2016-03-01 09:51:07,613: 	 
+No publication information available yet
+INFO 2016-03-01 09:51:07,620: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:51:29,119: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:51:29,119: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:51:29,127: 	 Checking credentials
+DEBUG 2016-03-01 09:51:29,127: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:51:29,127: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:51:29,630: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83872
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:30,135: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83870
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:30,135: 	 Proxy valid for 23:17:52 hours
+DEBUG 2016-03-01 09:51:30,249: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:51:30,249: 	 Checking credentials
+DEBUG 2016-03-01 09:51:30,249: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:51:30,249: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:51:30,756: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83871
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:31,261: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83869
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:31,261: 	 Proxy valid for 23:17:51 hours
+DEBUG 2016-03-01 09:51:31,624: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:51:31,736: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:51:31,736: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:51:31,736: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:51:31,940: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:19:06  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:51:31,941: 	 Myproxy is valid: 2589546
+DEBUG 2016-03-01 09:51:31,941: 	 Command use: status
+DEBUG 2016-03-01 09:51:31,941: 	 Options use: []
+DEBUG 2016-03-01 09:51:32,450: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:51:32,450: 	 Instance is prod
+DEBUG 2016-03-01 09:51:32,450: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:51:32,450: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:51:32,450: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:51:36,470: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'idle': 20}, 'jobs': {'11': {'State': 'idle'}, '10': {'State': 'idle'}, '13': {'State': 'idle'}, '12': {'State': 'idle'}, '15': {'State': 'idle'}, '14': {'State': 'idle'}, '17': {'State': 'idle'}, '16': {'State': 'idle'}, '19': {'State': 'idle'}, '18': {'State': 'idle'}, '20': {'State': 'idle'}, '1': {'State': 'idle'}, '3': {'State': 'idle'}, '2': {'State': 'idle'}, '5': {'State': 'idle'}, '4': {'State': 'idle'}, '7': {'State': 'idle'}, '6': {'State': 'idle'}, '9': {'State': 'idle'}, '8': {'State': 'idle'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['idle', 11], ['idle', 10], ['idle', 13], ['idle', 12], ['idle', 15], ['idle', 14], ['idle', 17], ['idle', 16], ['idle', 19], ['idle', 18], ['idle', 1], ['idle', 3], ['idle', 2], ['idle', 5], ['idle', 4], ['idle', 7], ['idle', 6], ['idle', 9], ['idle', 8], ['idle', 20]]}
+INFO 2016-03-01 09:51:36,470: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:51:36,470: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:51:36,470: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:51:36,470: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:51:36,471: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:51:36,471: 	 
+Jobs status:			idle          100.0% (20/20)
+INFO 2016-03-01 09:51:36,471: 	 
+No publication information available yet
+INFO 2016-03-01 09:51:36,473: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:52:01,625: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:52:01,626: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:52:01,652: 	 Checking credentials
+DEBUG 2016-03-01 09:52:01,653: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:52:01,653: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:52:02,264: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83839
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:52:02,769: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83838
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:52:02,769: 	 Proxy valid for 23:17:19 hours
+DEBUG 2016-03-01 09:52:02,881: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:52:02,882: 	 Checking credentials
+DEBUG 2016-03-01 09:52:02,882: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:52:02,882: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:52:03,387: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83838
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:52:03,892: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83837
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:52:03,892: 	 Proxy valid for 23:17:18 hours
+DEBUG 2016-03-01 09:52:04,302: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:52:04,417: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:52:04,417: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:52:04,417: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:52:04,621: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:18:33  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:52:04,622: 	 Myproxy is valid: 2589513
+DEBUG 2016-03-01 09:52:04,622: 	 Command use: status
+DEBUG 2016-03-01 09:52:04,622: 	 Options use: []
+DEBUG 2016-03-01 09:52:05,009: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:52:05,009: 	 Instance is prod
+DEBUG 2016-03-01 09:52:05,009: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:52:05,009: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:52:05,009: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:52:06,950: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'idle': 20}, 'jobs': {'11': {'State': 'idle'}, '10': {'State': 'idle'}, '13': {'State': 'idle'}, '12': {'State': 'idle'}, '15': {'State': 'idle'}, '14': {'State': 'idle'}, '17': {'State': 'idle'}, '16': {'State': 'idle'}, '19': {'State': 'idle'}, '18': {'State': 'idle'}, '20': {'State': 'idle'}, '1': {'State': 'idle'}, '3': {'State': 'idle'}, '2': {'State': 'idle'}, '5': {'State': 'idle'}, '4': {'State': 'idle'}, '7': {'State': 'idle'}, '6': {'State': 'idle'}, '9': {'State': 'idle'}, '8': {'State': 'idle'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['idle', 11], ['idle', 10], ['idle', 13], ['idle', 12], ['idle', 15], ['idle', 14], ['idle', 17], ['idle', 16], ['idle', 19], ['idle', 18], ['idle', 1], ['idle', 3], ['idle', 2], ['idle', 5], ['idle', 4], ['idle', 7], ['idle', 6], ['idle', 9], ['idle', 8], ['idle', 20]]}
+INFO 2016-03-01 09:52:06,950: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:52:06,950: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:52:06,950: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:52:06,950: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:52:06,950: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:52:06,951: 	 
+Jobs status:			idle          100.0% (20/20)
+INFO 2016-03-01 09:52:06,951: 	 
+No publication information available yet
+INFO 2016-03-01 09:52:06,954: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:53:35,334: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:53:35,334: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:53:35,347: 	 Checking credentials
+DEBUG 2016-03-01 09:53:35,347: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:53:35,347: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:53:35,854: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83746
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:53:36,362: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83744
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:53:36,362: 	 Proxy valid for 23:15:46 hours
+DEBUG 2016-03-01 09:53:36,479: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:53:36,479: 	 Checking credentials
+DEBUG 2016-03-01 09:53:36,479: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:53:36,479: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:53:37,088: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83744
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:53:37,693: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83743
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:53:37,694: 	 Proxy valid for 23:15:44 hours
+DEBUG 2016-03-01 09:53:38,104: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:53:38,215: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:53:38,216: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:53:38,216: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:53:38,422: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:16:59  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:53:38,423: 	 Myproxy is valid: 2589419
+DEBUG 2016-03-01 09:53:38,423: 	 Command use: status
+DEBUG 2016-03-01 09:53:38,423: 	 Options use: []
+DEBUG 2016-03-01 09:53:38,843: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:53:38,843: 	 Instance is prod
+DEBUG 2016-03-01 09:53:38,843: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:53:38,843: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:53:38,843: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:53:39,988: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 14, 'idle': 6}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'idle'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'idle'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'idle'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'idle'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'idle'}, '8': {'State': 'idle'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['idle', 10], ['running', 13], ['running', 12], ['idle', 15], ['running', 14], ['running', 17], ['idle', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['idle', 5], ['running', 4], ['running', 7], ['running', 6], ['idle', 9], ['idle', 8], ['running', 20]]}
+INFO 2016-03-01 09:53:39,988: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:53:39,988: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:53:39,988: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:53:39,989: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:53:39,989: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:53:39,989: 	 
+Jobs status:			idle           30.0% ( 6/20)
+INFO 2016-03-01 09:53:39,989: 	 				running        70.0% (14/20)
+INFO 2016-03-01 09:53:39,989: 	 
+No publication information available yet
+INFO 2016-03-01 09:53:39,991: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:55:35,371: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:55:35,371: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:55:35,388: 	 Checking credentials
+DEBUG 2016-03-01 09:55:35,388: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:55:35,388: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:55:35,992: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83626
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:55:36,499: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83624
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:55:36,499: 	 Proxy valid for 23:13:46 hours
+DEBUG 2016-03-01 09:55:36,612: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:55:36,613: 	 Checking credentials
+DEBUG 2016-03-01 09:55:36,613: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:55:36,613: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:55:37,117: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83624
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:55:37,623: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83623
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:55:37,623: 	 Proxy valid for 23:13:44 hours
+DEBUG 2016-03-01 09:55:38,050: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:55:38,160: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:55:38,160: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:55:38,160: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:55:38,665: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:14:59  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:55:38,666: 	 Myproxy is valid: 2589299
+DEBUG 2016-03-01 09:55:38,666: 	 Command use: status
+DEBUG 2016-03-01 09:55:38,666: 	 Options use: []
+DEBUG 2016-03-01 09:55:39,071: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:55:39,071: 	 Instance is prod
+DEBUG 2016-03-01 09:55:39,072: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:55:39,072: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:55:39,072: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:55:40,325: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 09:55:40,325: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:55:40,325: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:55:40,325: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:55:40,325: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:55:40,325: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:55:40,326: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 09:55:40,326: 	 
+No publication information available yet
+INFO 2016-03-01 09:55:40,334: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:56:54,092: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:56:54,093: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:56:54,111: 	 Checking credentials
+DEBUG 2016-03-01 09:56:54,111: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:56:54,111: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:56:54,715: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83547
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:56:55,219: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83545
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:56:55,220: 	 Proxy valid for 23:12:27 hours
+DEBUG 2016-03-01 09:56:55,334: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:56:55,334: 	 Checking credentials
+DEBUG 2016-03-01 09:56:55,334: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:56:55,334: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:56:55,939: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83546
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:56:56,446: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83544
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:56:56,447: 	 Proxy valid for 23:12:26 hours
+DEBUG 2016-03-01 09:56:56,815: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:56:56,923: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:56:56,923: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:56:56,923: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:56:57,126: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:13:40  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:56:57,127: 	 Myproxy is valid: 2589220
+DEBUG 2016-03-01 09:56:57,128: 	 Command use: status
+DEBUG 2016-03-01 09:56:57,128: 	 Options use: []
+DEBUG 2016-03-01 09:56:57,493: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:56:57,493: 	 Instance is prod
+DEBUG 2016-03-01 09:56:57,493: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:56:57,493: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:56:57,493: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:56:59,819: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 09:56:59,819: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:56:59,819: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:56:59,819: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:56:59,819: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:56:59,819: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:56:59,819: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 09:56:59,820: 	 
+No publication information available yet
+INFO 2016-03-01 09:56:59,822: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:58:11,902: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:58:11,903: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:58:11,921: 	 Checking credentials
+DEBUG 2016-03-01 09:58:11,921: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:58:11,921: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:58:12,525: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83469
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:58:13,031: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83468
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:58:13,031: 	 Proxy valid for 23:11:09 hours
+DEBUG 2016-03-01 09:58:13,149: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:58:13,149: 	 Checking credentials
+DEBUG 2016-03-01 09:58:13,149: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:58:13,149: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:58:13,654: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83468
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:58:14,162: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83466
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:58:14,163: 	 Proxy valid for 23:11:08 hours
+DEBUG 2016-03-01 09:58:14,530: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:58:14,640: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:58:14,640: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:58:14,640: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:58:14,844: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:12:23  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:58:14,845: 	 Myproxy is valid: 2589143
+DEBUG 2016-03-01 09:58:14,845: 	 Command use: status
+DEBUG 2016-03-01 09:58:14,845: 	 Options use: []
+DEBUG 2016-03-01 09:58:15,202: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:58:15,202: 	 Instance is prod
+DEBUG 2016-03-01 09:58:15,202: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:58:15,202: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:58:15,202: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:58:17,331: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 09:58:17,331: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:58:17,331: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:58:17,331: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:58:17,331: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:58:17,331: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:58:17,332: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 09:58:17,332: 	 
+No publication information available yet
+INFO 2016-03-01 09:58:17,334: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 09:59:04,225: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:59:04,225: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:59:04,236: 	 Checking credentials
+DEBUG 2016-03-01 09:59:04,236: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:59:04,236: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:59:04,742: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83417
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:59:05,350: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83415
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:59:05,350: 	 Proxy valid for 23:10:17 hours
+DEBUG 2016-03-01 09:59:05,476: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:59:05,476: 	 Checking credentials
+DEBUG 2016-03-01 09:59:05,476: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:59:05,476: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:59:05,982: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83416
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:59:06,590: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83414
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:59:06,590: 	 Proxy valid for 23:10:16 hours
+DEBUG 2016-03-01 09:59:06,953: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:59:07,066: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:59:07,067: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:59:07,067: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:59:07,271: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:11:30  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:59:07,272: 	 Myproxy is valid: 2589090
+DEBUG 2016-03-01 09:59:07,272: 	 Command use: status
+DEBUG 2016-03-01 09:59:07,272: 	 Options use: []
+DEBUG 2016-03-01 09:59:07,629: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:59:07,629: 	 Instance is prod
+DEBUG 2016-03-01 09:59:07,629: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:59:07,629: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:59:07,629: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 09:59:10,137: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 09:59:10,137: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 09:59:10,137: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 09:59:10,137: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 09:59:10,137: 	 Task status:			SUBMITTED
+INFO 2016-03-01 09:59:10,138: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 09:59:10,138: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 09:59:10,138: 	 
+No publication information available yet
+INFO 2016-03-01 09:59:10,140: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:01:20,466: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:01:20,467: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:01:20,480: 	 Checking credentials
+DEBUG 2016-03-01 10:01:20,480: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:01:20,480: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:01:21,187: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83280
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:01:21,696: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83279
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:01:21,696: 	 Proxy valid for 23:08:00 hours
+DEBUG 2016-03-01 10:01:21,811: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:01:21,811: 	 Checking credentials
+DEBUG 2016-03-01 10:01:21,811: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:01:21,811: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:01:22,522: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83279
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:01:23,041: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83277
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:01:23,042: 	 Proxy valid for 23:07:59 hours
+DEBUG 2016-03-01 10:01:23,397: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:01:23,510: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:01:23,510: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:01:23,510: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:01:24,022: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:09:14  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:01:24,023: 	 Myproxy is valid: 2588954
+DEBUG 2016-03-01 10:01:24,023: 	 Command use: status
+DEBUG 2016-03-01 10:01:24,023: 	 Options use: []
+DEBUG 2016-03-01 10:01:24,421: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:01:24,421: 	 Instance is prod
+DEBUG 2016-03-01 10:01:24,421: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:01:24,421: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:01:24,421: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:01:27,685: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 10:01:27,685: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:01:27,686: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:01:27,686: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:01:27,686: 	 Task status:			SUBMITTED
+INFO 2016-03-01 10:01:27,686: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:01:27,686: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 10:01:27,686: 	 
+No publication information available yet
+INFO 2016-03-01 10:01:27,691: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:02:07,067: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:02:07,067: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:02:07,077: 	 Checking credentials
+DEBUG 2016-03-01 10:02:07,078: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:02:07,078: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:02:07,994: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83234
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:02:08,715: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83232
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:02:08,715: 	 Proxy valid for 23:07:14 hours
+DEBUG 2016-03-01 10:02:08,832: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:02:08,832: 	 Checking credentials
+DEBUG 2016-03-01 10:02:08,832: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:02:08,832: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:02:09,547: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83232
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:02:10,364: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83230
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:02:10,364: 	 Proxy valid for 23:07:12 hours
+DEBUG 2016-03-01 10:02:10,744: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:02:10,859: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:02:10,859: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:02:10,859: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:02:11,071: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:08:26  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:02:11,072: 	 Myproxy is valid: 2588906
+DEBUG 2016-03-01 10:02:11,072: 	 Command use: status
+DEBUG 2016-03-01 10:02:11,072: 	 Options use: []
+DEBUG 2016-03-01 10:02:11,510: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:02:11,510: 	 Instance is prod
+DEBUG 2016-03-01 10:02:11,510: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:02:11,510: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:02:11,511: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:02:14,456: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 10:02:14,456: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:02:14,457: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:02:14,457: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:02:14,457: 	 Task status:			SUBMITTED
+INFO 2016-03-01 10:02:14,457: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:02:14,457: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 10:02:14,457: 	 
+No publication information available yet
+INFO 2016-03-01 10:02:14,467: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:05:31,702: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:05:31,702: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:05:31,709: 	 Checking credentials
+DEBUG 2016-03-01 10:05:31,710: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:05:31,710: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:05:32,316: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83029
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:05:32,820: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83028
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:05:32,821: 	 Proxy valid for 23:03:49 hours
+DEBUG 2016-03-01 10:05:32,933: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:05:32,933: 	 Checking credentials
+DEBUG 2016-03-01 10:05:32,933: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:05:32,933: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:05:33,440: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 83028
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:05:33,946: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 83027
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:05:33,946: 	 Proxy valid for 23:03:48 hours
+DEBUG 2016-03-01 10:05:34,304: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:05:34,415: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:05:34,415: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:05:34,415: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:05:34,620: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:05:03  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:05:34,621: 	 Myproxy is valid: 2588703
+DEBUG 2016-03-01 10:05:34,621: 	 Command use: status
+DEBUG 2016-03-01 10:05:34,621: 	 Options use: ['crab_20160301_094837']
+DEBUG 2016-03-01 10:05:35,019: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:05:35,019: 	 Instance is prod
+DEBUG 2016-03-01 10:05:35,019: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:05:35,019: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:05:35,019: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:05:38,706: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 10:05:38,706: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:05:38,706: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:05:38,707: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:05:38,707: 	 Task status:			SUBMITTED
+INFO 2016-03-01 10:05:38,707: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:05:38,707: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 10:05:38,707: 	 
+No publication information available yet
+INFO 2016-03-01 10:05:38,713: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:08:20,681: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:08:20,681: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:08:20,694: 	 Checking credentials
+DEBUG 2016-03-01 10:08:20,694: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:08:20,695: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:08:21,302: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 82860
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:08:22,310: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 82858
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:08:22,310: 	 Proxy valid for 23:01:00 hours
+DEBUG 2016-03-01 10:08:22,423: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:08:22,423: 	 Checking credentials
+DEBUG 2016-03-01 10:08:22,424: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:08:22,424: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:08:23,231: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 82858
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:08:23,843: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 82857
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:08:23,844: 	 Proxy valid for 23:00:58 hours
+DEBUG 2016-03-01 10:08:24,238: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:08:24,347: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:08:24,347: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:08:24,347: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:08:24,859: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:02:13  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:08:24,860: 	 Myproxy is valid: 2588533
+DEBUG 2016-03-01 10:08:24,860: 	 Command use: status
+DEBUG 2016-03-01 10:08:24,860: 	 Options use: ['crab_20160301_094837']
+DEBUG 2016-03-01 10:08:25,215: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:08:25,215: 	 Instance is prod
+DEBUG 2016-03-01 10:08:25,215: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:08:25,215: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:08:25,215: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:08:27,143: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'State': 'running'}, '10': {'State': 'running'}, '13': {'State': 'running'}, '12': {'State': 'running'}, '15': {'State': 'running'}, '14': {'State': 'running'}, '17': {'State': 'running'}, '16': {'State': 'running'}, '19': {'State': 'running'}, '18': {'State': 'running'}, '20': {'State': 'running'}, '1': {'State': 'running'}, '3': {'State': 'running'}, '2': {'State': 'running'}, '5': {'State': 'running'}, '4': {'State': 'running'}, '7': {'State': 'running'}, '6': {'State': 'running'}, '9': {'State': 'running'}, '8': {'State': 'running'}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8], ['running', 20]]}
+INFO 2016-03-01 10:08:27,143: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:08:27,143: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:08:27,143: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:08:27,143: 	 Task status:			SUBMITTED
+INFO 2016-03-01 10:08:27,143: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:08:27,143: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 10:08:27,144: 	 
+No publication information available yet
+INFO 2016-03-01 10:08:27,148: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:11:19,984: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:11:19,985: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:11:19,997: 	 Checking credentials
+DEBUG 2016-03-01 10:11:19,997: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:11:19,997: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:11:20,605: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 82681
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:11:21,112: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 82679
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:11:21,113: 	 Proxy valid for 22:58:01 hours
+DEBUG 2016-03-01 10:11:21,225: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:11:21,226: 	 Checking credentials
+DEBUG 2016-03-01 10:11:21,226: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:11:21,226: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:11:21,832: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 82680
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:11:22,337: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 82678
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:11:22,337: 	 Proxy valid for 22:58:00 hours
+DEBUG 2016-03-01 10:11:22,747: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:11:22,859: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:11:22,860: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:11:22,860: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:11:23,064: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 718:59:14  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:11:23,065: 	 Myproxy is valid: 2588354
+DEBUG 2016-03-01 10:11:23,066: 	 Command use: status
+DEBUG 2016-03-01 10:11:23,066: 	 Options use: ['crab_20160301_094837', '--long']
+DEBUG 2016-03-01 10:11:23,436: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:11:23,436: 	 Instance is prod
+DEBUG 2016-03-01 10:11:23,436: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:11:23,436: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:11:23,437: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:11:28,087: 	 {'status': 'SUBMITTED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'running': 20}, 'jobs': {'11': {'Retries': 0, 'WallDurations': [309.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290717.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [18444], 'TotalUserCpuTimeHistory': [32.0], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [2.0]}, '10': {'Retries': 0, 'WallDurations': [610.0], 'StartTimes': [1456822447.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290700.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [603972], 'TotalUserCpuTimeHistory': [30.0], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [1.0]}, '13': {'Retries': 0, 'WallDurations': [312.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290721.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [604544], 'TotalUserCpuTimeHistory': [42.0], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [2.0]}, '12': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822409.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290709.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [584996], 'TotalUserCpuTimeHistory': [27.0], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [2.0]}, '15': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822202.0], 'JobIds': ['3290694.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [603972], 'TotalUserCpuTimeHistory': [27.0], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [2.0]}, '14': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822410.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290713.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [726372], 'TotalUserCpuTimeHistory': [35.0], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [2.0]}, '17': {'Retries': 0, 'WallDurations': [342.0], 'StartTimes': [1456822413.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290715.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [19288], 'TotalUserCpuTimeHistory': [46.0], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [3.0]}, '16': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822202.0], 'JobIds': ['3290688.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [991808], 'TotalUserCpuTimeHistory': [40.0], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [2.0]}, '19': {'Retries': 0, 'WallDurations': [314.0], 'StartTimes': [1456822414.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290725.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [32768], 'TotalUserCpuTimeHistory': [29.0], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [1.0]}, '18': {'Retries': 0, 'WallDurations': [610.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290729.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [604232], 'TotalUserCpuTimeHistory': [21.0], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [1.0]}, '1': {'Retries': 0, 'WallDurations': [645.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290703.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [620140], 'TotalUserCpuTimeHistory': [54.0], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [3.0]}, '3': {'Retries': 0, 'WallDurations': [611.0], 'StartTimes': [1456822410.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290706.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [587580], 'TotalUserCpuTimeHistory': [49.0], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [2.0]}, '2': {'Retries': 0, 'WallDurations': [610.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290719.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [726372], 'TotalUserCpuTimeHistory': [41.0], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [1.0]}, '5': {'Retries': 0, 'WallDurations': [572.0], 'StartTimes': [1456822447.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290727.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [584996], 'TotalUserCpuTimeHistory': [36.0], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [1.0]}, '4': {'Retries': 0, 'WallDurations': [610.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822201.0], 'JobIds': ['3290685.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [604544], 'TotalUserCpuTimeHistory': [48.0], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [2.0]}, '7': {'Retries': 0, 'WallDurations': [309.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290711.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [38064], 'TotalUserCpuTimeHistory': [19.0], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [6.0]}, '6': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290723.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [18300], 'TotalUserCpuTimeHistory': [34.0], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [2.0]}, '9': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822204.0], 'JobIds': ['3290697.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [930336], 'TotalUserCpuTimeHistory': [33.0], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [1.0]}, '20': {'Retries': 0, 'WallDurations': [609.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822208.0], 'JobIds': ['3290731.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [448928], 'TotalUserCpuTimeHistory': [43.0], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [2.0]}, '8': {'Retries': 0, 'WallDurations': [310.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822202.0], 'JobIds': ['3290691.0'], 'EndTimes': [], 'Restarts': 0, 'RecordedSite': True, 'State': 'running', 'ResidentSetSize': [620140], 'TotalUserCpuTimeHistory': [38.0], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [2.0]}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['running', 11], ['running', 10], ['running', 13], ['running', 12], ['running', 15], ['running', 14], ['running', 17], ['running', 16], ['running', 19], ['running', 18], ['running', 20], ['running', 1], ['running', 3], ['running', 2], ['running', 5], ['running', 4], ['running', 7], ['running', 6], ['running', 9], ['running', 8]]}
+INFO 2016-03-01 10:11:28,087: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:11:28,087: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:11:28,087: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:11:28,087: 	 Task status:			SUBMITTED
+INFO 2016-03-01 10:11:28,088: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:11:28,088: 	 
+Jobs status:			running       100.0% (20/20)
+INFO 2016-03-01 10:11:28,088: 	 
+No publication information available yet
+INFO 2016-03-01 10:11:28,089: 	 
+Extended Job Status Table:
+
+ Job State        Most Recent Site        Runtime   Mem (MB)      CPU %    Retries   Restarts      Waste       Exit Code
+   1 running      T2_US_Nebraska          0:10:45        605          9          0          0    0:00:00         Unknown
+   2 running      T2_US_Nebraska          0:10:10        709          7          0          0    0:00:00         Unknown
+   3 running      T2_US_Nebraska          0:10:11        573          8          0          0    0:00:00         Unknown
+   4 running      T2_US_Nebraska          0:10:10        590          8          0          0    0:00:00         Unknown
+   5 running      T1_US_FNAL              0:09:32        571          6          0          0    0:00:00         Unknown
+   6 running      T2_US_MIT               0:05:10         17         12          0          0    0:00:00         Unknown
+   7 running      T2_US_Wisconsin         0:05:09         37          8          0          0    0:00:00         Unknown
+   8 running      T1_US_FNAL              0:05:10        605         13          0          0    0:00:00         Unknown
+   9 running      T1_US_FNAL              0:05:10        908         11          0          0    0:00:00         Unknown
+  10 running      T1_US_FNAL              0:10:10        589          5          0          0    0:00:00         Unknown
+  11 running      T2_US_MIT               0:05:09         18         11          0          0    0:00:00         Unknown
+  12 running      T2_US_Wisconsin         0:05:10        571          9          0          0    0:00:00         Unknown
+  13 running      T2_US_MIT               0:05:12        590         14          0          0    0:00:00         Unknown
+  14 running      T2_US_Wisconsin         0:05:10        709         12          0          0    0:00:00         Unknown
+  15 running      T1_US_FNAL              0:05:10        589          9          0          0    0:00:00         Unknown
+  16 running      T1_US_FNAL              0:05:10        968         14          0          0    0:00:00         Unknown
+  17 running      T2_US_Wisconsin         0:05:42         18         14          0          0    0:00:00         Unknown
+  18 running      T2_US_Nebraska          0:10:10        590          4          0          0    0:00:00         Unknown
+  19 running      T2_US_MIT               0:05:14         32         10          0          0    0:00:00         Unknown
+  20 running      T2_US_Nebraska          0:10:09        438          7          0          0    0:00:00         Unknown
+DEBUG 2016-03-01 10:11:28,089: 	 
+ Job Cluster Id
+   1 ['3290703.0']
+   2 ['3290719.0']
+   3 ['3290706.0']
+   4 ['3290685.0']
+   5 ['3290727.0']
+   6 ['3290723.0']
+   7 ['3290711.0']
+   8 ['3290691.0']
+   9 ['3290697.0']
+  10 ['3290700.0']
+  11 ['3290717.0']
+  12 ['3290709.0']
+  13 ['3290721.0']
+  14 ['3290713.0']
+  15 ['3290694.0']
+  16 ['3290688.0']
+  17 ['3290715.0']
+  18 ['3290729.0']
+  19 ['3290725.0']
+  20 ['3290731.0']
+INFO 2016-03-01 10:11:28,089: 	 
+Summary:
+ * Memory: 17MB min, 968MB max, 487MB ave
+ * Runtime: 0:05:09 min, 0:10:45 max, 0:07:11 ave
+ * CPU eff: 4% min, 14% max, 9% ave
+ * Waste: 0:00:00 (0% of total)
+
+INFO 2016-03-01 10:11:28,093: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:14:38,737: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:14:38,737: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:14:38,744: 	 Checking credentials
+DEBUG 2016-03-01 10:14:38,744: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:14:38,744: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:14:39,349: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 82482
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:14:39,854: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 82481
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:14:39,854: 	 Proxy valid for 22:54:42 hours
+DEBUG 2016-03-01 10:14:40,017: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:14:40,017: 	 Checking credentials
+DEBUG 2016-03-01 10:14:40,017: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:14:40,017: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:14:40,524: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 82481
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:14:41,029: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 82480
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:14:41,029: 	 Proxy valid for 22:54:41 hours
+DEBUG 2016-03-01 10:14:41,434: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:14:41,543: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:14:41,543: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:14:41,543: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:14:41,948: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 718:55:56  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:14:41,949: 	 Myproxy is valid: 2588156
+DEBUG 2016-03-01 10:14:41,949: 	 Command use: status
+DEBUG 2016-03-01 10:14:41,950: 	 Options use: ['crab_20160301_094837', '--long']
+DEBUG 2016-03-01 10:14:42,307: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:14:42,307: 	 Instance is prod
+DEBUG 2016-03-01 10:14:42,307: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:14:42,307: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:14:42,308: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:14:43,431: 	 {'status': 'FAILED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'failed': 20}, 'jobs': {'11': {'Retries': 0, 'WallDurations': [1240.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290717.0'], 'TotalUserCpuTimeHistory': [32], 'EndTimes': [1456823648.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [18444], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [2]}, '10': {'Retries': 0, 'WallDurations': [1211.0], 'StartTimes': [1456822447.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290700.0'], 'TotalUserCpuTimeHistory': [30], 'EndTimes': [1456823658.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [603972], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [1]}, '13': {'Retries': 0, 'WallDurations': [1235.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290721.0'], 'TotalUserCpuTimeHistory': [42], 'EndTimes': [1456823643.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [604544], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [2]}, '12': {'Retries': 0, 'WallDurations': [1209.0], 'StartTimes': [1456822409.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290709.0'], 'TotalUserCpuTimeHistory': [27], 'EndTimes': [1456823618.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [584996], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [2]}, '15': {'Retries': 0, 'WallDurations': [1213.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822202.0], 'JobIds': ['3290694.0'], 'TotalUserCpuTimeHistory': [27], 'EndTimes': [1456823659.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [603972], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [2]}, '14': {'Retries': 0, 'WallDurations': [1211.0], 'StartTimes': [1456822410.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290713.0'], 'TotalUserCpuTimeHistory': [35], 'EndTimes': [1456823621.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [726372], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [2]}, '17': {'Retries': 0, 'WallDurations': [1224.0], 'StartTimes': [1456822413.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290715.0'], 'TotalUserCpuTimeHistory': [46], 'EndTimes': [1456823637.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [19288], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [3]}, '16': {'Retries': 0, 'WallDurations': [1212.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822202.0], 'JobIds': ['3290688.0'], 'TotalUserCpuTimeHistory': [40], 'EndTimes': [1456823658.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [991808], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [2]}, '19': {'Retries': 0, 'WallDurations': [1240.0], 'StartTimes': [1456822414.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290725.0'], 'TotalUserCpuTimeHistory': [29], 'EndTimes': [1456823654.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [32768], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [1]}, '18': {'Retries': 0, 'WallDurations': [1209.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290729.0'], 'TotalUserCpuTimeHistory': [21], 'EndTimes': [1456823620.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [604232], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [1]}, '1': {'Retries': 0, 'WallDurations': [1233.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290703.0'], 'TotalUserCpuTimeHistory': [54], 'EndTimes': [1456823644.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [620140], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [3]}, '3': {'Retries': 0, 'WallDurations': [1242.0], 'StartTimes': [1456822410.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290706.0'], 'TotalUserCpuTimeHistory': [49], 'EndTimes': [1456823652.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [587580], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [2]}, '2': {'Retries': 0, 'WallDurations': [1213.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822206.0], 'JobIds': ['3290719.0'], 'TotalUserCpuTimeHistory': [41], 'EndTimes': [1456823624.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [726372], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [1]}, '5': {'Retries': 0, 'WallDurations': [1211.0], 'StartTimes': [1456822447.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290727.0'], 'TotalUserCpuTimeHistory': [36], 'EndTimes': [1456823658.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [584996], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [1]}, '4': {'Retries': 0, 'WallDurations': [1247.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822201.0], 'JobIds': ['3290685.0'], 'TotalUserCpuTimeHistory': [48], 'EndTimes': [1456823658.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [604544], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [2]}, '7': {'Retries': 0, 'WallDurations': [1210.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822205.0], 'JobIds': ['3290711.0'], 'TotalUserCpuTimeHistory': [19], 'EndTimes': [1456823618.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [38064], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Wisconsin'], 'TotalSysCpuTimeHistory': [6]}, '6': {'Retries': 0, 'WallDurations': [1239.0], 'StartTimes': [1456822408.0], 'SubmitTimes': [1456822207.0], 'JobIds': ['3290723.0'], 'TotalUserCpuTimeHistory': [34], 'EndTimes': [1456823647.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [18300], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_MIT'], 'TotalSysCpuTimeHistory': [2]}, '9': {'Retries': 0, 'WallDurations': [1214.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822204.0], 'JobIds': ['3290697.0'], 'TotalUserCpuTimeHistory': [33], 'EndTimes': [1456823660.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [930336], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [1]}, '20': {'Retries': 0, 'WallDurations': [1213.0], 'StartTimes': [1456822411.0], 'SubmitTimes': [1456822208.0], 'JobIds': ['3290731.0'], 'TotalUserCpuTimeHistory': [43], 'EndTimes': [1456823624.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [448928], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T2_US_Nebraska'], 'TotalSysCpuTimeHistory': [2]}, '8': {'Retries': 0, 'WallDurations': [1211.0], 'StartTimes': [1456822446.0], 'SubmitTimes': [1456822202.0], 'JobIds': ['3290691.0'], 'TotalUserCpuTimeHistory': [38], 'EndTimes': [1456823657.0], 'Restarts': 0, 'RecordedSite': True, 'State': 'failed', 'ResidentSetSize': [620140], 'Error': [139, 'CmsRunFailure', {}], 'SiteHistory': ['T1_US_FNAL'], 'TotalSysCpuTimeHistory': [2]}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['failed', 11], ['failed', 10], ['failed', 13], ['failed', 12], ['failed', 15], ['failed', 14], ['failed', 17], ['failed', 16], ['failed', 19], ['failed', 18], ['failed', 20], ['failed', 1], ['failed', 3], ['failed', 2], ['failed', 5], ['failed', 4], ['failed', 7], ['failed', 6], ['failed', 9], ['failed', 8]]}
+INFO 2016-03-01 10:14:43,431: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:14:43,432: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:14:43,432: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:14:43,432: 	 Task status:			FAILED
+INFO 2016-03-01 10:14:43,432: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:14:43,432: 	 
+Jobs status:			failed        100.0% (20/20)
+INFO 2016-03-01 10:14:43,432: 	 
+No publication information available yet
+INFO 2016-03-01 10:14:43,432: 	 
+Error Summary: (use --verboseErrors for details about the errors)
+
+20 jobs failed with exit code 139
+
+Have a look at https://twiki.cern.ch/twiki/bin/viewauth/CMSPublic/JobExitCodes for a description of the exit codes.
+INFO 2016-03-01 10:14:43,433: 	 
+Extended Job Status Table:
+
+ Job State        Most Recent Site        Runtime   Mem (MB)      CPU %    Retries   Restarts      Waste       Exit Code
+   1 failed       T2_US_Nebraska          0:20:33        605          5          0          0    0:00:00             139
+   2 failed       T2_US_Nebraska          0:20:13        709          3          0          0    0:00:00             139
+   3 failed       T2_US_Nebraska          0:20:42        573          4          0          0    0:00:00             139
+   4 failed       T2_US_Nebraska          0:20:47        590          4          0          0    0:00:00             139
+   5 failed       T1_US_FNAL              0:20:11        571          3          0          0    0:00:00             139
+   6 failed       T2_US_MIT               0:20:39         17          3          0          0    0:00:00             139
+   7 failed       T2_US_Wisconsin         0:20:10         37          2          0          0    0:00:00             139
+   8 failed       T1_US_FNAL              0:20:11        605          3          0          0    0:00:00             139
+   9 failed       T1_US_FNAL              0:20:14        908          3          0          0    0:00:00             139
+  10 failed       T1_US_FNAL              0:20:11        589          3          0          0    0:00:00             139
+  11 failed       T2_US_MIT               0:20:40         18          3          0          0    0:00:00             139
+  12 failed       T2_US_Wisconsin         0:20:09        571          2          0          0    0:00:00             139
+  13 failed       T2_US_MIT               0:20:35        590          4          0          0    0:00:00             139
+  14 failed       T2_US_Wisconsin         0:20:11        709          3          0          0    0:00:00             139
+  15 failed       T1_US_FNAL              0:20:13        589          2          0          0    0:00:00             139
+  16 failed       T1_US_FNAL              0:20:12        968          3          0          0    0:00:00             139
+  17 failed       T2_US_Wisconsin         0:20:24         18          4          0          0    0:00:00             139
+  18 failed       T2_US_Nebraska          0:20:09        590          2          0          0    0:00:00             139
+  19 failed       T2_US_MIT               0:20:40         32          2          0          0    0:00:00             139
+  20 failed       T2_US_Nebraska          0:20:13        438          4          0          0    0:00:00             139
+DEBUG 2016-03-01 10:14:43,433: 	 
+ Job Cluster Id
+   1 ['3290703.0']
+   2 ['3290719.0']
+   3 ['3290706.0']
+   4 ['3290685.0']
+   5 ['3290727.0']
+   6 ['3290723.0']
+   7 ['3290711.0']
+   8 ['3290691.0']
+   9 ['3290697.0']
+  10 ['3290700.0']
+  11 ['3290717.0']
+  12 ['3290709.0']
+  13 ['3290721.0']
+  14 ['3290713.0']
+  15 ['3290694.0']
+  16 ['3290688.0']
+  17 ['3290715.0']
+  18 ['3290729.0']
+  19 ['3290725.0']
+  20 ['3290731.0']
+INFO 2016-03-01 10:14:43,433: 	 
+Summary:
+ * Memory: 605MB min, 968MB max, 487MB ave
+ * Runtime: 0:20:09 min, 0:20:47 max, 0:20:21 ave
+ * CPU eff: 2% min, 5% max, 3% ave
+ * Waste: 0:00:00 (0% of total)
+
+INFO 2016-03-01 10:14:43,438: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log
+DEBUG 2016-03-01 10:24:37,902: 	 Executing command: 'status'
+DEBUG 2016-03-01 10:24:37,903: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 10:24:37,916: 	 Checking credentials
+DEBUG 2016-03-01 10:24:37,917: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:24:37,917: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:24:39,130: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 81882
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:24:39,740: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 81881
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:24:39,740: 	 Proxy valid for 22:44:42 hours
+DEBUG 2016-03-01 10:24:39,862: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:24:39,862: 	 Checking credentials
+DEBUG 2016-03-01 10:24:39,862: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 10:24:39,862: 	 Getting proxy life time left
+DEBUG 2016-03-01 10:24:40,570: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 81881
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:24:41,082: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 81879
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:24:41,082: 	 Proxy valid for 22:44:41 hours
+DEBUG 2016-03-01 10:24:41,471: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 10:24:41,581: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 10:24:41,581: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 10:24:41,581: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 10:24:42,186: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 718:45:55  (29.9 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 10:24:42,187: 	 Myproxy is valid: 2587555
+DEBUG 2016-03-01 10:24:42,187: 	 Command use: status
+DEBUG 2016-03-01 10:24:42,187: 	 Options use: []
+DEBUG 2016-03-01 10:24:42,599: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 10:24:42,599: 	 Instance is prod
+DEBUG 2016-03-01 10:24:42,599: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 10:24:42,599: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 10:24:42,600: 	 Looking up detailed status of task 160301_084902:dcurry_crab_20160301_094837
+DEBUG 2016-03-01 10:24:42,979: 	 {'status': 'FAILED', 'schedd': 'crab3test-2@vocms095.cern.ch', 'jobsPerStatus': {'failed': 20}, 'jobs': {'11': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '10': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '13': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '12': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '15': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '14': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '17': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '16': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '19': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '18': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '20': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '1': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '3': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '2': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '5': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '4': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '7': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '6': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '9': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}, '8': {'State': 'failed', 'Error': [139, 'CmsRunFailure', {}]}}, 'publication': {}, 'taskWarningMsg': [], 'publicationFailures': {}, 'outdatasets': None, 'statusFailureMsg': '', 'taskFailureMsg': '', 'failedJobdefs': 0, 'ASOURL': 'https://cmsweb.cern.ch/couchdb2', 'totalJobdefs': 0, 'jobdefErrors': [], 'collector': 'cmssrv221.fnal.gov,vocms099.cern.ch', 'jobList': [['failed', 11], ['failed', 10], ['failed', 13], ['failed', 12], ['failed', 15], ['failed', 14], ['failed', 17], ['failed', 16], ['failed', 19], ['failed', 18], ['failed', 1], ['failed', 3], ['failed', 2], ['failed', 5], ['failed', 4], ['failed', 7], ['failed', 6], ['failed', 9], ['failed', 8], ['failed', 20]]}
+INFO 2016-03-01 10:24:42,979: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837
+INFO 2016-03-01 10:24:42,979: 	 Task name:			160301_084902:dcurry_crab_20160301_094837
+INFO 2016-03-01 10:24:42,979: 	 Grid scheduler:			crab3test-2@vocms095.cern.ch
+INFO 2016-03-01 10:24:42,979: 	 Task status:			FAILED
+INFO 2016-03-01 10:24:42,979: 	 Dashboard monitoring URL:	http://dashb-cms-job.cern.ch/dashboard/templates/task-analysis/#user=crab&refresh=0&table=Jobs&p=1&records=25&activemenu=2&status=&site=&tid=160301_084902%3Adcurry_crab_20160301_094837
+INFO 2016-03-01 10:24:42,979: 	 
+Jobs status:			failed        100.0% (20/20)
+INFO 2016-03-01 10:24:42,979: 	 
+No publication information available yet
+INFO 2016-03-01 10:24:42,979: 	 
+Error Summary: (use --verboseErrors for details about the errors)
+
+20 jobs failed with exit code 139
+
+Have a look at https://twiki.cern.ch/twiki/bin/viewauth/CMSPublic/JobExitCodes for a description of the exit codes.
+INFO 2016-03-01 10:24:42,986: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_094837/crab.log

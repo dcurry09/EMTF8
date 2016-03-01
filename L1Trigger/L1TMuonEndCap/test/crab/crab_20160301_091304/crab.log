@@ -1,0 +1,311 @@
+L1TCalorimeter Sequence configured for Run1 (Legacy) trigger. 
+L1TMuon Sequence configured for Legacy trigger (Run1 and Run 2015). 
+L1TGlobal Sequence configured for Legacy trigger (Run1 and Run 2015). 
+L1TRawToDigi Sequence configured for Run1 (Legacy) trigger. 
+# Conditions read from  CMS_CONDITIONS  via FrontierProd 
+DEBUG 2016-03-01 09:13:03,416: 	 Executing command: 'submit'
+DEBUG 2016-03-01 09:13:03,416: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:13:03,427: 	 Checking credentials
+DEBUG 2016-03-01 09:13:03,427: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:13:03,427: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:13:04,032: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 86178
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:13:04,538: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 86176
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:13:04,539: 	 Proxy valid for 23:56:18 hours
+INFO 2016-03-01 09:13:04,539: 	 Will use CRAB configuration file crabConfig.py
+DEBUG 2016-03-01 09:13:04,539: 	 Loading CRAB configuration file.
+DEBUG 2016-03-01 09:13:04,546: 	 Will use CRAB Analysis plugin (i.e. will run an analysis job type).
+DEBUG 2016-03-01 09:13:04,662: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:13:04,662: 	 Checking credentials
+DEBUG 2016-03-01 09:13:04,662: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:13:04,663: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:13:05,167: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 86176
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:13:05,673: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 86175
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:13:05,674: 	 Proxy valid for 23:56:16 hours
+DEBUG 2016-03-01 09:13:06,179: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u37753 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+/cms/uscms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:13:06,574: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:13:06,683: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:13:06,683: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:13:06,684: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:13:07,890: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:57:30  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:13:07,891: 	 Myproxy is valid: 2591850
+DEBUG 2016-03-01 09:13:07,892: 	 Command use: submit
+DEBUG 2016-03-01 09:13:07,892: 	 Options use: ['-c', 'crabConfig.py']
+DEBUG 2016-03-01 09:13:08,302: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:13:08,303: 	 Instance is prod
+DEBUG 2016-03-01 09:13:08,303: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:13:08,303: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:13:08,303: 	 Started submission
+DEBUG 2016-03-01 09:13:08,303: 	 Working on /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304
+DEBUG 2016-03-01 09:13:08,985: 	 Loading required information from the environment
+DEBUG 2016-03-01 09:13:08,985: 	 Found CMSSW_8_0_0_pre5 for slc6_amd64_gcc493 with base /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5
+DEBUG 2016-03-01 09:13:09,010: 	 UNIQUE NAME: tarUUID 8a21fe48-1344-422d-b87a-c67130fbffb6 
+DEBUG 2016-03-01 09:13:09,011: 	 self.config: from WMCore.Configuration import Configuration
+config = Configuration()
+config.section_('General')
+config.General.transferOutputs = True
+config.section_('JobType')
+config.JobType.psetName = 'runMuonEndCap_dcurry_Feb11.py'
+config.JobType.pluginName = 'Analysis'
+config.JobType.outputFiles = ['EMTF_Rate_Studies_ZeroBias_v1.root']
+config.section_('Data')
+config.Data.inputDataset = '/ZeroBias/Run2015D-PromptReco-v1/RECO'
+config.Data.totalUnits = 20
+config.Data.unitsPerJob = 1
+config.Data.inputDBS = 'global'
+config.Data.splitting = 'LumiBased'
+config.Data.useParent = True
+config.Data.outLFNDirBase = '/store/user/dcurry/EMTF/rate/'
+config.Data.lumiMask = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt'
+config.Data.runRange = '259721'
+config.section_('Site')
+config.Site.storageSite = 'T2_CH_CERN'
+config.section_('User')
+config.section_('Debug')
+
+DEBUG 2016-03-01 09:13:09,011: 	 self.config.JobType.psetName: runMuonEndCap_dcurry_Feb11.py
+INFO 2016-03-01 09:13:09,011: 	 Importing CMSSW configuration runMuonEndCap_dcurry_Feb11.py
+INFO 2016-03-01 09:13:11,198: 	 Finished importing CMSSW configuration runMuonEndCap_dcurry_Feb11.py
+DEBUG 2016-03-01 09:13:11,198: 	 Writing CMSSW configuration to /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304/inputs/PSet.py
+DEBUG 2016-03-01 09:13:12,446: 	 The following EDM output files will be collected: []
+DEBUG 2016-03-01 09:13:12,446: 	 The following TFile output files will be collected: ['EMTF_effStudies_ZMu-PromptReco_v1.root']
+DEBUG 2016-03-01 09:13:12,446: 	 The following user output files will be collected: ['EMTF_Rate_Studies_ZeroBias_v1.root']
+DEBUG 2016-03-01 09:13:12,446: 	 Loading required information from the environment
+DEBUG 2016-03-01 09:13:12,446: 	 Found CMSSW_8_0_0_pre5 for slc6_amd64_gcc493 with base /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5
+DEBUG 2016-03-01 09:13:12,446: 	 Making tarball in /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304/inputs/8a21fe48-1344-422d-b87a-c67130fbffb6default.tgz
+DEBUG 2016-03-01 09:13:12,448: 	 Checking directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/lib
+DEBUG 2016-03-01 09:13:12,448: 	 Adding directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/lib to tarball
+DEBUG 2016-03-01 09:13:17,776: 	 Checking directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/biglib
+DEBUG 2016-03-01 09:13:17,776: 	 Adding directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/biglib to tarball
+DEBUG 2016-03-01 09:13:17,778: 	 Checking directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/module
+DEBUG 2016-03-01 09:13:18,168: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/CondFormats/DataRecord/interface to tarball
+DEBUG 2016-03-01 09:13:18,301: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/CondFormats/L1TObjects/interface to tarball
+DEBUG 2016-03-01 09:13:18,354: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1DTTrackFinder/interface to tarball
+DEBUG 2016-03-01 09:13:18,360: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1TGlobal/interface to tarball
+DEBUG 2016-03-01 09:13:18,364: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1TMuon/interface to tarball
+DEBUG 2016-03-01 09:13:18,386: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/DataFormats/L1Trigger/interface to tarball
+DEBUG 2016-03-01 09:13:18,404: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/EventFilter/L1TRawToDigi/interface to tarball
+DEBUG 2016-03-01 09:13:18,422: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/EventFilter/L1TRawToDigi/data to tarball
+DEBUG 2016-03-01 09:13:18,613: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/EventFilter/RawDataCollector/interface to tarball
+DEBUG 2016-03-01 09:13:18,627: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/HardwareValidation/interface to tarball
+DEBUG 2016-03-01 09:13:18,642: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TCalorimeter/data to tarball
+DEBUG 2016-03-01 09:13:18,912: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TCalorimeter/interface to tarball
+DEBUG 2016-03-01 09:13:18,951: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TGlobal/data to tarball
+DEBUG 2016-03-01 09:13:18,974: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TGlobal/interface to tarball
+DEBUG 2016-03-01 09:13:19,004: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuon/interface to tarball
+DEBUG 2016-03-01 09:13:19,019: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuon/data to tarball
+DEBUG 2016-03-01 09:13:22,814: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonBarrel/interface to tarball
+DEBUG 2016-03-01 09:13:22,828: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/interface to tarball
+DEBUG 2016-03-01 09:13:22,887: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonOverlap/interface to tarball
+DEBUG 2016-03-01 09:13:22,905: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TNtuples/interface to tarball
+DEBUG 2016-03-01 09:13:22,946: 	 Adding data directory /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface to tarball
+DEBUG 2016-03-01 09:13:23,237: 	 Uploading archive /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304/inputs/8a21fe48-1344-422d-b87a-c67130fbffb6default.tgz to the CRAB cache. Using URI https://cmsweb.cern.ch/crabcache
+DEBUG 2016-03-01 09:13:31,923: 	 Result uploading input files: 49bb889219e999f1fbea2968a2bc0484f1ac6c36ec530f68cafb79139c60c541.tar.gz 
+DEBUG 2016-03-01 09:13:31,923: 	 Attaching lumi mask https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt to the request
+DEBUG 2016-03-01 09:13:31,923: 	 Downloading lumi-mask from https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt
+WARNING 2016-03-01 09:13:31,965: 	 Warning: The following output files will not be published, as they are not EDM files: ['EMTF_effStudies_ZMu-PromptReco_v1.root', 'EMTF_Rate_Studies_ZeroBias_v1.root']
+INFO 2016-03-01 09:13:31,965: 	 Sending the request to the server
+DEBUG 2016-03-01 09:13:31,965: 	 Submitting {'maxjobruntime': 1250, 'ignorelocality': 0, 'savelogsflag': 0, 'useparent': 1, 'asyncdest': 'T2_CH_CERN', 'algoargs': 1, 'cachefilename': '49bb889219e999f1fbea2968a2bc0484f1ac6c36ec530f68cafb79139c60c541.tar.gz', 'numcores': 1, 'addoutputfiles': ['EMTF_Rate_Studies_ZeroBias_v1.root'], 'generator': 'pythia', 'maxmemory': 2000, 'publishdbsurl': 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter', 'priority': 10, 'jobsw': 'CMSSW_8_0_0_pre5', 'edmoutfiles': [], 'userfiles': [], 'primarydataset': '', 'inputdata': '/ZeroBias/Run2015D-PromptReco-v1/RECO', 'lfn': '/store/user/dcurry/EMTF/rate/', 'dryrun': 0, 'workflow': 'crab_20160301_091304', 'adduserfiles': [], 'jobarch': 'slc6_amd64_gcc493', 'lumis': ['73,99,102,408'], 'nonprodsw': 0, 'tfileoutfiles': ['EMTF_effStudies_ZMu-PromptReco_v1.root'], 'oneEventMode': 0, 'cacheurl': 'https://cmsweb.cern.ch/crabcache', 'saveoutput': 1, 'publication': 1, 'runs': [u'259721'], 'totalunits': 20, 'splitalgo': 'LumiBased', 'nonvaliddata': 0, 'dbsurl': 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader', 'publishgroupname': 0, 'jobtype': 'Analysis', 'publishname2': ''} 
+DEBUG 2016-03-01 09:13:31,966: 	 Encoded submit request: maxjobruntime=1250&ignorelocality=0&savelogsflag=0&useparent=1&asyncdest=T2_CH_CERN&algoargs=1&cachefilename=49bb889219e999f1fbea2968a2bc0484f1ac6c36ec530f68cafb79139c60c541.tar.gz&numcores=1&generator=pythia&maxmemory=2000&publishdbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fphys03%2FDBSWriter&priority=10&jobsw=CMSSW_8_0_0_pre5&primarydataset=&inputdata=%2FZeroBias%2FRun2015D-PromptReco-v1%2FRECO&lfn=%2Fstore%2Fuser%2Fdcurry%2FEMTF%2Frate%2F&dryrun=0&workflow=crab_20160301_091304&jobarch=slc6_amd64_gcc493&nonprodsw=0&oneEventMode=0&cacheurl=https%3A%2F%2Fcmsweb.cern.ch%2Fcrabcache&saveoutput=1&publication=1&totalunits=20&splitalgo=LumiBased&nonvaliddata=0&dbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fglobal%2FDBSReader&publishgroupname=0&jobtype=Analysis&publishname2=&addoutputfiles=EMTF_Rate_Studies_ZeroBias_v1.root&tfileoutfiles=EMTF_effStudies_ZMu-PromptReco_v1.root&runs=259721&lumis=73%2C99%2C102%2C408
+DEBUG 2016-03-01 09:13:32,757: 	 Result: {'result': [{'RequestName': '160301_081332:dcurry_crab_20160301_091304'}]}
+INFO 2016-03-01 09:13:32,759: 	 Success: Your task has been delivered to the CRAB3 server.
+INFO 2016-03-01 09:13:32,760: 	 Task name: 160301_081332:dcurry_crab_20160301_091304
+INFO 2016-03-01 09:13:32,760: 	 Please use 'crab status' to check how the submission process proceeds.
+DEBUG 2016-03-01 09:13:32,760: 	 About to return
+INFO 2016-03-01 09:13:32,767: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304/crab.log
+DEBUG 2016-03-01 09:15:13,068: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:15:13,068: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:15:13,085: 	 Checking credentials
+DEBUG 2016-03-01 09:15:13,085: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:15:13,086: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:15:13,690: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 86048
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:15:14,196: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 86046
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:15:14,196: 	 Proxy valid for 23:54:08 hours
+DEBUG 2016-03-01 09:15:14,308: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:15:14,308: 	 Checking credentials
+DEBUG 2016-03-01 09:15:14,308: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:15:14,308: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:15:14,814: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 86047
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:15:15,323: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 86045
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:15:15,323: 	 Proxy valid for 23:54:07 hours
+DEBUG 2016-03-01 09:15:15,774: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:15:15,886: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:15:15,886: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:15:15,886: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:15:16,391: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:55:21  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:15:16,392: 	 Myproxy is valid: 2591721
+DEBUG 2016-03-01 09:15:16,392: 	 Command use: status
+DEBUG 2016-03-01 09:15:16,392: 	 Options use: []
+DEBUG 2016-03-01 09:15:16,921: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:15:16,921: 	 Instance is prod
+DEBUG 2016-03-01 09:15:16,921: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:15:16,921: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:15:16,921: 	 Looking up detailed status of task 160301_081332:dcurry_crab_20160301_091304
+DEBUG 2016-03-01 09:15:17,361: 	 {'status': 'SUBMITFAILED', 'schedd': '', 'totalJobdefs': 0, 'jobsPerStatus': {}, 'taskWarningMsg': [], 'statusFailureMsg': '', 'taskFailureMsg': 'Cannot find dataset /ZeroBias/Run2015D-PromptReco-v1/RECO in prod/global DBS instance', 'failedJobdefs': 0, 'jobdefErrors': [], 'collector': '', 'jobList': []}
+INFO 2016-03-01 09:15:17,361: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304
+INFO 2016-03-01 09:15:17,361: 	 Task name:			160301_081332:dcurry_crab_20160301_091304
+INFO 2016-03-01 09:15:17,361: 	 Task status:			SUBMITFAILED
+ERROR 2016-03-01 09:15:17,361: 	 Failure message:		Cannot find dataset /ZeroBias/Run2015D-PromptReco-v1/RECO in prod/global DBS instance
+INFO 2016-03-01 09:15:17,364: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304/crab.log
+DEBUG 2016-03-01 09:37:24,035: 	 Executing command: 'status'
+DEBUG 2016-03-01 09:37:24,036: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-03-01 09:37:24,051: 	 Checking credentials
+DEBUG 2016-03-01 09:37:24,052: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:37:24,052: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:37:24,663: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 84717
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:37:25,276: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 84715
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:37:25,277: 	 Proxy valid for 23:31:57 hours
+DEBUG 2016-03-01 09:37:25,391: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:37:25,391: 	 Checking credentials
+DEBUG 2016-03-01 09:37:25,392: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-03-01 09:37:25,392: 	 Getting proxy life time left
+DEBUG 2016-03-01 09:37:25,897: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 84716
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:37:26,402: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 84714
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:37:26,402: 	 Proxy valid for 23:31:56 hours
+DEBUG 2016-03-01 09:37:26,807: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-03-01 09:37:26,917: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-03-01 09:37:26,917: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-03-01 09:37:26,917: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry_cmsweb.cern.ch for credential name
+DEBUG 2016-03-01 09:37:27,422: 	 Executing : 
+ command : myproxy-info -l 6d4064cd922d20609daf0cd42cb031661e05a283 -s myproxy.cern.ch
+ output : username: 6d4064cd922d20609daf0cd42cb031661e05a283
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 719:33:10  (30.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-03-01 09:37:27,423: 	 Myproxy is valid: 2590390
+DEBUG 2016-03-01 09:37:27,423: 	 Command use: status
+DEBUG 2016-03-01 09:37:27,423: 	 Options use: []
+DEBUG 2016-03-01 09:37:27,796: 	 CRABClient version: 3.3.1602
+DEBUG 2016-03-01 09:37:27,796: 	 Instance is prod
+DEBUG 2016-03-01 09:37:27,796: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-03-01 09:37:27,796: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-03-01 09:37:27,796: 	 Looking up detailed status of task 160301_081332:dcurry_crab_20160301_091304
+DEBUG 2016-03-01 09:37:28,208: 	 {'status': 'SUBMITFAILED', 'schedd': '', 'totalJobdefs': 0, 'jobsPerStatus': {}, 'taskWarningMsg': [], 'statusFailureMsg': '', 'taskFailureMsg': 'Cannot find dataset /ZeroBias/Run2015D-PromptReco-v1/RECO in prod/global DBS instance', 'failedJobdefs': 0, 'jobdefErrors': [], 'collector': '', 'jobList': []}
+INFO 2016-03-01 09:37:28,208: 	 CRAB project directory:		/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304
+INFO 2016-03-01 09:37:28,209: 	 Task name:			160301_081332:dcurry_crab_20160301_091304
+INFO 2016-03-01 09:37:28,209: 	 Task status:			SUBMITFAILED
+ERROR 2016-03-01 09:37:28,209: 	 Failure message:		Cannot find dataset /ZeroBias/Run2015D-PromptReco-v1/RECO in prod/global DBS instance
+INFO 2016-03-01 09:37:28,212: 	 Log file is /afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/crab/crab_20160301_091304/crab.log

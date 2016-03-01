@@ -1,0 +1,106 @@
+DEBUG 2016-02-29 18:10:37,247: 	 Executing command: 'submit'
+DEBUG 2016-02-29 18:10:37,248: 	 Found CRAB cache file /afs/cern.ch/user/d/dcurry/.crab3
+DEBUG 2016-02-29 18:10:37,265: 	 Checking credentials
+DEBUG 2016-02-29 18:10:37,267: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-02-29 18:10:37,267: 	 Getting proxy life time left
+DEBUG 2016-02-29 18:10:37,973: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 85848
+
+ error: 
+ retcode : 0
+DEBUG 2016-02-29 18:10:38,691: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 85847
+
+ error: 
+ retcode : 0
+DEBUG 2016-02-29 18:10:38,692: 	 Proxy valid for 23:50:48 hours
+INFO 2016-02-29 18:10:38,692: 	 Will use CRAB configuration file crabConfig.py
+DEBUG 2016-02-29 18:10:38,693: 	 Loading CRAB configuration file.
+DEBUG 2016-02-29 18:10:38,704: 	 Will use CRAB Analysis plugin (i.e. will run an analysis job type).
+DEBUG 2016-02-29 18:10:38,861: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+
+ error: WARNING: can't open config file: /build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/tmp/BUILDROOT/44604f3e263d23c2db927cc2b6d4278c/build/dmwmbld/srv/state/dmwmbld/builds/comp_gcc493/w/slc6_amd64_gcc493/external/openssl/1.0.1p/ssl/openssl.cnf
+
+ retcode : 0
+DEBUG 2016-02-29 18:10:38,861: 	 Checking credentials
+DEBUG 2016-02-29 18:10:38,862: 	 Found proxy file /tmp/x509up_u37753
+DEBUG 2016-02-29 18:10:38,862: 	 Getting proxy life time left
+DEBUG 2016-02-29 18:10:39,576: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -timeleft
+ output : 85846
+
+ error: 
+ retcode : 0
+DEBUG 2016-02-29 18:10:40,185: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u37753 -actimeleft
+ output : 85845
+
+ error: 
+ retcode : 0
+DEBUG 2016-02-29 18:10:40,185: 	 Proxy valid for 23:50:46 hours
+DEBUG 2016-02-29 18:10:41,099: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u37753 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+/cms/uscms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+INFO 2016-02-29 18:12:41,931: 	 The server answered with an error.
+INFO 2016-02-29 18:12:41,931: 	 Server answered with: Database unavailable
+INFO 2016-02-29 18:12:41,931: 	 Error Id: 022ab7180df9e9de84ecc6e93ab62696
+DEBUG 2016-02-29 18:12:41,931: 	 ERROR: Service Unavailable (503):  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+    <title>503 Service Unavailable</title>
+    <style type="text/css">
+    #powered_by {
+        margin-top: 20px;
+        border-top: 2px solid black;
+        font-style: italic;
+    }
+
+    #traceback {
+        color: red;
+    }
+    </style>
+</head>
+    <body>
+        <h2>503 Service Unavailable</h2>
+        <p>Database unavailable</p>
+        <pre id="traceback"></pre>
+    <div id="powered_by">
+    <span>Powered by <a href="http://www.cherrypy.org">CherryPy 3.2.2</a></span>
+    </div>
+    </body>
+</html>
+'
+DEBUG 2016-02-29 18:12:41,931: 	 Command failed with URI: https://cmsweb.cern.ch/crabserver/prod/info
+DEBUG 2016-02-29 18:12:41,931: 	      Input data: {'subresource': 'delegatedn'}
+DEBUG 2016-02-29 18:12:41,931: 	      Request headers: {'X-Error-Http': '503', 'Transfer-Encoding': 'chunked', 'X-Rest-Time': '8001779.795 us', 'X-Error-Detail': 'Database unavailable', 'Server': 'CherryPy/3.2.2', 'Connection': 'close', 'X-Error-Id': '022ab7180df9e9de84ecc6e93ab62696', 'X-Rest-Status': '401', 'Date': 'Mon, 29 Feb 2016 17:12:33 GMT', 'Content-Type': 'text/html;charset=utf-8', 'CMS-Server-Time': 'D=111209126 t=1456765850719346'}
+ERROR 2016-02-29 18:12:41,931: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/bin/crab", line 146, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/CRABClient/Commands/submit.py", line 32, in __init__
+    SubCommand.__init__(self, logger, cmdargs, disable_interspersed_args=True)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 336, in __init__
+    self.handleProxy(proxyOptsSetPlace)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 411, in handleProxy
+    all_task_workers_dns = server_info('delegatedn', self.serverurl, self.proxyfilename, baseurl)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/CRABClient/ClientUtilities.py", line 664, in server_info
+    dictresult, dummyStatus, dummyReason = server.get(baseurl, requestdict)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/RESTInteractions.py", line 63, in get
+    return self.makeRequest(uri = uri, data = data, verb = 'GET')
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/RESTInteractions.py", line 113, in makeRequest
+    capath=caCertPath)#, verbose=True)# for debug
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1602/lib/python2.7/site-packages/WMCore/Services/pycurl_manager.py", line 209, in request
+    raise exc
+HTTPException: url=https://cmsweb.cern.ch/crabserver/prod/info, code=503, reason=Service Unavailable, headers={'X-Error-Http': '503', 'Transfer-Encoding': 'chunked', 'X-Rest-Time': '8001779.795 us', 'X-Error-Detail': 'Database unavailable', 'Server': 'CherryPy/3.2.2', 'Connection': 'close', 'X-Error-Id': '022ab7180df9e9de84ecc6e93ab62696', 'X-Rest-Status': '401', 'Date': 'Mon, 29 Feb 2016 17:12:33 GMT', 'Content-Type': 'text/html;charset=utf-8', 'CMS-Server-Time': 'D=111209126 t=1456765850719346'}

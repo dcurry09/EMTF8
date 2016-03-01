@@ -356,19 +356,22 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 
   std::vector<L1MuGMTReadoutRecord> gmt_records = gmtReadoutCollection->getRecords();
   std::vector<L1MuGMTReadoutRecord>::const_iterator iReadRec;
+
+
+  int numGmtTrks = 0;
   for(iReadRec = gmt_records.begin(); iReadRec != gmt_records.end(); iReadRec++) {
 
     std::vector<L1MuRegionalCand>::const_iterator iCand;
     std::vector<L1MuRegionalCand> gmtCand;
-
-    if(iReadRec->getBxInEvent() == 0)
-      //std::cout << "GMT event BX number is " << iReadRec->getBxNr() << std::endl;
+    
+    //if(iReadRec->getBxInEvent() == 0)
+    //std::cout << "GMT event BX number is " << iReadRec->getBxNr() << std::endl;
 
     gmtCand = iReadRec->getCSCCands();
 
     for(iCand = gmtCand.begin(); iCand != gmtCand.end(); iCand++) {
       if ( abs( (*iCand).etaValue() ) > 1.2 ) {
-
+	
 	if (printLevel > 1) {
 	  std::cout << "gmtCand etaValue() = " << (*iCand).etaValue() << std::endl;
 	  std::cout << "gmtCand phiValue() = " << (*iCand).phiValue() << std::endl;
@@ -379,11 +382,14 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 	ev.legGMT_trkPt  -> push_back((*iCand).ptValue());
 	ev.legGMT_trkEta -> push_back((*iCand).etaValue());
 	ev.legGMT_trkPhi -> push_back((*iCand).phiValue());
-
+	ev.legGMT_trkBx  -> push_back((*iCand).bx()); 
+	ev.legGMT_trkQual-> push_back((*iCand).quality());
+	numGmtTrks++;
       }
     }
   }
-
+  
+  ev.numLegGmtTrks = numGmtTrks;
 
   if ( leg_tracks.isValid() ) {
 
@@ -403,30 +409,30 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       // Find track pT with Matts LUT
       unsigned pti = 0, quality = 0;
       lt->first.decodeRank(lt->first.rank(),pti,quality);//
-      float ptMatt = ptscaleMatt[pti+1];
+      float pt = ptscaleMatt[pti];
       
 
       // PtAddress gives an handle on other parameters
-      ptadd thePtAddress(lt->first.ptLUTAddress());
+      //ptadd thePtAddress(lt->first.ptLUTAddress());
 
       //Pt needs some more workaround since it is not in the unpacked data
-      ptdat thePtData  = ptLUT.Pt(thePtAddress);
+      //ptdat thePtData  = ptLUT.Pt(thePtAddress);
 
-      int pt_bit = -999;
+      //int pt_bit = -999;
       
       // front or rear bit?
-      if (thePtAddress.track_fr) {
-	pt_bit = thePtData.front_rank&0x1f;
+      //if (thePtAddress.track_fr) {/
+      //	pt_bit = thePtData.front_rank&0x1f;
 	//csctf_.trQuality.push_back((thePtData.front_rank>>5)&0x3);
 	//csctf_.trChargeValid.push_back(thePtData.charge_valid_front);
-      } else {
-	pt_bit = thePtData.rear_rank&0x1f;
+      //} else {
+      //pt_bit = thePtData.rear_rank&0x1f;
 	//csctf_.trQuality.push_back((thePtData.rear_rank>>5)&0x3);
 	//csctf_.trChargeValid.push_back(thePtData.charge_valid_rear);
-      }
+      //}
 
       // convert the Pt in human readable values (GeV/c)
-      float pt = ptScale->getPtScale()->getLowEdge(pt_bit);
+      //float pt = ptScale->getPtScale()->getLowEdge(pt_bit);
 
       
       // For EMTF mode definition
@@ -457,7 +463,7 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       ev.leg_trkBx   -> push_back(bx);
 
       // debug
-      ev.leg_trkPtMatt -> push_back(ptMatt);
+      //ev.leg_trkPtMatt -> push_back(ptMatt);
       
       
       // For each trk, get the list of its LCTs
