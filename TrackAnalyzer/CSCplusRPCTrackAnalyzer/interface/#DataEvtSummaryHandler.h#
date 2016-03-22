@@ -37,7 +37,7 @@ struct DataEvtSummary_t {
   // ==================
  
   Int_t numGenMuons;
-
+  
   std::vector<float>* gen_eta;
   std::vector<float>* gen_pt;
   std::vector<float>* gen_phi;
@@ -50,12 +50,14 @@ struct DataEvtSummary_t {
   int numGblRecoMuons;
   
   std::vector<float>* gmrPt;
+  std::vector<float>* gmrSamPt;
   std::vector<float>* gmrEta;
   std::vector<float>* gmrPhi;
   std::vector<float>* gmrD0;
   std::vector<float>* gmrChi2Norm;
   std::vector<int>* gmrValHits;
   std::vector<int>* gmrCharge;
+  
 
   // ==================
   // RECO Standalone Muons
@@ -65,7 +67,7 @@ struct DataEvtSummary_t {
   std::vector<float>* samPt;
   std::vector<float>* samEta;
   std::vector<float>* samPhi;
-  std::vector<int>* sdamCharge;
+  std::vector<int>* samCharge;
 
   // Muon Segments
   std::vector<int>* muonNsegs;
@@ -122,11 +124,13 @@ struct DataEvtSummary_t {
   std::vector<float>* trkEta;
   std::vector<float>* trkPhi;
   std::vector<Int_t>* trkMode;
+  std::vector<Int_t>* trkBx;
 
   // Track LCTs
   Int_t trkLctEndcap[MAXTRK][MAXTRKLCTS];
   Int_t trkLctStation[MAXTRK][MAXTRKLCTS];
   Int_t trkLctSector[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctSubSector[MAXTRK][MAXTRKLCTS];
   Int_t trkLctRing[MAXTRK][MAXTRKLCTS];
   Int_t trkLctChamber[MAXTRK][MAXTRKLCTS];
   Int_t trkLctWire[MAXTRK][MAXTRKLCTS];
@@ -136,7 +140,11 @@ struct DataEvtSummary_t {
   float trkLctGblEta[MAXTRK][MAXTRKLCTS];
   Int_t trkLctLocPhi[MAXTRK][MAXTRKLCTS];
   Int_t trkLctLocTheta[MAXTRK][MAXTRKLCTS];
-  
+  Int_t trkLctBx[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctValid[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctQuality[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctPattern[MAXTRK][MAXTRKLCTS];
+  Int_t trkLctBend[MAXTRK][MAXTRKLCTS];
   
   // ====================
   // RPC Tracks and LCTs
@@ -177,6 +185,9 @@ struct DataEvtSummary_t {
   std::vector<float>* leg_trkEta;
   std::vector<float>* leg_trkPhi;
   std::vector<Int_t>* leg_trkMode;
+  std::vector<Int_t>* leg_trkBx;
+  
+  std::vector<float>* leg_trkPtMatt;
 
   // Track LCTs
   Int_t leg_trkLctEndcap[MAXTRK][MAXTRKLCTS];
@@ -191,7 +202,17 @@ struct DataEvtSummary_t {
   float leg_trkLctGblEta[MAXTRK][MAXTRKLCTS];
   Int_t leg_trkLctLocPhi[MAXTRK][MAXTRKLCTS];
   Int_t leg_trkLctLocEta[MAXTRK][MAXTRKLCTS];
+
+  // ====================
+  // Legacy GMT CSC Tracks
+  // ====================
+  Int_t numLegGmtTrks;
   
+  std::vector<float>* legGMT_trkPt;
+  std::vector<float>* legGMT_trkEta;
+  std::vector<float>* legGMT_trkPhi;
+  std::vector<Int_t>* legGMT_trkBx;
+  std::vector<Int_t>* legGMT_trkQual;
   
 };
 

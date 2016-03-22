@@ -1,7 +1,7 @@
 #include "TrackAnalyzer/CSCplusRPCTrackAnalyzer/interface/DataEvtSummaryHandler.h"
 
 using namespace std;
- 
+
 //
 DataEvtSummaryHandler::DataEvtSummaryHandler()
 {

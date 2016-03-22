@@ -515,20 +515,13 @@ void L1TMuonEndCapTrackProducer::produce(edm::Event& ev,
       tempTrackNew.set_bx ( (second_lct_bx > -99) ? second_lct_bx : first_lct_bx );
       // tempTrackNew.set_sector( sector );  // Commented b/c we're using the +/- 1-6 convention (above), rather than 0-11, for now
       tempTrackNew.set_phi_global_deg ( tempTrackNew.Phi_local_deg() + 60 * (tempTrackNew.Sector() - 1) );
-      // Correct for 15 deg2. offset, set range to -180 to 180
+      // Correct for 15 deg. offset, set range to -180 to 180
       tempTrackNew.set_phi_global_deg ( (tempTrackNew.Phi_global_deg() < 345) ? tempTrackNew.Phi_global_deg() + 15 : tempTrackNew.Phi_global_deg() - 345 ); 
       tempTrackNew.set_phi_global_deg ( (tempTrackNew.Phi_global_deg() < 180) ? tempTrackNew.Phi_global_deg()      : tempTrackNew.Phi_global_deg() - 360 );
       tempTrackNew.set_phi_global_rad ( tempTrackNew.Phi_global_deg() * (pi/180) ); 
       
       // FoundTracks->push_back(tempTrack);
       FoundTracksNew->push_back(tempTrackNew);
-
-      // DEBUG
-      cout << "\n====== EMTF Track # " << all_best << endl;
-      cout << "Pt: " << xmlpt*1.4 << " Eta: " << tempTrackNew.Eta() << " Phi: " << tempTrackNew.Phi_global_deg() * (pi/180) << " Mode: " << mode << endl;
-
- 
-
       
       // NOTE: assuming that all candidates come from the central BX:
       int bx = 0;

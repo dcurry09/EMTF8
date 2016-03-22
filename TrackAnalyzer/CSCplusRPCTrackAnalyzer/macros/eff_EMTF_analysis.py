@@ -22,10 +22,20 @@ else: printLevel = sys.argv[1]
 print '------> Importing Root File'
 
 # SingleMuon
-filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/TEST_EMTF_v5.root'
-#filename = '/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre5/src/L1Trigger/L1TMuonEndCap/test/TEST_EMTF.root'
+filename = 'root://eoscms//eos/cms/store/user/dcurry/EMTF/EMTF_MWGR_v3.root'
 
 file = TFile.Open(filename)
+
+# From the unpacker
+filename2 = '/afs/cern.ch/work/a/abrinke1/public/EMTF/MWGR/Unpacked/2016_03_09/266423/EMTF_RawToRoot_2k.root'
+
+file2 = TFile.Open(filename2)
+
+
+# From L1TNtuples
+filename3 = '/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre6/src/L1Ntuple.root'
+
+file3 = TFile.Open(filename3)
 
 # Histogram filename
 newfile = TFile("plots/EMFT_analysis_singleMu.root","recreate")
@@ -33,10 +43,17 @@ newfile = TFile("plots/EMFT_analysis_singleMu.root","recreate")
 # Set the branch address of TTree in Tfile
 tree = file.Get("ntuple/tree")
 
+tree2 = file2.Get("Events")
+
+tree3 = file3.Get("l1UpgradeEmuTree/L1UpgradeTree")
+evtTree = file3.Get("l1EventTree/L1EventTree")
+
 # A more efficient way to count
-muon_counter  = Counter()
+counter  = Counter()
 
-
+# Eta Cuts
+eta_min = 1.2
+eta_max = 2.4
 
 # ================ Histograms ===================
 
@@ -108,47 +125,126 @@ hist_list = [
 for iEvt in range(tree.GetEntries()):
 
     # for testing
-    #if iEvt > 10: break
+    #if iEvt > 100: break
+    
+    #if tree.numTrks < 1: continue
+    
     
     tree.GetEntry(iEvt)
+
+    tree2.GetEntry(iEvt)
+
+    tree3.GetEntry(iEvt)
     
     if iEvt % 1000 is 0: print 'Event #', iEvt
     
-    if printLevel > 3:
+    if printLevel > 1:
         print '\n============== New Event # ', tree.event, ' =================\n'\
               '\n  Run             = ', tree.run,  \
-              '\n  Muons in Event  = ', tree.numGblRecoMuons,   \
-              '\n  EMTF Tracks in Event   = ', tree.numTrks, \
-              '\n  Legacy Tracks in Event = ', tree.numLegTrks
+              '\n  EMTF Tracks in Event      = ', tree.numTrks, \
+              '\n  Legacy Tracks in Event      = ', tree.numLegTrks, '\n'
+                            #'\n  Unpacker tracks in Event  = ', len(tree2.l1tEMTFOutputs_unpack__EMTF), \
 
     # Loop over All LCTs
     for iLct in range(tree.numLCTs):
-        if printLevel > 3:
-            print '\nEvent Lct #', iLct, \
-                '\n=======',\
-                '\n LctEndcap  = ', tree.lctEndcap[iLct], \
-                '\n LctSector  = ', tree.lctSector[iLct], \
-                '\n LctRing    = ', tree.lctRing[iLct], \
-                '\n LctChamber = ', tree.lctChamber[iLct], \
-                '\n LctWire    = ', tree.lctWire[iLct], \
-                '\n LctStrip   = ', tree.lctStrip[iLct], \
-                '\n LctglobalEta  = ', tree.lctGlobalEta[iLct], \
-                '\n LctglobalPhi  = ', tree.lctGlobalPhi[iLct]
+        if printLevel > 1:
+            print 'Event Lct #', iLct,\
+                'Endcap:', tree.lctEndcap[iLct],\
+                'Sector:', tree.lctSector[iLct], \
+                'Station:', tree.lctStation[iLct], \
+                'Ring:', tree.lctRing[iLct], \
+                'Chamber:', tree.lctChamber[iLct], \
+                'Wire:', tree.lctWire[iLct], \
+                'Strip:', tree.lctStrip[iLct], \
+                'globalEta:', tree.lctGlobalEta[iLct], \
+                'globalPhi:', tree.lctGlobalPhi[iLct]
+            
+    
+            
+    # Loop over All Unpacker LCTs
+
+    numUnpacked_tracks = 0
+    
+    if printLevel > 0: print '\n======== Unpacker =========\n'
+
+    for iOut in range(tree2.l1tEMTFOutputs_unpack__EMTF.size()):
+        
+        EMTF_output = tree2.l1tEMTFOutputs_unpack__EMTF.at(iOut)
+        
+        header = EMTF_output.GetEventHeader()
+        
+        sector = header.Sector()
+        endcap = header.Endcap()
+
+        MeCollection = EMTF_output.GetMECollection()
+        
+        SpCollection = EMTF_output.GetSPCollection()
+        
+        for iTrk in range(SpCollection.size()):
+
+            trk = SpCollection.at(iTrk)
+            
+            # Get the track mode
+            #mode = trk.ME1_ID()*8 + trk.ME2_ID()*4 + trk.ME3_ID()*2 + trk.ME4_ID()*1
             
 
+            if printLevel > 1:
+                print '\nUnpacked Track #', numUnpacked_tracks,\
+                    'Pt:', trk.Pt(),\
+                    'Phi:', trk.Phi_global(),\
+                    'Eta:', trk.Eta_GMT(),\
+                    'Bx:', trk.TBIN_num()-3,\
+                    'Mode', trk.Quality()
 
+            if trk.Quality() != 11 and trk.Quality() != 13 and trk.Quality() != 14 and trk.Quality() != 15: continue
+
+            if (trk.TBIN_num()-3) != 0: continue
+
+            numUnpacked_tracks += 1
+            
+    
+
+        for iLct in range(MeCollection.size()):
+
+            lct  = MeCollection.at(iLct)
+
+            if printLevel > 1:
+                    print 'Unpacked Lct #', iLct,\
+                        'Endcap:', endcap,\
+                        'Sector:', sector,\
+                        'Station:', lct.Station(),\
+                        'Wire:', lct.Key_wire_group(),\
+                        'Strip:', lct.CLCT_key_half_strip()
+
+
+    if numUnpacked_tracks != tree.numTrks:
+        if printLevel > 0: print '\n======== ERROR!! UNPACKER DEBUG ========='
+
+
+   if printLevel > 0:  print '\n======== EMTF =========\n'
+
+    numEMTF_tracks = 0
     # Loop over EMTF tracks
     for iTrk in range(tree.numTrks):
         
         if iTrk > 3: continue
         
         if printLevel > 3:
-            print '\n\nEMTF Track # ', iTrk, \
+            print '\nEMTF Track # ', iTrk, \
                 ' trkPt: ', tree.trkPt[iTrk], \
                 ' trkEta: ', tree.trkEta[iTrk], \
                 ' trkPhi: ', tree.trkPhi[iTrk], \
-                ' trkMode:  ', tree.trkMode[iTrk], \
-                
+                ' trkMode:  ', tree.trkMode[iTrk],\
+                ' trkBx:  ', tree.trkBx[iTrk]
+            
+
+
+        if tree.trkMode[iTrk] != 11 and tree.trkMode[iTrk] != 13 and tree.trkMode[iTrk] != 14 and tree.trkMode[iTrk] != 15: continue
+
+        if tree.trkBx[iTrk] != 0: continue
+
+        numEMTF_tracks += 1
+        
         # dPhi Plots
         dphi_plots(tree, iTrk)
 
@@ -161,28 +257,57 @@ for iEvt in range(tree.GetEntries()):
             if iLct > 3: continue
 
             if printLevel > 3:
-                print '\nEMTF Lct #', iLct, \
-                    '\n=======',\
-                    '\n trLctStation = ', tree.trkLctStation[iTrk*4 + iLct], \
-                    '\n trLctEndcap  = ', tree.trkLctEndcap[iTrk*4 + iLct], \
-                    '\n trLctSector  = ', tree.trkLctSector[iTrk*4 + iLct], \
-                    '\n trLctRing    = ', tree.trkLctRing[iTrk*4 + iLct], \
-                    '\n trLctChamber = ', tree.trkLctChamber[iTrk*4 + iLct], \
-                    '\n trLctWire    = ', tree.trkLctWire[iTrk*4 + iLct], \
-                    '\n trLctStrip   = ', tree.trkLctStrip[iTrk*4 + iLct], \
-                    '\n trLctglobalEta  = ', tree.trkLctGblEta[iTrk*4 + iLct], \
-                    '\n trLctglobalPhi  = ', tree.trkLctGblPhi[iTrk*4 + iLct]
+                print 'EMTF Lct #', iLct, \
+                    'Station:', tree.trkLctStation[iTrk*4 + iLct], \
+                    'Endcap:', tree.trkLctEndcap[iTrk*4 + iLct], \
+                    'Sector:', tree.trkLctSector[iTrk*4 + iLct], \
+                    'Ring:', tree.trkLctRing[iTrk*4 + iLct], \
+                    'Chamber:', tree.trkLctChamber[iTrk*4 + iLct], \
+                    'Wire:', tree.trkLctWire[iTrk*4 + iLct], \
+                    'Strip:', tree.trkLctStrip[iTrk*4 + iLct], \
+                    'globalEta:', tree.trkLctGblEta[iTrk*4 + iLct], \
+                    'globalPhi:', tree.trkLctGblPhi[iTrk*4 + iLct]
 
+    if printLevel > 0: print '\n======== L1TNtuple =========\n'
+    
+    numL1Trks = 0
+    for iTrk in range(0,tree3.L1Upgrade.nMuons):
+        
+        trkPt = tree3.L1Upgrade.muonEt[iTrk]
+        trkBx = tree3.L1Upgrade.muonBx[iTrk]
+
+        if abs(tree3.L1Upgrade.muonEta[iTrk]) < eta_min: continue
+
+        if abs(tree3.L1Upgrade.muonEta[iTrk]) > eta_max: continue
+
+        if printLevel > 0:
+            print '\nL1 Track #', iTrk,\
+                'Pt:', trkPt,\
+                'Eta:',  tree3.L1Upgrade.muonEta[iTrk],\
+                'Phi:',  tree3.L1Upgrade.muonPhi[iTrk],\
+                'Qual:',  tree3.L1Upgrade.muonQual[iTrk],\
+                'Bx:',  tree3.L1Upgrade.muonBx[iTrk]
+            
+        if trkBx != 0: continue
+            
+        if tree3.L1Upgrade.muonQual[iTrk] < 12: continue
+
+        numL1Trks += 1
+
+
+        
+
+    if printLevel > 0: print '\n======== CSCTF =========\n'
 
     # Loop over Legacy tracks
     for iTrk in range(tree.numLegTrks):
          
         if printLevel > 1:
-            print '\n\nLegacy Track # ', iTrk, \
-                ' trkPt: ', tree.leg_trkPt[iTrk], \
-                ' trkEta: ', tree.leg_trkEta[iTrk], \
-                ' trkPhi: ', tree.leg_trkPhi[iTrk], \
-                ' trkMode:  ', tree.leg_trkMode[iTrk], \
+            print '\nLegacy Track # ', iTrk, \
+                ' trkPt:', tree.leg_trkPt[iTrk], \
+                ' trkEta:', tree.leg_trkEta[iTrk], \
+                ' trkPhi:', tree.leg_trkPhi[iTrk], \
+                ' trkMode:', tree.leg_trkMode[iTrk]
                 
         # dPhi Plots
         dphi_plots_leg(tree, iTrk)
@@ -190,21 +315,45 @@ for iEvt in range(tree.GetEntries()):
         for iLct in range(tree.numLegTrkLCTs[iTrk]):
             
             if printLevel > 3:
-                print '\nLegacy Lct #', iLct, \
-                    '\n=======',\
-                    '\n trLctStation = ', tree.leg_trkLctStation[iTrk*4 + iLct], \
-                    '\n trLctEndcap  = ', tree.leg_trkLctEndcap[iTrk*4 + iLct], \
-                    '\n trLctSector  = ', tree.leg_trkLctSector[iTrk*4 + iLct], \
-                    '\n trLctRing    = ', tree.leg_trkLctRing[iTrk*4 + iLct], \
-                    '\n trLctChamber = ', tree.leg_trkLctChamber[iTrk*4 + iLct], \
-                    '\n trLctWire    = ', tree.leg_trkLctWire[iTrk*4 + iLct], \
-                    '\n trLctStrip   = ', tree.leg_trkLctStrip[iTrk*4 + iLct], \
-                    '\n trLctglobalEta  = ', tree.leg_trkLctGblEta[iTrk*4 + iLct], \
-                    '\n trLctglobalPhi  = ', tree.leg_trkLctGblPhi[iTrk*4 + iLct]
+                print 'Legacy Lct #', iLct, \
+                    'Station:', tree.leg_trkLctStation[iTrk*4 + iLct], \
+                    'Endcap:', tree.leg_trkLctEndcap[iTrk*4 + iLct], \
+                    'Sector:', tree.leg_trkLctSector[iTrk*4 + iLct], \
+                    'Ring:', tree.leg_trkLctRing[iTrk*4 + iLct], \
+                    'Chamber:', tree.leg_trkLctChamber[iTrk*4 + iLct], \
+                    'Wire:', tree.leg_trkLctWire[iTrk*4 + iLct], \
+                    'Strip:', tree.leg_trkLctStrip[iTrk*4 + iLct], \
+                    'globalEta:', tree.leg_trkLctGblEta[iTrk*4 + iLct], \
+                    'globalPhi:', tree.leg_trkLctGblPhi[iTrk*4 + iLct]
         
 
 
+        if numEMTF_tracks > numL1Trks: 
+            if printLevel > 0: print '!!! L1T BUG !!!'
+            counter['L1T_missing_EMTF_tracks'] += 1
+            
+        if numUnpacked_tracks > numL1Trks: 
+            if printLevel > 0: print '!!! L1T Unpacker BUG !!!'
+            counter['L1T_missing_Unpacker_tracks'] += 1
 
+        if numUnpacked_tracks < numL1Trks:
+            if printLevel > 0: print '!!! Unpacker L1T BUG !!!'
+            counter['Unpacker_missing_L1T_tracks'] += 1
+
+        if numEMTF_tracks < numL1Trks: 
+            if printLevel > 0: print '!!! EMTF BUG !!!'
+            counter['EMTF_missing_L1T_tracks'] += 1
+             
+        if numUnpacked_tracks > numEMTF_tracks:
+            if printLevel > 0: print '!!! EMTF Unpacker BUG !!!'
+            counter['EMTF_missing_Unpacker_tracks'] += 1
+
+        if numUnpacked_tracks < numEMTF_tracks:
+            if printLevel > 0: print '!!! Unpacker EMTF BUG !!!'
+            counter['Unpacker_missing_EMTF_tracks'] += 1
+
+
+        '''
         # Debug Printouts
         if tree.numTrks != 1: continue
         if tree.numLegTrks != 1: continue
@@ -348,7 +497,7 @@ for iEvt in range(tree.GetEntries()):
                             dphi34 = abs(phi3-phi4)
         
 
-
+                            '''
 # end event loop
 
 
@@ -367,4 +516,4 @@ del newfile
 
 
 print '\n\n====== EMTF Debug Results ========'
-print muon_counter
+print counter

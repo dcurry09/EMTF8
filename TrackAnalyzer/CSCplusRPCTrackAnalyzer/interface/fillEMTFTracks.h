@@ -29,6 +29,7 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
     float trGblEta = trk -> Eta();
     float trGblPhi = trk -> Phi_global_rad();
     int trMode     = trk -> Mode();
+    int trBx       = trk -> BX();
 
     if (printLevel > 0) {
       cout << " CSC Track # " << nTrk << endl;
@@ -44,7 +45,12 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
     ev.trkEta  -> push_back(trGblEta);
     ev.trkPhi  -> push_back(trGblPhi);
     ev.trkMode -> push_back(trMode);
+    ev.trkBx  -> push_back(trBx);
+    ev.trkRank -> push_back( trk->Rank() );
+    ev.trkStraight -> push_back( trk->Straightness() );
 
+    int trBx_beg = -99;
+    int trBx_end = 99;
 
     // Fill Track LCTs  
     int LctTrkId_ = 0;
@@ -59,9 +65,13 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
       int trlct_chamber  = lct->Chamber();
       int trlct_cscID    = lct->CSC_ID();
       float trlct_gblphi = lct->Phi_global_rad();
+      float trlct_geomphi = lct->Phi_geom_rad();
       float trlct_gbleta = lct->Eta();
       int trlct_locphi   = lct->Phi_local_rad();
       int trlct_loctheta = lct->Theta_loc();
+      int trlct_bx       = lct->BX();
+      if (trlct_bx > trBx_beg) trBx_beg = trlct_bx;
+      if (trlct_bx < trBx_end) trBx_end = trlct_bx;
       
       // for consistency with LCT collection
       if (trlct_endcap<0) trlct_endcap = 2;
@@ -114,14 +124,24 @@ void fillEMTFTracks(DataEvtSummary_t &ev, edm::Handle<std::vector<l1t::emtf::Int
       
       ev.trkLctGblPhi[nTrk][LctTrkId_] = trlct_gblphi;
       
+      ev.trkLctGeomPhi[nTrk][LctTrkId_] = trlct_geomphi;
+      
       ev.trkLctGblEta[nTrk][LctTrkId_] = trlct_gbleta;
 
       ev.trkLctLocPhi[nTrk][LctTrkId_] = trlct_locphi;
       
       ev.trkLctLocTheta[nTrk][LctTrkId_] = trlct_loctheta;
       
+      ev.trkLctBx[nTrk][LctTrkId_] = trlct_bx;
+
+      ev.trkLctQual[nTrk][LctTrkId_] = lct->Quality();
+
+      ev.trkLctPattern[nTrk][LctTrkId_] = lct->Pattern();
+      
     } // end track LCT loop
     
+    ev.trkBxBeg  -> push_back(trBx_beg);
+    ev.trkBxEnd  -> push_back(trBx_end);
     ev.numTrkLCTs -> push_back(LctTrkId_);
     
   } // end track loop

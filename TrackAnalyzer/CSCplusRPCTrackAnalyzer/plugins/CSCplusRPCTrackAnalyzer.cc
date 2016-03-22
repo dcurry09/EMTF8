@@ -6,8 +6,7 @@
 //
 // Written by David Curry
 // ============================================================
-
-//   
+   
  
 // system include files
 #include <memory>
@@ -36,8 +35,7 @@
 
 #include "DataFormats/L1GlobalTrigger/interface/L1GlobalTriggerReadoutRecord.h"
 #include "DataFormats/L1GlobalMuonTrigger/interface/L1MuRegionalCand.h"
-
-#include "DataFormats/L1GlobalMuonTrigger/interface/L1MuRegionalCand.h"
+#include "DataFormats/L1GlobalMuonTrigger/interface/L1MuGMTExtendedCand.h"
 #include "DataFormats/MuonDetId/interface/RPCDetId.h"
 #include "DataFormats/RPCDigi/interface/RPCDigiL1Link.h"
 #include "DataFormats/RPCRecHit/interface/RPCRecHitCollection.h"
@@ -118,6 +116,7 @@ private:
   virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
   virtual void endJob() override;
   
+  bool LS(int lumi_section, int beg_ls, int end_ls);
   int convertRPCsectors(float rpcphi);
   int convertRPCphiBits(float GblPhi, int sector);
   int convertRPCetaBits(float GblEta);
@@ -156,13 +155,20 @@ private:
   // To set the phi and eta values of LCTs
   std::unique_ptr<GeometryTranslator> geom;
 
+  // David Curry unconvered this from somewhere, sometime
+  const Double_t ptscaleOld[31] =  { 0,
+				     1.5,   2.0,   2.5,   3.0,   3.5,   4.0,
+				     4.5,   5.0,   6.0,   7.0,   8.0,  10.0,  12.0,  14.0,
+				     16.0,  18.0,  20.0,  25.0,  30.0,  35.0,  40.0,  45.0,
+				     50.0,  60.0,  70.0,  80.0,  90.0, 100.0, 120.0, 140.0 };
+  
   // From http://www.phys.ufl.edu/~mrcarver/forAD/L1TMuonUpgradedTrackFinder.h
-  const float ptscaleMatt[33] = {
+  const float ptscaleMatt[33] = { 
     -1.,   0.0,   1.5,   2.0,   2.5,   3.0,   3.5,   4.0,
-    4.5,   5.0,   6.0,   7.0,   8.0,  10.0,  12.0,  14.0,
-    16.0,  18.0,  20.0,  25.0,  30.0,  35.0,  40.0,  45.0,
+    4.5,   5.0,   6.0,   7.0,   8.0,  10.0,  12.0,  14.0,  
+    16.0,  18.0,  20.0,  25.0,  30.0,  35.0,  40.0,  45.0, 
     50.0,  60.0,  70.0,  80.0,  90.0, 100.0, 120.0, 140.0, 1.E6 };
-    
+  
 };
 
  
@@ -174,15 +180,12 @@ CSCplusRPCTrackAnalyzer::CSCplusRPCTrackAnalyzer(const edm::ParameterSet& iConfi
   muons_token   =  consumes<reco::MuonCollection>(iConfig.getParameter<edm::InputTag>("muonsTag"));
   cscSegs_token = consumes<CSCSegmentCollection>(iConfig.getParameter<edm::InputTag>("cscSegTag"));
   leg_csctfTag_token =  consumes<std::vector<pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi>>>>(iConfig.getParameter<edm::InputTag>("leg_csctfTag"));
-  leg_gmtTag_token = consumes<L1MuGMTReadoutCollection>(iConfig.getParameter<edm::InputTag>("leg_gmtTag"));
-  
+  //leg_gmtTag_token = consumes<L1MuGMTReadoutCollection>(iConfig.getParameter<edm::InputTag>("leg_gmtTag"));
 
   printLevel = iConfig.getUntrackedParameter<int>("printLevel",0);
-  
+
   NoTagAndProbe = iConfig.getUntrackedParameter<bool>("NoTagAndProbe", true);
   
-  // HERE
-
   // Output File
   edm::Service<TFileService> fs;
   summaryHandler_.initTree(  fs->make<TTree>("tree","Event Summary") );
@@ -231,9 +234,6 @@ CSCplusRPCTrackAnalyzer::CSCplusRPCTrackAnalyzer(const edm::ParameterSet& iConfi
 
   geom.reset(new GeometryTranslator());
 
-
-
-
 }
 
 
@@ -256,14 +256,20 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 
   if(printLevel>0) cout << "\n\n =================================== NEW EVENT ===================================== " << endl;
 
+
   bool tagAndProbeExist = false;
 
+
   geom->checkAndUpdateGeometry(iSetup);
+
   // Get the CSC Geometry
   iSetup.get<MuonGeometryRecord>().get(cscGeom);
 
+
   summaryHandler_.initStruct();
+
   DataEvtSummary_t &ev = summaryHandler_.getEvent();
+
 
   //event header
   ev.run    = iEvent.id().run();
@@ -276,9 +282,11 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   iSetup.get< L1MuTriggerScalesRcd >().get(scales);
   scale = scales.product();
 
+
   ESHandle< L1MuTriggerPtScale > ptscales;
   iSetup.get< L1MuTriggerPtScaleRcd >().get(ptscales);
   ptScale = ptscales.product();
+
 
   //ptLUTs_ = new CSCTFPtLUT(ptLUTset, scale, ptScale);
   // Standard Pt LUTs
@@ -347,49 +355,79 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
     cout << "\n===================== FILLING All Legacy CSCTF Tracks ========================\n"
          <<   "=======================================================================\n" << endl;
 
-  // GMT CSCTF track info for cross checks
+  // Following Thomas Reis' code in: 
+  // https://github.com/thomreis/cmssw/blob/l1t-tsg-v2-patch1_bmtf-fix_uGMT-ntuple_cancelByQualOnly/L1Trigger/L1TNtuples/src/L1AnalysisGMT.cc
+  /*
   edm::Handle<L1MuGMTReadoutCollection> gmtReadoutCollection;
   iEvent.getByToken(leg_gmtTag_token, gmtReadoutCollection);
 
-  edm::Handle<vector<pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi> > >> leg_tracks;
-  iEvent.getByToken(leg_csctfTag_token, leg_tracks);
 
   std::vector<L1MuGMTReadoutRecord> gmt_records = gmtReadoutCollection->getRecords();
   std::vector<L1MuGMTReadoutRecord>::const_iterator iReadRec;
-
-
-  int numGmtTrks = 0;
   for(iReadRec = gmt_records.begin(); iReadRec != gmt_records.end(); iReadRec++) {
-
-    std::vector<L1MuRegionalCand>::const_iterator iCand;
-    std::vector<L1MuRegionalCand> gmtCand;
     
-    //if(iReadRec->getBxInEvent() == 0)
-    //std::cout << "GMT event BX number is " << iReadRec->getBxNr() << std::endl;
+    std::vector<L1MuRegionalCand>::const_iterator iCSC;
+    std::vector<L1MuRegionalCand> cscCands = iReadRec->getCSCCands();
 
-    gmtCand = iReadRec->getCSCCands();
+    for(iCSC = cscCands.begin(); iCSC != cscCands.end(); iCSC++) {
 
-    for(iCand = gmtCand.begin(); iCand != gmtCand.end(); iCand++) {
-      if ( abs( (*iCand).etaValue() ) > 1.2 ) {
-	
-	if (printLevel > 1) {
-	  std::cout << "gmtCand etaValue() = " << (*iCand).etaValue() << std::endl;
-	  std::cout << "gmtCand phiValue() = " << (*iCand).phiValue() << std::endl;
-	  std::cout << "gmtCand ptValue() = " << (*iCand).ptValue() << std::endl;
-	  std::cout << "gmtCand pt_packed() = " << (*iCand).pt_packed() << std::endl;
-	}
+    if ( ev.numCscTrks >= 3 || (*iCSC).empty() ) continue;
 
-	ev.legGMT_trkPt  -> push_back((*iCand).ptValue());
-	ev.legGMT_trkEta -> push_back((*iCand).etaValue());
-	ev.legGMT_trkPhi -> push_back((*iCand).phiValue());
-	ev.legGMT_trkBx  -> push_back((*iCand).bx()); 
-	ev.legGMT_trkQual-> push_back((*iCand).quality());
-	numGmtTrks++;
-      }
-    }
-  }
-  
-  ev.numLegGmtTrks = numGmtTrks;
+      ev.csc_trkBx         -> push_back( (*iCSC).bx() );
+      ev.csc_trkPt         -> push_back( (*iCSC).ptValue() );
+      ev.csc_trkEta        -> push_back( (*iCSC).etaValue() );
+      ev.csc_trkPhi        -> push_back( (*iCSC).phiValue() );
+      ev.csc_trkQual       -> push_back( (*iCSC).quality() );
+      ev.csc_trkCharge     -> push_back( (*iCSC).chargeValid() ? (*iCSC).chargeValue() : 0 ); 
+      ev.numCscTrks ++;
+    } // End for(iCSC = cscCands.begin(); iCSC != cscCands.end(); iCSC++) 
+
+    std::vector<L1MuGMTExtendedCand>::const_iterator iGMT;
+    std::vector<L1MuGMTExtendedCand> gmtCands = iReadRec->getGMTCands();
+
+    for(iGMT = gmtCands.begin(); iGMT != gmtCands.end(); iGMT++) {
+
+      if ( ev.numGmtTrks >= 3 || (*iGMT).empty() ) continue;
+
+      // Some of the central repository code has a rather different interpretation of the quality
+      // https://github.com/cms-l1t-offline/cmssw/blob/l1t-muon-pass2-CMSSW_8_0_0_pre5/DataFormats/L1GlobalMuonTrigger/interface/L1MuGMTCand.h
+      // Quality codes:
+      // 0 .. no muon 
+      // 1 .. beam halo muon (CSC)
+      // 2 .. very low quality level 1 (e.g. ignore in single and di-muon trigger)
+      // 3 .. very low quality level 2 (e.g. ignore in single muon trigger use in di-muon trigger)
+      // 4 .. very low quality level 3 (e.g. ignore in di-muon trigger, use in single-muon trigger)
+      // 5 .. unmatched RPC 
+      // 6 .. unmatched DT or CSC
+      // 7 .. matched DT-RPC or CSC-RPC
+
+      ev.gt_trkBx         -> push_back((*iGMT).bx());
+      ev.gt_trkEta         -> push_back((*iGMT).etaValue());
+      ev.gt_trkPhi         -> push_back((*iGMT).phiValue());
+      ev.gt_trkPt         -> push_back((*iGMT).ptValue());
+      ev.gt_trkQual       -> push_back((*iGMT).quality());
+      ev.gt_trkDetector   -> push_back((*iGMT).detector());
+      ev.numGtTrks ++;
+      
+      // Tracks only from endcap
+      if ( ev.numGmtTrks >= 3 || (*iGMT).detector() < 4 ) continue;
+
+      ev.gmt_trkBx      -> push_back((*iGMT).bx());
+      ev.gmt_trkEta        -> push_back((*iGMT).etaValue());
+      ev.gmt_trkPhi        -> push_back((*iGMT).phiValue()); 
+      ev.gmt_trkPt         -> push_back((*iGMT).ptValue());
+      ev.gmt_trkCharge     -> push_back( (*iGMT).charge_valid() ? (*iGMT).charge() : 0 );
+      ev.gmt_trkQual       -> push_back((*iGMT).quality());
+      ev.gmt_trkDetector   -> push_back((*iGMT).detector()); // 1=rpc, 2=dtbx, 4=csc, 3=rpc+dtbx, 5=rpc+csc
+      ev.numGmtTrks ++;
+
+    } // End for(iGMT = gmtCands.begin(); iGMT != gmtCands.end(); iGMT++)
+
+  } // End for(iReadRec = gmt_records.begin(); iReadRec != gmt_records.end(); iReadRec++)
+  */
+
+  edm::Handle<vector<pair<csc::L1Track,MuonDigiCollection<CSCDetId,CSCCorrelatedLCTDigi> > >> leg_tracks;
+  iEvent.getByToken(leg_csctfTag_token, leg_tracks);
 
   if ( leg_tracks.isValid() ) {
 
@@ -402,39 +440,40 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       unsigned sector = lt->first.sector();
       float phi = (0.05217*lt->first.localPhi()) + (sector-1)*1.1 + 0.0218;//*(3.14159265359/180)
       if(phi > 3.14159) phi -= 6.28318;
-
-      int bx = lt -> first.BX();
       
-
-      // Find track pT with Matts LUT
       unsigned pti = 0, quality = 0;
-      lt->first.decodeRank(lt->first.rank(),pti,quality);//
-      float pt = ptscaleMatt[pti];
-      
+     lt->first.decodeRank(lt->first.rank(),pti,quality);//
+      float ptOld = ptscaleOld[pti+1];
+      float ptMatt = ptscaleMatt[pti+1];
+      float ptGmt = ptscaleMatt[pti];
+      int qualA = quality;
 
       // PtAddress gives an handle on other parameters
-      //ptadd thePtAddress(lt->first.ptLUTAddress());
+      ptadd thePtAddress(lt->first.ptLUTAddress());
 
       //Pt needs some more workaround since it is not in the unpacked data
-      //ptdat thePtData  = ptLUT.Pt(thePtAddress);
+      ptdat thePtData  = ptLUT.Pt(thePtAddress);
 
-      //int pt_bit = -999;
+      int pt_bit = -999;
       
       // front or rear bit?
-      //if (thePtAddress.track_fr) {/
-      //	pt_bit = thePtData.front_rank&0x1f;
-	//csctf_.trQuality.push_back((thePtData.front_rank>>5)&0x3);
+      int qualB = -99;
+      if (thePtAddress.track_fr) {
+	pt_bit = thePtData.front_rank&0x1f;
+	qualB = (thePtData.front_rank >> 5) & 0x3;
 	//csctf_.trChargeValid.push_back(thePtData.charge_valid_front);
-      //} else {
-      //pt_bit = thePtData.rear_rank&0x1f;
-	//csctf_.trQuality.push_back((thePtData.rear_rank>>5)&0x3);
+      } else {
+	pt_bit = thePtData.rear_rank&0x1f;
+	qualB = (thePtData.rear_rank>>5) & 0x3;
 	//csctf_.trChargeValid.push_back(thePtData.charge_valid_rear);
-      //}
+      }
 
       // convert the Pt in human readable values (GeV/c)
-      //float pt = ptScale->getPtScale()->getLowEdge(pt_bit);
-
+      float pt = ptScale->getPtScale()->getLowEdge(pt_bit);
       
+      // int qual = lt->first.cscMode();
+      int qual = lt->first.mode();
+
       // For EMTF mode definition
       int mode = 0;
       if(lt->first.me1ID())
@@ -446,6 +485,18 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       if(lt->first.me4ID())
 	mode |= 1;
       
+      int modeA = 0;
+      if(lt->first.me1ID() > 0)
+	modeA |= 8;
+      if(lt->first.me2ID() > 0)
+	modeA |= 4;
+      if(lt->first.me3ID() > 0)
+	modeA |= 2;
+      if(lt->first.me4ID() > 0)
+	modeA |= 1;
+      
+      int modeB = 0;
+
       if (printLevel > 0) {
 	cout << "\n Legacy Track # " << nTrks << endl;
 	cout << "============" << endl;
@@ -453,18 +504,20 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 	cout << " Track Eta  : " << eta << endl;
 	cout << " Track Phi  : " << phi << endl;
 	cout << " Track Mode : " << mode << endl;
-	cout << " Track Bx   : " << bx << endl;
       }
       
       ev.leg_trkPt   -> push_back(pt);
+      ev.leg_trkPtOld   -> push_back(ptOld);
+      ev.leg_trkPtMatt   -> push_back(ptMatt);
+      ev.leg_trkPtGmt   -> push_back(ptGmt);
       ev.leg_trkEta  -> push_back(eta);
       ev.leg_trkPhi  -> push_back(phi);
       ev.leg_trkMode -> push_back(mode);
-      ev.leg_trkBx   -> push_back(bx);
-
-      // debug
-      //ev.leg_trkPtMatt -> push_back(ptMatt);
-      
+      ev.leg_trkModeA -> push_back(modeA);
+      ev.leg_trkQual -> push_back(qual);
+      ev.leg_trkQualA -> push_back(qualA);
+      ev.leg_trkQualB -> push_back(qualB);
+      ev.leg_trkBx -> push_back(lt->first.BX());
       
       // For each trk, get the list of its LCTs
       CSCCorrelatedLCTDigiCollection LCTs = lt -> second;
@@ -485,11 +538,13 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       }
       
       int LctTrkId_ = 0; // count number of lcts in event
+      int lct_bx_beg = -99;
+      int lct_bx_end = 99;
       
       auto Lct = LCT_collection.cbegin();
       auto Lctend = LCT_collection.cend();
       for( ; Lct != Lctend; Lct++) {
-	
+
 	if (LctTrkId_ > MAXTRKLCTS-1) break;
 	
 	if(Lct->subsystem() != 1) continue;
@@ -500,11 +555,13 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 	auto lct_station           = id.station();
 	auto lct_endcap            = id.endcap();
 	auto lct_chamber           = id.chamber();
-	uint16_t lct_bx            = Lct->getCSCData().bx;
+	int lct_bx                 = Lct->getCSCData().bx - 6; // Offset so center BX is at 0
+	if (lct_bx > lct_bx_beg) lct_bx_beg = lct_bx;
+	if (lct_bx < lct_bx_end) lct_bx_end = lct_bx;
 	int lct_ring               = id.ring();
 	int lct_sector             = CSCTriggerNumbering::triggerSectorFromLabels(id);
 	int lct_subSector          = CSCTriggerNumbering::triggerSubSectorFromLabels(id);
-	uint16_t lct_bx0           = Lct->getCSCData().bx0;
+	int lct_bx0                = Lct->getCSCData().bx0;
 	uint16_t lct_cscID         = Lct->getCSCData().cscID;
 	uint16_t lct_strip         = Lct->getCSCData().strip;
 	//uint16_t lct_pattern       = Lct->getCSCData().pattern;
@@ -515,6 +572,15 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 	double lct_phi             = Lct->getCMSGlobalPhi();
 	double lct_eta             = Lct->getCMSGlobalEta();
 	
+	if(id.station() == 1)
+	  modeB |= 8;
+	if(id.station() == 2)
+	  modeB |= 4;
+	if(id.station() == 3)
+	  modeB |= 2;
+	if(id.station() == 4)
+	  modeB |= 1;
+      
 	if ( printLevel > 0 ) {
 	  cout << "\n======\n";
 	  cout <<"lctEndcap       = " << lct_endcap << endl;
@@ -570,11 +636,21 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
 	ev.leg_trkLctGblPhi[nTrks][LctTrkId_] = lct_phi;
 	
 	ev.leg_trkLctGblEta[nTrks][LctTrkId_] = lct_eta;
+
+	if (lct_bx > 3) {
+	  std::cout << "Why is the legacy lct_bx = " << lct_bx << " ? Setting to -999." << std::endl;
+	  lct_bx = -999;
+	}
+	
+	ev.leg_trkLctBx[nTrks][LctTrkId_] = lct_bx;
 	
 	LctTrkId_++;
 	
       } // end track LCT loop
       
+      ev.leg_trkModeB -> push_back(modeB);
+      ev.leg_trkBxBeg -> push_back(lct_bx_beg);
+      ev.leg_trkBxEnd -> push_back(lct_bx_end);
       ev.numLegTrkLCTs -> push_back(LctTrkId_);
       
       nTrks++;
@@ -624,7 +700,7 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
     if ( muons.isValid() )
       tagAndProbeExist = fillRecoMuons(ev, muons, printLevel);
     
-    else cout << "\t----->Invalid RECO Muon collection... skipping it\n";
+    // else cout << "\t----->Invalid RECO Muon collection... skipping it\n";
     
     
     
@@ -639,7 +715,7 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
       fillSegmentsMuons(ev, muons, cscSegments, cscGeom, lcts, printLevel);
     // leaving out csc tracks for now.  Add back in later
     
-    else cout << "\t----->Invalid RECO Muon SEGMENT collection... skipping it\n";
+    // else cout << "\t----->Invalid RECO Muon SEGMENT collection... skipping it\n";
 
   }
   
@@ -663,13 +739,23 @@ void CSCplusRPCTrackAnalyzer::analyze(const edm::Event& iEvent, const edm::Event
   CSCTriggerGeometry::setGeometry(pDD);
   */
   
-  
+
 								       
   // =========================================================================
   // End Event methods
-  
+
+  // // Fill 4518, run 259626, 589 colliding bunches, pileup 17 - 18, 4x 430 Hz
+  // "259626": [[83, 111], [113, 167], [169, 437]]
+  // // Fill 4525, run 259721,     517 colliding bunches, pileup 21 - 24, 4x 230 Hz
+  // "259721": [[73, 99], [102, 408]]
+  // // Fill 4569, run 260627 recorded 11 hours of data at 3.8 Tesla
+  // "260627": [[97, 611], [613, 757], [760, 788], [791, 1051], [1054, 1530], [1533, 1845]]
+
   // Fill the tree
   if (NoTagAndProbe || tagAndProbeExist)
+    // if ( ( iEvent.id().run() == 259626 && ( LS(ev.lumi, 83, 111) || LS(ev.lumi, 113, 167) || LS(ev.lumi, 169, 437) ) ) ||
+    // 	 ( iEvent.id().run() == 259721 && ( LS(ev.lumi, 73, 99) || LS(ev.lumi, 102, 408) ) ) ||
+    // 	 ( iEvent.id().run() == 260627 && ( LS(ev.lumi, 97, 611) || LS(ev.lumi, 613, 757) || LS(ev.lumi, 760, 788) || LS(ev.lumi, 791, 1051) || LS(ev.lumi, 1054, 1530) || LS(ev.lumi, 1533, 1845) ) ) )
     summaryHandler_.fillTree();
   
   // Clear all objects from memory
@@ -722,6 +808,14 @@ CSCplusRPCTrackAnalyzer::endLuminosityBlock(edm::LuminosityBlock const&, edm::Ev
 {
 }
 */
+
+ // Mask certain lumisections
+bool CSCplusRPCTrackAnalyzer::LS(int lumi_section, int beg_ls, int end_ls) {
+  if ( lumi_section >= beg_ls && lumi_section <= end_ls)
+    return true;
+  else
+    return false;
+}
 
 // Cluster sector must be determined manually.
 // Sometimes the rpc sector and the cluster sector are not the same

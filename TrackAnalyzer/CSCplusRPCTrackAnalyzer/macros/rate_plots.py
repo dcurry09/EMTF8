@@ -43,6 +43,46 @@ rate_15_leg = file.Get('hrate_15_leg')
 
 # ====================================================
 
+# Thomas R. Style Plots
+ct     = TCanvas('ct')
+st      = THStack('st', '')
+
+rt_15_14_13_11 = file.Get('hrate_15_14_13_11')
+rt_fromGMT = file.Get('hrate_fromGMT')
+#rt_fromGMT = file.Get('hrate_gmt_leg')
+
+ct.cd()
+ct.SetGridx()
+ct.SetGridy()
+
+rt_15_14_13_11.Divide(rt_fromGMT)
+
+rt_15_14_13_11.SetLineColor(kRed)
+rt_15_14_13_11.SetLineWidth(2)
+rt_15_14_13_11.SetMarkerStyle(23)
+rt_15_14_13_11.SetMarkerSize(0.8)
+
+st.Add(rt_15_14_13_11)
+st.Draw('nostack')
+st.GetXaxis().SetTitle("p_{T}[GeV]")
+st.GetYaxis().SetTitle("EMTF uGMT / CSCTF GMT")
+st.GetYaxis().SetTitleOffset(1.35)
+st.GetXaxis().SetNdivisions(509)
+st.GetYaxis().SetNdivisions(514)
+
+lt = TLegend(0.85,1,1,0.6);
+lt.SetBorderSize(0)
+lt.SetFillColor(0)
+lt.AddEntry(rt_15_14_13_11, "EMTF/GMT")
+lt.Draw('same')
+
+
+ct.Modified()
+ct.Update()
+ct.SaveAs('plots/rt_divide_'+title+'.pdf')
+
+# ======================
+
 
 cRate     = TCanvas('cRate')
 cRate_leg = TCanvas('cRate_leg')

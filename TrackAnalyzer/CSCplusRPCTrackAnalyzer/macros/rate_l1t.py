@@ -22,14 +22,18 @@ else: printLevel = sys.argv[1]
 print '------> Importing Root File'
 
 # Rate Sample
-#filename = 'root://eoscms.cern.ch//eos/cms/store/user/dcurry/EMTF/EMTF_MWGR_v1.root'
-filename = 'root://eoscms.cern.ch//eos/cms/store/user/dcurry/EMTF/EMTF_effStudies_ZMu-PromptReco_v5.root'
+filename = '/afs/cern.ch/work/d/dcurry/private/rpc_mtf8/CMSSW_8_0_0_pre6/src/L1Ntuple.root'
 #filename = '/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/trees/2016_02_28/EMTF_RATE_ZeroBias4_259626.root'
 
 file = TFile.Open(filename)
 
 # Set the branch address of TTree in Tfile
-tree = file.Get("ntuple/tree")
+tree = file.Get("l1UpgradeEmuTree/L1UpgradeTree")
+
+evtTree = file.Get("l1EventTree/L1EventTree")
+
+print tree
+print evtTree
 
 # Output Histograms
 newfile = TFile("plots/rate.root","recreate")
@@ -309,15 +313,15 @@ for iEvt in range(tree.GetEntries()):
     
     tree.GetEntry(iEvt)
     
+    evtTree.GetEntry(iEvt)
+
     if iEvt % 10000 is 0: print 'Event #', iEvt
     
     if printLevel > 1:
-        print '\n============== New Event # ', tree.event, ' =================\n'\
-            '\n  Tracks in Event = ', tree.numTrks
-              #'\n  Run             = ', tree.run,  \
-              #'\n  Muons in Event  = ', tree.numGblRecoMuons,   \
+        print '\n============== New Event # ', evtTree.Event.event, ' =================\n'\
+        '\n  Tracks in Event = ', tree.L1Upgrade.nMuons
+    
 
-        
 
     # filter runs for WBM rate checks
     #if tree.run != 259626: continue
@@ -325,8 +329,7 @@ for iEvt in range(tree.GetEntries()):
 
     counter['total_events'] += 1
    
-
-    #if tree.numTrks < 2: continue
+    #if tree.numTrks != 1: continue
     #if tree.numLegTrks != 1: continue
     #if tree.numGblRecoMuons > 1: continue
     #if tree.trkMode[0] != tree.leg_trkMode[0]: continue
@@ -334,49 +337,30 @@ for iEvt in range(tree.GetEntries()):
     # ======================================================================
     # RATE Plots
     
-    singleMu16_trigger = False
+    # uGMT muons(EMTF Muons)
+    
+    for iTrk in range(0,tree.L1Upgrade.nMuons):
 
-    for icscTrk in range(tree.numTrks):
-        
-        #if singleMu16_trigger: continue
-        
-        # temp hack to find EMTF Bx
-        #trkBx = EMTF_Bx(iEvt, tree, icscTrk, printLevel)
-        trkBx = tree.trkBx[icscTrk]
-        
-        if printLevel > 0:
-            print '\nEMTF Track #', icscTrk,\
-                'Pt:', tree.trkPt[icscTrk],\
-                'Eta:',  tree.trkEta[icscTrk],\
-                'Phi:',  tree.trkPhi[icscTrk],\
-                'Bx:',  tree.trkBx[icscTrk],\
-                'Mode:',  tree.trkMode[icscTrk]
+        trkPt = tree.L1Upgrade.muonEt[iTrk]
+        trkBx = tree.L1Upgrade.muonBx[iTrk]
+
+        if abs(tree.L1Upgrade.muonEta[iTrk]) < eta_min: continue
                 
-            for iLct in range(0, tree.numTrkLCTs[icscTrk]):
-                print 'EMTF Lct #', iLct, \
-                    ' Station:', tree.trkLctStation[icscTrk*4 + iLct], \
-                    ' Endcap:', tree.trkLctEndcap[icscTrk*4 + iLct], \
-                    ' Sector:', tree.trkLctSector[icscTrk*4 + iLct], \
-                    ' Ring:', tree.trkLctRing[icscTrk*4 + iLct], \
-                    ' Wire:', tree.trkLctWire[icscTrk*4 + iLct], \
-                    ' Strip:', tree.trkLctStrip[icscTrk*4 + iLct], \
-                    ' Eta:', tree.trkLctGblEta[icscTrk*4 + iLct], \
-                    ' Phi:', tree.trkLctGblPhi[icscTrk*4 + iLct],\
-                    ' Bx:', tree.trkLctBx[icscTrk*4 + iLct]
+        if abs(tree.L1Upgrade.muonEta[iTrk]) > eta_max: continue
 
-
-        if abs(tree.trkEta[icscTrk]) < eta_min: continue
-        
-        #trkBx = tree.trkBx[icscTrk]
-        
+        if printLevel > 0:
+            print '\nEMTF Track #', iTrk,\
+                'Pt:', trkPt,\
+                'Eta:',  tree.L1Upgrade.muonEta[iTrk],\
+                'Phi:',  tree.L1Upgrade.muonPhi[iTrk],\
+                'Qual:',  tree.L1Upgrade.muonQual[iTrk],\
+                'Bx:',  tree.L1Upgrade.muonBx[iTrk]
+             
         if trkBx != 0: continue
         
-        trkPt = tree.trkPt[icscTrk]
+        if tree.L1Upgrade.muonQual[iTrk] < 12: continue
         
-        trkMode = tree.trkMode[icscTrk]
-    
-        if trkMode == 15 or trkMode == 14 or trkMode == 13 or trkMode == 11:
-            counter['EMTF_goodTracks'] +=1
+        counter['EMTF_goodTracks'] +=1
 
 
         for bin in reversed(rate):
@@ -384,59 +368,27 @@ for iEvt in range(tree.GetEntries()):
             if trkPt >= bin: 
                 hrate.Fill(bin)
          
-            if trkPt >= bin and trkMode == 15:
-                hrate_15_14_13_11.Fill(bin)
-                hrate_15_14_13.Fill(bin)
-                hrate_15_14.Fill(bin)
-                hrate_15.Fill(bin)
-                hrate_gmt.Fill(bin)
-                
-                if bin == 16:
-                    singleMu16_trigger = True
-                    counter['EMTF_singleMu16_count'] += 1
 
-            if trkPt >= bin and trkMode == 14:
-                hrate_15_14_13_11.Fill(bin)
-                hrate_15_14_13.Fill(bin)
-                hrate_15_14.Fill(bin)
-                hrate_gmt.Fill(bin)
-                
-                if bin == 16:
-                    singleMu16_trigger = True
-                    counter['EMTF_singleMu16_count'] += 1
+    '''
+    # Fill GMT rates
+    for iTrk in range(0,tree.numLegGmtTrks):
+        
+        if tree.legGMT_trkBx[iTrk] != 0: continue
+        
+        if abs(tree.legGMT_trkEta[iTrk]) < eta_min: continue
+        
+        if tree.legGMT_trkQual[iTrk] < 3: continue
 
-            if trkPt >= bin and trkMode == 13:
-                hrate_15_14_13_11.Fill(bin)
-                hrate_15_14_13.Fill(bin)
-                hrate_gmt.Fill(bin)
-                
-                if bin == 16:
-                    singleMu16_trigger = True
-                    counter['EMTF_singleMu16_count'] += 1
-
-            if trkPt >= bin and trkMode == 11:
-                hrate_15_14_13_11.Fill(bin)
-                hrate_gmt.Fill(bin)
-                    
-                if bin == 16:
-                    singleMu16_trigger = True
-                    counter['EMTF_singleMu16_count'] += 1
-
-            # legacy GMT Q3
-            if trkPt >= bin and trkMode == 7:
-                hrate_gmt.Fill(bin)
-
-                if bin == 16:
-                    singleMu16_trigger = True
-                    counter['EMTF_singleMu16_count'] += 1
-
-            # rate for all modes
-            #for ihist, mode in enumerate(mode_list):
-            #    if tree.trkMode[icscTrk] == mode:
-            #        if tree.trkPt[icscTrk] > bin: 
-            #            hrate_modes[ihist].Fill(bin)
+        for bin in reversed(rate):
+            
+            if tree.legGMT_trkPt[iTrk]  >= bin:
+                hrate_fromGMT.Fill(bin)
+    '''
 
 
+
+
+    '''
     leg_singleMu16_trigger = False
             
     for iLegcscTrk in range(tree.numLegTrks):
@@ -451,16 +403,6 @@ for iEvt in range(tree.GetEntries()):
 
         leg_trkMode = tree.leg_trkMode[iLegcscTrk]
 
-        if printLevel > 0:
-            print '\nCSCTF Track #', icscTrk,\
-                'Pt:', leg_trkPt,\
-                'Eta:', tree.leg_trkEta[iLegcscTrk],\
-                'Phi:', tree.leg_trkPhi[iLegcscTrk]
-
-        if leg_trkMode == 15 or leg_trkMode == 14 or leg_trkMode == 13 or leg_trkMode == 11 or leg_trkMode == 7:         
-            counter['CSCTF_goodTracks'] +=1
-    
-            
         for bin in reversed(rate):
             
             if leg_trkPt >= bin: 
@@ -517,36 +459,7 @@ for iEvt in range(tree.GetEntries()):
             #    if tree.leg_trkMode[iLegcscTrk] == mode:
             #        if tree.leg_trkPtGmt[iLegcscTrk] > bin:
             #            hrate_modes_leg[ihist].Fill(bin)
-
-    # Fill GMT rates
-    for iTrk in range(0,tree.numGmtTrks):
-
-        if printLevel >0:
-            print '\nGMT Track #', icscTrk,\
-                'Pt:', tree.gmt_trkPt[iTrk],\
-                'Eta:', tree.gmt_trkEta[iTrk],\
-                'Phi:', tree.gmt_trkPhi[iTrk],\
-                'Bx:', tree.gmt_trkBx[iTrk],\
-                'Qual:', tree.gmt_trkQual[iTrk],\
-            
-
-        if tree.gmt_trkBx[iTrk] != 0: continue
-        
-        if abs(tree.gmt_trkEta[iTrk]) < eta_min: continue
-        
-        if abs(tree.gmt_trkEta[iTrk]) > eta_max: continue
-
-        if tree.gmt_trkQual[iTrk] < 3: continue
-
-        counter['GMT_goodTracks'] +=1
-
-
-
-        for bin in reversed(rate):
-            
-            if tree.gmt_trkPt[iTrk]  >= bin:
-                hrate_fromGMT.Fill(bin)
-
+    '''        
     # ======= Rate Pt assignment Debug ========
     # when EMTF triggers SM16 but CSCTF does not
 

@@ -10,10 +10,10 @@ import commands
 process = cms.Process("L1TMuonEmulation")
 
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
+process.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')
 
 #process.load('Configuration.StandardSequences.SimL1Emulator_cff')
 process.load('Configuration.StandardSequences.L1Emulator_cff')
-#process.load('L1Trigger.Configuration.L1TReEmulateFromRAW_cff')
 
 process.load("Configuration.StandardSequences.RawToDigi_cff")
 #process.load("Configuration.StandardSequences.RawToDigi_Data_cff")
@@ -27,6 +27,8 @@ process.load( "HLTrigger.HLTcore.triggerSummaryAnalyzerAOD_cfi" )
 # PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtended2015Reco_cff')
 process.load('Configuration.Geometry.GeometryExtended2015_cff')
+#process.load('Configuration.Geometry.GeometryExtended2016Reco_cff')
+process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
 
 # Muons
 process.load("RecoMuon.TrackingTools.MuonServiceProxy_cff")
@@ -34,8 +36,12 @@ process.load("RecoMuon.TrackingTools.MuonTrackLoader_cff")
 
 # Message Logger and Event range
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(100)
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
+
+process.options = cms.untracked.PSet(
+#    SkipEvent = cms.untracked.vstring('ProductNotFound')
+)
 
 
 # Input Source
@@ -59,24 +65,29 @@ process.source = cms.Source('PoolSource',
         #'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/Emulator/samples/ZMu-PromptReco-v4/FCCAA76B-D26B-E511-A660-02163E01348B.root'
         
         # for rate
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/0C2E1287-F284-E511-8745-02163E0144A3.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/12455212-1E85-E511-8913-02163E014472.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/1A70F5B3-B084-E511-BC12-02163E0134A5.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/1E89626C-CD84-E511-993A-02163E0133ED.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/244B7B71-D384-E511-AF2B-02163E011CF1.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/24884BD7-C984-E511-A85C-02163E014424.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2876E111-C684-E511-A68F-02163E01460E.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2A4B1D15-C484-E511-B8AE-02163E012218.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2AF2EA22-FB84-E511-8626-02163E012062.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2C800F1B-B384-E511-8A9A-02163E014411.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3475EA27-CE84-E511-9E7D-02163E01432E.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3861EB8D-BD84-E511-968E-02163E01446B.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3A5AFE77-CA84-E511-A2A5-02163E0146B9.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3C0513DB-B484-E511-86FD-02163E0126F9.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3CCCCFE1-CA84-E511-9DE0-02163E0142C1.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3ECE4746-C784-E511-B27C-02163E011AE3.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/4AC0D90E-C484-E511-AB6C-02163E01386D.root',
-        '/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52849AE7-D184-E511-9254-02163E01417C.root',
+        
+        'file:/afs/cern.ch/work/a/abrinke1/public/EMTF/MWGR/RAW/2016_03_09/266423/106D48F5-71E6-E511-B4B6-02163E012236.root'
+        
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/12455212-1E85-E511-8913-02163E014472.root'
+        
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/0C2E1287-F284-E511-8745-02163E0144A3.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/12455212-1E85-E511-8913-02163E014472.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/1A70F5B3-B084-E511-BC12-02163E0134A5.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/1E89626C-CD84-E511-993A-02163E0133ED.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/244B7B71-D384-E511-AF2B-02163E011CF1.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/24884BD7-C984-E511-A85C-02163E014424.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2876E111-C684-E511-A68F-02163E01460E.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2A4B1D15-C484-E511-B8AE-02163E012218.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2AF2EA22-FB84-E511-8626-02163E012062.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/2C800F1B-B384-E511-8A9A-02163E014411.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3475EA27-CE84-E511-9E7D-02163E01432E.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3861EB8D-BD84-E511-968E-02163E01446B.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3A5AFE77-CA84-E511-A2A5-02163E0146B9.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3C0513DB-B484-E511-86FD-02163E0126F9.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3CCCCFE1-CA84-E511-9DE0-02163E0142C1.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/3ECE4746-C784-E511-B27C-02163E011AE3.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/4AC0D90E-C484-E511-AB6C-02163E01386D.root',
+        #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52849AE7-D184-E511-9254-02163E01417C.root',
         #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52905784-B784-E511-B8D8-02163E0141A7.root',
         #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/52DC4A2A-C384-E511-B413-02163E012AB8.root',
         #'/store/data/Run2015D/DoubleEG/RAW-RECO/ZElectron-PromptReco-v4/000/260/627/00000/5EE28464-C984-E511-A7A0-02163E01386D.root',
@@ -115,9 +126,11 @@ process.source = cms.Source('PoolSource',
 	                    )
 
 # Global Tags
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
-from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'GR_P_V56', '')
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'GR_P_V56', '')
 
 
 ####Event Setup Producer
@@ -155,7 +168,7 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
                                 leg_csctfTag = cms.InputTag("csctfDigis"),
                                 cscTPTag     = cms.InputTag("csctfDigis"),
                                 cscSegTag    = cms.InputTag("cscSegments"),
-                                leg_gmtTag   = cms.InputTag("gtDigis"),
+                                #leg_gmtTag   = cms.InputTag("gtDigis"),
                                 printLevel   = cms.untracked.int32(-1),
                                 NoTagAndProbe= cms.untracked.bool(True),
                                 isMC         = cms.untracked.int32(0),
@@ -166,8 +179,8 @@ process.ntuple = cms.EDAnalyzer('CSCplusRPCTrackAnalyzer',
 # Output File
 process.TFileService = cms.Service(
     "TFileService",
-    #fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/EMTF_effStudies_ZMu-PromptReco_v2.root")
-    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/EMTF_rateStudies_Run2015D_DoubleEG_RAW-RECO_v6.root")
+    #fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/EMTF_effStudies_ZMu-PromptReco_v5.root")
+    fileName = cms.string("root://eoscms//eos/cms/store/user/dcurry/EMTF/EMTF_MWGR_v3.root")
     )
 
 
